@@ -20,3 +20,9 @@ def interface_manager_views(request):
         接口管理
     '''
     return render(request, 'interfaceManage.html')
+
+def interface_set_views(request):
+    '''
+        接口管理
+    '''
+    return render(request, 'processApi.html')
