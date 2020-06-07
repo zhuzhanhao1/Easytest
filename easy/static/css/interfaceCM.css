@@ -1,0 +1,35 @@
+.mylist{
+    width: 25%;
+    float: left;
+}
+.classification_manage{
+    margin: 20px;
+}
+.mytable{
+    width: 70%;
+    float: right;
+}
+.mybtn{
+    margin-bottom: 10px
+}
+.my_del_btn{
+    color: #ffffff!important;
+    background-color: red;
+}
+.mylist ul li:hover {
+    background:#5FB878;
+    color: #ffffff;
+}
+
+#sousuo {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+#treetable{
+    margin-top: 30px;
+}
+
+body{
+    background-image:linear-gradient(to left bottom, hsl(50, 30%, 95%) 50%,hsl(50, 30%, 85%) 100%);
+}

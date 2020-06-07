@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testapi-搜索</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+    <link rel="icon" href="./../static/images/favicon%202.ico">
+    <link rel="stylesheet" href="./../static/layui2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./../static/css/main.css">
+    <link rel="stylesheet" href="./../static/css/search.css">
+
+    <script src="./../static/jquery-3.4.1/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="../static/layui2.5.5/layui.js"></script>
+
+</head>
+
+<body>
+
+<!-- header -->
+<div class="header_box">
+    <div class="header">
+        <div class="nav">
+            <h1>
+                <span class="bubbling">首页</span>
+            </h1>
+            {#            <h3 style="position: fixed;right: 10px;color: white;">#}
+            {#                <span id="nowTime" class="logo"></span>#}
+            {#            </h3>#}
+            <div class="clock">
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <em class="divider">:</em>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <em class="divider">:</em>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end-header -->
+
+<div class="">
+
+    <form onsubmit="submitFn(this, event);">
+
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <input type="text" class="search-input" placeholder="请输入接口名称或URL或责任者等等"/>
+                <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+            </div>
+
+            <span class="close" onclick="searchToggle(this, event);"></span>
+
+        </div>
+    </form>
+</div>
+
+
+<div class="footer">
+    <p class="landIn">The automatic test platform is convenient for everyone to use</p>
+</div>
+
+<!--表格-->
+<script type="text/javascript">
+
+    function searchToggle(obj, evt) {
+        var container = $(obj).closest('.search-wrapper');
+
+        if (!container.hasClass('active')) {
+            container.addClass('active');
+            evt.preventDefault();
+        } else if (container.hasClass('active') && $(obj).closest('.input-holder').length == 0) {
+            container.removeClass('active');
+            // clear input
+            container.find('.search-input').val('');
+            // clear and hide result container when we press close
+            container.find('.result-container').fadeOut(100, function () {
+                $(this).empty();
+            });
+        }
+    }
+
+    function submitFn(obj, evt) {
+        value = $(obj).find('.search-input').val().trim();
+
+        _html = "Yup yup! Your search text sounds like this: ";
+        if (!value.length) {
+            //_html = "Yup yup! Add some text friend :D";
+        } else {
+            _html += "<b>" + value + "</b>";
+        }
+        // 自定义模块
+        layui.config({
+            base: '../static/layui2.5.5/lay/modules/',   // 模块目录
+            version: 'v1.3.28'
+        }).extend({             // 模块别名
+            soulTable: 'soulTable'
+        });
+        layui.use(['table', "soulTable"], function (data) {
+            var table = layui.table;
+            soulTable = layui.soulTable;
+            var searchlist = layer.open({
+                type: 1,
+                title: "Search",
+                area: ['90%', "90%"],
+                skin: 'layui-layer-molv',
+                shade: 0.6,
+                maxmin: true, //开启最大化最小化按钮
+                content: '<div style="padding:15px;"><table id="test" lay-filter="test"></table></div>',
+                success: function () {
+                    var table = layui.table;
+                    var index = layer.load(0); //添加laoding,0-2两种方式
+                    table.render({
+                        elem: '#test'
+                        , url: '/api/v1/singleapi/search?key=' + value
+                        , toolbar: '#toolbarDemo'
+                        , defaultToolbar: [
+                            'filter', {
+                                title: '导出数据',
+                                layEvent: 'export_case',
+                                icon: 'layui-icon-download-circle'
+                            }, {
+                                title: '全屏显示',
+                                layEvent: 'fullScreen',
+                                icon: 'layui-icon-top'
+                            }, 'print']
+                        , title: '接口测试'
+                        , limit: 10
+                        , limits: [10, 20, 30, 100, 200, 500]
+                        , size: 'lg'	//大尺寸 /sm小尺寸
+                        , skin: 'line' //行边框风格 /row列表框风格 /nob无边框风格
+                        , page: {groups: 5}  //开启分页
+                        , loading: false
+                        , height: 'full-225'
+                        , cols: [[ //表头, fixed: 'left'
+                            {type: 'checkbox'}
+                            , {field: 'belong', title: '所属模块', width: 120, align: "left"}
+                            , {field: 'identity', title: '角色', width: 170, align: "left"}
+
+                            , {
+                                field: 'casename',
+                                title: '接口名称',
+                                width: 250,
+                                align: "left",
+                                excel: {color: '0040ff', bgColor: 'f3fef3'},
+                                templet: "#casenameTpl"
+                            }// filter: true
+                            , {
+                                field: 'url', title: '请求路径', width: 250, align: "left", templet: function (res) {
+                                    var a = res.url.split("/");
+                                    return '<span>' + a[a.length - 1] + '</span>'
+                                }
+                            }
+                            , {field: 'method', title: '请求方式', width: 90, align: "left", templet: "#methodTpl"}
+                            {#, {field: 'params', title: 'Query参数', align: "left", event: 'params'}#}
+                            {#, {field: 'body', title: 'Body参数', event: 'body', align: "left"}#}
+                            , {
+                                field: 'durantion',
+                                title: '响应时长',
+                                align: "left",
+                                sort: true,
+                                width: 100,
+                                event: "durantion",
+                                templet: function (res) {
+                                    if (res.duration < 1) {
+                                        let a = String(res.duration * 1000) + "毫秒";
+                                        return '<span>' + a + '</span>'
+                                    } else if (res.duration >= 1 && res.duration < 3) {
+                                        let b = String(res.duration) + "秒";
+                                        return '<span style="color: cornflowerblue;">' + b + '</span>'
+                                    } else {
+                                        let b = String(res.duration) + "秒";
+                                        return '<span style="color: deeppink;">' + b + '</span>'
+                                    }
+                                }
+                            }
+                            , {
+                                field: 'result',
+                                title: '响应结果',
+                                align: "left",
+                                event: "detail",
+                                templet: function (res) {
+                                    if (res.result == null) {
+                                        return '<span>' + res.result + '</span>'
+                                    } else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
+                                        let b = JSON.parse(res.result);
+                                        return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
+                                    } else if (res.result != "") {
+                                        let a = JSON.parse(res.result);
+                                        return '<span>' + JSON.stringify(a) + '</span>'
+                                    } else {
+                                        return '<span>' + res.result + '</span>'
+                                    }
+                                }
+                            }
+                            , {field: 'head', title: '负责人', width: 80, align: "left", event: "head"}//merge: true行合并
+
+                        ]]
+                        , done: function (res) {   //返回数据执行回调函数
+                            layer.close(index);    //返回数据关闭loading
+                            soulTable.render(this);
+                        }
+                    });
+                    //头工具栏事件
+                    table.on('toolbar(test)', function (obj) {
+                        var checkStatus = table.checkStatus(obj.config.id);
+                        //console.log(checkStatus);
+                        switch (obj.event) {
+                            //发送钉钉消息
+                            case 'ding_ding':
+                                var data = checkStatus.data;
+                                console.log(data);
+                                if (data.length == 0) {
+                                    layer.close(index);
+                                    layer.msg("请先选中需要发送的接口", {
+                                        icon: 2,
+                                        offset: "t"
+                                    });
+                                } else {
+                                    layer.confirm("你确定要发送接口请求结果给相应的负责人吗？\n注意:钉钉机器人发送，不可撤回！", {
+                                            icon: 3,
+                                            btn: ["确定", "取消"]
+                                        }, function () {
+                                            var ids = "";
+                                            for (i = 0; i < data.length; i++) {
+                                                ids += data[i]["caseid"] + ",";
+                                                console.log(ids);
+                                            }
+                                            $.ajax({
+                                                cache: false,
+                                                url: "/api/v1/publicapi/dingding/",
+                                                type: 'GET',
+                                                data: {
+                                                    "caseid": ids,
+                                                    "isprocess": "no"
+                                                },
+                                                //请求前的处理,加载loading
+                                                beforeSend: function () {
+                                                    document.getElementById("Dingding").setAttribute("disabled", true);
+                                                    document.getElementById("Dingding").innerHTML = "loading...";
+                                                    l_index = layer.load(0, {
+                                                        shade: [0.5, '#DBDBDB'] //0.1透明度的白色背景
+                                                    });
+                                                },
+                                                success: function (data) {
+                                                    if (data.code === 1000) {
+                                                        layer.msg(data.msg, {
+                                                            icon: 6, offset: "t"
+                                                        })
+                                                    } else {
+                                                        layer.msg(data.error, {
+                                                            icon: 5, offset: "t"
+                                                        })
+                                                    }
+                                                    $(".layui-laypage-btn").click();
+                                                },
+                                                error: function (data) {
+                                                    layer.msg("回调失败", {
+                                                        icon: 5,
+                                                        offset: 't'
+                                                    });
+                                                },
+                                                complete: function () {
+                                                    document.getElementById("Dingding").removeAttribute("disabled");
+                                                    document.getElementById("Dingding").innerHTML = "钉钉通知";
+                                                    layer.close(l_index);
+                                                }
+                                            });
+
+                                        }, function () {
+                                            layer.msg(
+                                                "取消发送钉钉消息",
+                                                {icon: 1, offset: "t"}
+                                            );
+                                        }
+                                    );
+                                }
+                                break;
+                            //导出用例
+                            case "export_case":
+                                if (checkStatus.data.length > 0) {
+                                    soulTable.export(myTable, {
+                                        filename: '勾选数据.xlsx',
+                                        checked: true, // 只导出勾选数据
+                                        border: {
+                                            style: 'thin',
+                                            color: '000000'
+                                        },
+                                        head: { // 表头样式
+                                            family: 'helvetica', // 字体
+                                            size: 14, // 字号
+                                            color: 'FFFFFF', // 字体颜色
+                                            bgColor: 'ff8c00' // 背景颜色
+                                        },
+                                        font: { // 正文样式
+                                            family: 'Calibri', // 字体
+                                            size: 12, // 字号
+                                            color: '000000', // 字体颜色
+                                            bgColor: 'FFFFFF' //背景颜色t
+                                        }
+                                    });
+                                    layer.msg('操作成功', {icon: 6, offset: 't'});
+                                } else {
+                                    layer.msg('请先勾选数据在导出！', {icon: 0, offset: 't'});
+                                }
+                                break;
+                            //全屏显示
+                            case "fullScreen":
+                                var docE = document.documentElement;
+                                if (docE.requestFullScreen) {
+                                    docE.requestFullScreen();
+                                } else if (docE.mozRequestFullScreen) {
+                                    docE.mozRequestFullScreen();
+                                } else if (docE.webkitRequestFullScreen) {
+                                    docE.webkitRequestFullScreen();
+                                }
+                                break;
+                            //导出报表
+                            case 'export_report':
+                                var data = checkStatus.data;
+                                console.log(data);
+                                if (data.length == 0) {
+                                    layer.msg("请先选中需要执行的用例", {
+                                        icon: 2,
+                                        offset: "t"
+                                    });
+                                } else {
+                                    var l = [];
+                                    for (i = 0; i < data.length; i++) {
+                                        var dic = {};
+                                        console.log(data[i]);
+                                        dic["url"] = data[i]["url"];
+                                        dic['duration'] = data[i]['duration'];
+                                        l.push(dic);
+                                    }
+                                    console.log(l);
+                                }
+                                $.ajax({
+                                        cache: false,
+                                        url: "/api/v1/publicapi/export_report/",
+                                        type: 'POST',
+                                        data: {
+                                            "request": JSON.stringify(l)
+                                        },
+                                        //请求前的处理,加载loading
+                                        beforeSend: function () {
+                                            l_index = layer.msg('执行接口中，小伙伴请稍候~~', {
+                                                icon: 16,
+                                                time: false,
+                                                shade: 0.5
+                                            });
+                                        },
+                                        success: function (data) {
+                                            console.log(data);
+                                            if (data.code === 1000) {
+                                                layer.msg(data.msg, {
+                                                    icon: 6, offset: "t"
+                                                });
+                                                layer.open({
+                                                    type: 2,
+                                                    title: "pycharts图表",
+                                                    shadeClose: true,
+                                                    shade: false,
+                                                    zIndex: layer.zIndex,
+                                                    maxmin: true, //开启最大化最小化按钮
+                                                    area: ['950px', '600px'],
+                                                    content: '/echart_report/',
+                                                    success: function () {
+                                                        //layer.setTop(layero);
+                                                    }
+                                                });
+                                            } else {
+                                                layer.msg(data.error, {
+                                                    icon: 5, offset: "t"
+                                                })
+                                            }
+
+                                        },
+                                        error: function () {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        },
+                                        complete: function () {
+                                            layer.close(l_index);
+                                        }
+                                    });
+                        }
+
+                    });
+                    //监听行工具事件
+                    table.on('tool(test)', function (obj) {
+                        var data = obj.data;
+                        //响应结果详情
+                        if (obj.event === 'detail') {
+                            console.log(data.result);
+                            layer.prompt({
+                                formType: 2,//多行文本
+                                value: data.result,
+                                shade: false,
+                                title: data.casename + "响应结果",
+                                //anim: 4,//从左滚动进来
+                                maxmin: true,
+                                skin: "layui-layer-rim",//hui
+                                closeBtn: 0,
+                                zIndex: layer.zIndex,
+                                area: ['800px', '600px'], //自定义文本域宽高
+                                btn: ["详情", "关闭"],
+                                yes: function () {
+                                    var index = layer.open({
+                                        type: 2,
+                                        title: data.casename + "详细信息",
+                                        //shadeClose: true,
+                                        shade: false,
+                                        zIndex: layer.zIndex,
+                                        maxmin: true, //开启最大化最小化按钮
+                                        area: ['600px', '1200px'],
+                                        content: "/detail/?singleid=" + data.caseid,
+                                    });
+                                    layer.full(index);
+                                },
+                                btn2: function (index) {
+                                    layer.close(index);
+                                }
+                            });
+                        }
+                    });
+                },
+                btn: ['关闭'],
+                yes: function () {
+                    layer.close(searchlist);
+                    soulTable.render(this);
+                }
+
+            });
+        });
+
+        $(obj).find('.result-container').html('<span>' + _html + '</span>');
+        $(obj).find('.result-container').fadeIn(100);
+        evt.preventDefault();
+    }
+</script>
+
+
+<!--表头按钮功能-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button id="Dingding" class="layui-btn layui-btn-sm" lay-event="ding_ding">钉钉通知</button>
+        <button class="layui-btn layui-btn-sm" lay-event="export_report">生成报表</button>
+    </div>
+</script>
+
+
+<!--用例名字超链接模板-->
+<script type="text/html" id="casenameTpl">
+    <a href="/detail?singleid={% verbatim %}{{d.caseid}}{% endverbatim %}" class="layui-table-link" target="_blank"
+       style="color: blueviolet;">
+        {% verbatim %}{{d.casename}}{% endverbatim %}
+    </a>
+</script>
+
+<!--请求方式模板-->
+<script type="text/html" id="methodTpl">
+    {% verbatim %}{{#  if(d.method === 'get'){ }}{% endverbatim %}
+    <span style="color: mediumpurple;">{% verbatim %}GET{% endverbatim %}</span>
+
+    {% verbatim %}{{# } else if(d.method=== 'post') { }} {% endverbatim %}
+    <span style="color: yellowgreen;">{% verbatim %}POST{% endverbatim %}</span>
+
+    {% verbatim %}{{# } else if(d.method=== 'put') { }} {% endverbatim %}
+    <span style="color: #00b4ef;">{% verbatim %}PUT{% endverbatim %}</span>
+
+    {% verbatim %}{{# } else if(d.method=== 'delete' || d.method=== 'Delete' ) { }} {% endverbatim %}
+    <span style="color: deeppink;">{% verbatim %}DELETE{% endverbatim %}</span>
+
+    {% verbatim %}{{# } else if(d.method=== 'file' ) { }} {% endverbatim %}
+    <span style="color: yellowgreen;">{% verbatim %}FILE{% endverbatim %}</span>
+
+    {% verbatim %}{{#  } }}{% endverbatim %}
+</script>
+
+
+
+
+<script>
+    //底部动画
+    "use strict";
+    var landInTexts = document.querySelectorAll(".landIn");
+    landInTexts.forEach(function (landInText) {
+        var letters = landInText.textContent.split("");
+        landInText.textContent = "";
+        letters.forEach(function (letter, i) {
+            var span = document.createElement("span");
+            span.textContent = letter;
+            span.style.animationDelay = i * 0.05 + "s";
+            landInText.append(span);
+        });
+    });
+</script>
+
+<script>
+    "use strict";
+    // For a better performance, use requestAnimationFrame instead of setInterval
+    // https://css-tricks.com/snippets/javascript/replacements-setinterval-using-requestanimationframe/
+    var requestInterval = function (fn, delay) {
+        var start = new Date().getTime();
+        var handle = {value: 0};
+        var loop = function () {
+            handle.value = requestAnimationFrame(loop);
+            var current = new Date().getTime();
+            var delta = current - start;
+            if (delta >= delay) {
+                fn();
+                start = new Date().getTime();
+            }
+        };
+        handle.value = requestAnimationFrame(loop);
+        return handle;
+    };
+    var sample = function (arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    };
+    var bubbleSizes = [3, 6, 9, 12];
+    var bubbleText = document.querySelector(".bubbling");
+    var bubblePositions = Array.from(Array(bubbleText.offsetWidth).keys());
+    requestInterval(function () {
+        var bubbleSize = sample(bubbleSizes);
+        var bubblePosition = sample(bubblePositions);
+        var bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.style.width = bubbleSize + "px";
+        bubble.style.height = bubbleSize + "px";
+        bubble.style.left = bubblePosition + "px";
+        bubbleText.append(bubble);
+        var bubbleAnimation = bubble.animate([{bottom: "10px", opacity: 1}, {bottom: "180%", opacity: 0.6}], {
+            fill: "forwards",
+            duration: 3000
+        });
+        bubbleAnimation.onfinish = function () {
+            return bubble.remove();
+        };
+    }, 300);
+</script>
+
+<script>
+    "use strict";
+    var Flipper = /** @class */ (function () {
+        function Flipper(node, currentTime, nextTime) {
+            this.isFlipping = false;
+            this.duration = 600;
+            this.flipNode = node;
+            this.frontNode = node.querySelector(".front");
+            this.backNode = node.querySelector(".back");
+            this.setFrontTime(currentTime);
+            this.setBackTime(nextTime);
+        }
+
+        Flipper.prototype.setFrontTime = function (time) {
+            this.frontNode.dataset.number = time;
+        };
+        Flipper.prototype.setBackTime = function (time) {
+            this.backNode.dataset.number = time;
+        };
+        Flipper.prototype.flipDown = function (currentTime, nextTime) {
+            var _this = this;
+            if (this.isFlipping) {
+                return false;
+            }
+            this.isFlipping = true;
+            this.setFrontTime(currentTime);
+            this.setBackTime(nextTime);
+            this.flipNode.classList.add("running");
+            setTimeout(function () {
+                _this.flipNode.classList.remove("running");
+                _this.isFlipping = false;
+                _this.setFrontTime(nextTime);
+            }, this.duration);
+        };
+        return Flipper;
+    }());
+    var getTimeFromDate = function (date) {
+        return date
+            .toTimeString()
+            .slice(0, 8)
+            .split(":")
+            .join("");
+    };
+    var flips = document.querySelectorAll(".flip");
+    var now = new Date();
+    var nowTimeStr = getTimeFromDate(new Date(now.getTime() - 1000));
+    var nextTimeStr = getTimeFromDate(now);
+    var flippers = Array.from(flips).map(function (flip, i) {
+        return new Flipper(flip, nowTimeStr[i], nextTimeStr[i]);
+    });
+    setInterval(function () {
+        var now = new Date();
+        var nowTimeStr = getTimeFromDate(new Date(now.getTime() - 1000));
+        var nextTimeStr = getTimeFromDate(now);
+        for (var i = 0; i < flippers.length; i++) {
+            if (nowTimeStr[i] === nextTimeStr[i]) {
+                continue;
+            }
+            flippers[i].flipDown(nowTimeStr[i], nextTimeStr[i]);
+        }
+    }, 1000);
+</script>
+
+</body>
+
+</html>

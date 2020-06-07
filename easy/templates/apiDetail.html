@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Testapi-接口详情</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="icon" href="../static/images/favicon%202.ico">
+	<link rel="stylesheet" href="../static/layui2.5.5/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+
+	<script src="../static/layui2.5.5/layui.js"></script>
+    <style>
+        /*底部动画*/
+        @import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
+        @import url("https://fonts.googleapis.com/css?family=Bubblegum+Sans&display=swap");
+
+        p {
+            margin: 0 9em;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .landIn {
+            {#display: flex;#}
+            flex-wrap: wrap;
+            line-height: 1.8;
+            color: white;
+            font-family: Lora, serif;
+            white-space: pre;
+        }
+
+        .landIn span {
+            animation: landIn 0.8s ease-out both;
+        }
+
+        @keyframes landIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bubbling {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            color: black;
+            font-size: 2.5rem;
+            font-family: 'Bubblegum Sans', cursive;
+            text-transform: uppercase;
+        }
+
+        .bubble {
+            position: absolute;
+            background: white;
+            border-radius: 100%;
+        }
+    </style>
+
+
+</head>
+<style>
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	.layui-col-md6 {
+		width: 10%;
+	}
+
+	.layui-card-body {
+		text-align: center;
+	}
+
+	.layui-col-md12 {
+		width: 33.3%;
+	}
+
+	.layui-card-header {
+		font-size: 16px;
+		background-color: lightslategrey;
+		border-radius: 5px 5px 0 0;
+		color: whitesmoke;
+		{#opacity: 0.8;#}
+	}
+
+	textarea {
+		border: 1px solid white;
+	}
+
+	.layui-nav {
+		background-color: lightslategrey;
+		{#opacity: 0.8;#}
+	}
+
+	ol, ul {
+		margin-bottom: 0px;
+	}
+
+	.footer p.copyright {
+		padding: 10px 0 10px 0;
+	}
+
+	.footer {
+		background-color: lightslategrey;
+		padding: 0px;
+		position: fixed;
+		bottom: 0px;
+		width: 100%;
+		height: 8%;
+		{#opacity: 0.8;#}
+	}
+	textarea{
+		width: 100%;
+	}
+	.footer p.copyright{
+		color:#FFFFFF;
+	}
+
+</style>
+
+<body>
+
+<div>
+	<ul class="layui-nav">
+		<li class="layui-nav-item" style="text-align:center;display:block;font-size: 20px;">接口测试详细信息</li>
+	</ul>
+
+</div>
+
+<div style="padding: 20px;background-image: url('./../static/images/banner2.jpg');">
+	<div class="layui-row layui-col-space15">
+		<div class="layui-col-md6" style="width: 22.5%;">
+			<div class="layui-card">
+				<div class="layui-card-header">接口名称:</div>
+				<div class="layui-card-body">
+					{{ dic.casename }}
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-col-md6" style="width: 22.5%;">
+			<div class="layui-card">
+				<div class="layui-card-header">请求地址:</div>
+				<div class="layui-card-body">
+					{{ dic.url }}
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-col-md6">
+			<div class="layui-card">
+				<div class="layui-card-header">请求方式:</div>
+				<div class="layui-card-body">
+					{{ dic.method }}
+				</div>
+			</div>
+		</div>
+
+
+		<div class="layui-col-md6" style="width: 15%;">
+			<div class="layui-card">
+				<div class="layui-card-header">所属模块:</div>
+				<div class="layui-card-body">
+					{{ dic.belong }}
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-col-md6">
+			<div class="layui-card">
+				<div class="layui-card-header">用户登录:</div>
+				<div class="layui-card-body">
+					{{ dic.identity }}
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-col-md6">
+			<div class="layui-card">
+				<div class="layui-card-header">负责人:</div>
+				<div class="layui-card-body">
+					{{ dic.head }}
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-col-md6">
+			<div class="layui-card">
+				<div class="layui-card-header">响应时间:</div>
+				<div class="layui-card-body">
+					{{ dic.duration }}
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-header">Params:</div>
+				<div class="layui-card-body">
+					<textarea id="detail" rows="24" cols="80" readonly="readonly">{{ dic.params }}</textarea>
+				</div>
+			</div>
+		</div>
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-header">Body:</div>
+				<div class="layui-card-body">
+					<textarea id="detail" rows="24" cols="80" readonly="readonly">{{ dic.body }}</textarea>
+				</div>
+			</div>
+		</div>
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-header">响应内容:</div>
+				<div class="layui-card-body">
+					<textarea id="detail" rows="24" cols="80" readonly="readonly">{{ dic.result }}</textarea>
+				</div>
+			</div>
+		</div>
+
+		{#		<div class="layui-col-md12" style="width: 18%;margin-bottom: 3px;">#}
+		{#			<div class="layui-card">#}
+		{#				<div class="layui-card-header">上个结果:</div>#}
+		{#				<div class="layui-card-body">#}
+		{#					<a type="button" href="/detail/?id={{ dic.back }}" style="color: darkmagenta">点击即将跳转到上个接口的详细信息页</a>#}
+		{#				</div>#}
+		{#			</div>#}
+		{#		</div>#}
+		{##}
+		{#		<div class="layui-col-md12" style="width: 18%">#}
+		{#			<div class="layui-card">#}
+		{#				<div class="layui-card-header">下个结果:</div>#}
+		{#				<div class="layui-card-body">#}
+		{#					<a type="button" href="/detail/?id={{ dic.forward }}"#}
+		{#					   style="color: darkmagenta">点击即将跳转到下个接口的详细信息页</a>#}
+		{#				</div>#}
+		{#			</div>#}
+		{#		</div>#}
+
+
+	</div>
+</div>
+<div class="footer">
+
+	<p class="copyright">
+        <p class="landIn">人生苦短，我用Python</p>
+	</p>
+</div>
+
+
+<script>
+    // 进入全屏：
+    function entryFullScreen() {
+        var docE = document.documentElement;
+        if (docE.requestFullScreen) {
+            docE.requestFullScreen();
+        } else if (docE.mozRequestFullScreen) {
+            docE.mozRequestFullScreen();
+        } else if (docE.webkitRequestFullScreen) {
+            docE.webkitRequestFullScreen();
+        }
+    }
+</script>
+
+{#底部动画#}
+<script>
+    "use strict";
+    var landInTexts = document.querySelectorAll(".landIn");
+    landInTexts.forEach(function (landInText) {
+        var letters = landInText.textContent.split("");
+        landInText.textContent = "";
+        letters.forEach(function (letter, i) {
+            var span = document.createElement("span");
+            span.textContent = letter;
+            span.style.animationDelay = i * 0.05 + "s";
+            landInText.append(span);
+        });
+    });
+</script>
+
+</body>
+</html>

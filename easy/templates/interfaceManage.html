@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Testapi-菜单管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/layui2.5.5/css/layui.css">
+    <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/interfaceCM.css">
+
+    <script src="../static/jquery-3.4.1/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="../static/layui2.5.5/layui.js"></script>
+    <script src="../static/js/menu.js"></script>
+</head>
+
+<body>
+
+<div>
+    <!--添加 编辑-->
+    <div class="layui-row" id="add_update_module" style="display: none;">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="add_update_module">
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">模块的键</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="puisne_key" required lay-verify="required"
+                               placeholder="请输入标题的键" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">模块标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="puisne_module" required lay-verify="required"
+                               placeholder="请输入标题名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">接口连接</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="url" required lay-verify="required"
+                               placeholder="请输入链接" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item" style="margin-top: 30px;">
+                    <div class="layui-input-block">
+                        <button class="btn btn-primary btn-finger layui-btn" lay-submit lay-filter="add_update_module"
+                                style="float:right;">确定
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--添加分类-->
+    <div class="layui-row" id="add_classification" style="display: none;">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="add_classification">
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">系统分类</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="classification" required lay-verify="required"
+                               placeholder="请输入系统分类" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item" style="margin-top: 30px;">
+                    <div class="layui-input-block">
+                        <button class="btn btn-primary btn-finger layui-btn" lay-submit lay-filter="add_classification"
+                                style="float:right;">确定
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--主题内容-->
+    <div class="classification_manage">
+        <div class="mylist">
+            <button class="layui-btn layui-btn-sm mybtn" onclick="add_classification()">添加系统分类</button>
+            <ul class="list-group" id="classification">
+{#              <li class="list-group-item d-flex justify-content-between align-items-center my_li">#}
+{#                  <span></span>#}
+{#                  <a class="badge badge-primary badge-pill">删除</a>#}
+{#              </li>#}
+            </ul>
+        </div>
+        <div class="treetable mytable">
+            <!--表格-->
+            <div id="sousuo">
+                <div class="layui-inline" style="margin-top: -7px;">
+                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入模块名称"
+                           style="width:250px;color: #999999;">
+                </div>
+                <button class="layui-btn layui-icon layui-icon-search" data-type="reload"
+                        style="margin-top: -7px;">搜索
+                </button>
+            </div>
+            <table id="treetable" lay-filter="treetable"></table>
+        </div>
+    </div>
+</div>
+
+
+{#表头按钮#}
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add_module">添加模块</button>
+    </div>
+</script>
+{#行按钮#}
+<script type="text/html" id="barDemo">
+    <a class="layui-icon layui-icon-tips"
+       style="color:#797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"
+       lay-event="update_module"></a>
+    <a class="fa fa-trash-o" lay-event="del_module"
+       style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>
+</script>
+
+</body>
+
+</html>

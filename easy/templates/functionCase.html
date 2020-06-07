@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Testapi-功能测试</title>
+
+    <link rel="icon" href="../static/images/favicon%202.ico">
+
+    <link rel="stylesheet" href="../static/layui2.5.5/css/layui.css">
+    <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/soulTable.css">
+    <link rel="stylesheet" href="../static/css/singleApi.css">
+
+    <script src="../static/layui2.5.5/layui.js"></script>
+
+</head>
+
+<body class="layui-layout-body">
+<!--表单内容-->
+<div>
+    <!--创建编辑用例-->
+    <div class="layui-row" id="add_update_case" style="display: none;">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="add_update_case">
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">所属模块</label>
+                    <div class="layui-input-block">
+                        <select name="belong" id="belong" lay-verify="required">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">功能模块</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="function_model" required lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用例点</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="function_point" required lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用例名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="casename" required lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">前提条件</label>
+                    <div class="layui-input-block">
+                        <textarea name="premise_condition" placeholder="" class="layui-textarea" required lay-verify="required"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">执行结果</label>
+                    <div class="layui-input-block">
+                        <textarea name="execution_result" placeholder="" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <textarea name="note" placeholder="" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">执行人</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="executor" required lay-verify="required" placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="add_update_case"
+                                style="float: right;">立即提交
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-primary"
+                                style="float: right;margin-right: 10px;">重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--导入测试用例-->
+    <div class="layui-row" id="importCase" style="display:none;">
+        <div class="layui-col-md11">
+            <form class="layui-form" enctype="multipart/form-data" action="/api/v1/functioncase/import_case/" method="post">
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <div class="layui-input-block">
+                        <input type="file" name="file" id="filename">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="importCase" style="float: right;">上传</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!--添加编辑子表case-->
+    <div class="layui-row" id="add_update_parameter" style="display: none;">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="add_update_parameter">
+
+                <div class="layui-form-item" style="margin-top: 30px;">
+                    <label class="layui-form-label">步骤序号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="step_id" required lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">操作步骤</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="steps" required lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">预期结果</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="expected_results" required lay-verify="required"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="add_update_parameter"
+                                style="float: right;">立即提交
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-primary"
+                                style="float: right;margin-right: 10px;">重置
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!--主题内容-->
+<div id="layuibody" class="layui-body mybg" style="margin-bottom: -70px;">
+    <div style="padding: 15px;">
+        <!--  lay-separator="-"-->
+        <div class="demoTable">
+            <div class="layui-breadcrumb">
+					<span class="layui-icon layui-icon-link" style="font-size: 22px;color: #fff;">
+						<a href="" class="index" style="color: #fff;">功能测试用例</a>
+					</span>
+            </div>
+            <div id="sousuo">
+                <div class="layui-inline" style="margin-top: -7px;">
+                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入用例名称"
+                           style="width:200px;color: #999999;">
+                </div>
+                <button class="layui-btn layui-icon layui-icon-search" data-type="reload"
+                        style="margin-top: -7px;">搜索
+                </button>
+            </div>
+            <table class="layui-hide" id="test" lay-filter="test"></table>
+        </div>
+
+    </div>
+</div>
+
+
+<!--数据表格JS-->
+<script>
+    // 自定义模块
+    layui.config({
+        base: './../static/layui2.5.5/lay/modules/',   // 模块目录
+        version: 'v1.3.28'
+    }).extend({             // 模块别名
+        soulTable: 'soulTable'
+    });
+
+    layui.use(['table', "soulTable", 'util'], function (data) {
+        var table = layui.table;
+        var util = layui.util;
+        soulTable = layui.soulTable;
+        //第一个实例
+        var layer = layui.layer;
+        var index = layer.load(0); //添加laoding,0-2两种方式
+        var myTable = table.render({
+            elem: '#test'
+            , url: '/api/v1/functioncase/list/' //数据接口"exports"
+            , toolbar: '#toolbarDemo'
+            , defaultToolbar: [
+                {title: '导出数据', layEvent: 'export_case', icon: 'layui-icon-download-circle'},
+                {title: '全屏显示', layEvent: 'fullScreen', icon: 'layui-icon-top'},
+                {title: '导入数据', layEvent: 'import_case', icon: 'layui-icon-upload-circle'},
+                'filter', 'print'
+            ]
+            , title: '功能测试'
+            , page: {groups: 5} //开启分页
+            , loading: false
+            , height: 'full-60'
+            , drag: {toolbar: true}//实现固定列与非固定列之间的转换
+            , rowDrag: {
+                trigger: 'row', done: function (obj) {
+                    // 完成时（松开时）触发
+                    // 如果拖动前和拖动后无变化，则不会触发此方法
+                    console.log(obj.row);// 当前行数据
+                    console.log(obj.cache); // 改动后全表数据
+                    console.log(obj.oldIndex); // 原来的数据索引
+                    console.log(obj.newIndex); // 改动后数据索引
+                    var l = [];
+                    for (var i in obj.cache) {
+                        l.push(obj.cache[i].caseid)
+                    }
+                    console.log(l);
+                    $.ajax({
+                        cache: false,
+                        url: "/api/v1/publicapi/sort/",
+                        type: 'POST',
+                        data: {
+                            "caseids": JSON.stringify(l),
+                            "belong": "{{ belong }}",
+                            "system": "{{ system }}",
+                            "type": "single"
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                layer.msg(data.msg, {
+                                    icon: 6, offset: "t"
+                                })
+                            } else {
+                                layer.msg(data.error, {
+                                    icon: 5, offset: "t"
+                                })
+                            }
+                            $(".layui-laypage-btn").click();
+                        },
+                        error: function () {
+                            layer.msg("回调失败", {
+                                icon: 5,
+                                offset: 't'
+                            });
+                        },
+                    });
+                }
+
+            }//排序
+            , size: 'lg'	//大尺寸 /sm小尺寸
+            , skin: 'line' //行边框风格 /row列表框风格 /nob无边框风格
+            , limit: 10
+            , limits: [10, 20, 30, 100, 200, 500]
+            , where: {//额外参数
+                belong: '{{ belong }}',
+                system: '{{ system }}'
+            }
+            , contextmenu: {
+                // 表头右键菜单配置
+                header: [
+                    {
+                        name: '重载表格',
+                        icon: 'layui-icon layui-icon-refresh-1',
+                        click: function () {
+                            table.reload(this.id)
+                        }
+                    }
+                ]
+            }
+            , cols: [[ //表头, fixed: 'left'
+                {type: 'checkbox'}
+                , {title: '操作', toolbar: '#barDemo', width: 80, align: "left"}
+                , {field: 'function_point', title: '用例点', align: "left"}//, templet: "#identityTpl"
+                , {
+                    field: 'casename',
+                    title: '用例名称',
+                    width: 250,
+                    align: "left",
+                    excel: {color: '0040ff', bgColor: 'f3fef3'},
+                    templet: "#casenameTpl",
+                    children: [
+                        {
+                            elem: '#child'
+                            , url: "/api/v1/functioncase/childlist/"
+                            , where: function (row) {
+                                console.log(row);
+                                return {id: row.id}
+                            }
+                            , title: "操作步骤-预期结果"
+                            , skin: 'line'
+                            , size: "lg"
+                            {#, toolbar: '#toolbarchiildDemo'#}
+                            , toolbar:
+                                '<div>' +
+                                ' <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add_parameter">添加参数</a>' +
+                                '<a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="reload">重载表格</a>' +
+                                ' <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="close">关闭表格</a>' +
+                                '</div>'
+                            //, height: 'full-10'
+                            , cols: [[
+                                {type: 'checkbox'}
+                                , {
+                                    title: '操作', width: 120, templet: function (row) {
+                                        return '<a class="layui-icon layui-icon-tips"\n' +
+                                            'style="color:#797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"\n' +
+                                            'lay-event="childEdit"></a>' +
+                                            '<a class="fa fa-trash-o" lay-event="childDel"\n' +
+                                            'style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>'
+                                    }
+                                }
+                                , {
+                                    field: 'step_id',
+                                    title: '序号',
+                                    width: 100,
+                                    align: "left"
+                                }
+                                , {
+                                    field: 'steps',
+                                    title: '操作步骤',
+                                    align: "left"
+                                }
+                                , {
+                                    field: 'expected_results',
+                                    title: '预期结果',
+                                    align: "left"
+                                }
+                            ]]
+                            , rowEvent: function (obj, pobj) {
+                                // 单击行事件
+                                // obj 子表当前行对象
+                                // pobj 父表当前行对象
+                                obj.tr.css({'background': '#ECEFFC'}).siblings().removeAttr('style');
+                                console.log(obj.tr); //得到当前行元素对象
+                                console.log(obj.data); //得到当前行数据
+                                console.log(pobj); //得到当前行数据
+                                //obj.del(); //删除当前行
+                                //obj.update(fields) //修改当前行数据
+                            }
+                            , toolEvent: function (obj, pobj) {
+                                // obj 子表当前行对象
+                                // pobj 父表当前行对象
+
+                                var childId = this.id; // 通过 this 对象获取当前子表的id
+
+                                if (obj.event === 'childEdit') {
+                                    //console.log(obj.data.id);//子表数据行的id
+                                    //console.log(this.id);//子表id
+                                    //console.log(pobj.data.id);
+                                    var parent_id = pobj.data.id;
+                                    var a = layer.open({
+                                        type: 1,
+                                        title: "编辑请求参数",
+                                        area: ['40%', ""],
+                                        skin: "layui-layer-molv",
+                                        shada: 0.6,
+                                        content: $("#add_update_parameter").html(),
+                                        success: function () {
+                                            layui.use(['form', 'jquery'], function () {
+                                                var form = layui.form;
+                                                $ = layui.$;
+                                                var caseid = obj.data.id;
+                                                form.val("add_update_parameter", {
+                                                    "step_id": obj.data.step_id,
+                                                    "steps": obj.data.steps,
+                                                    "expected_results": obj.data.expected_results,
+                                                });
+                                                //监听编辑用户信息，
+                                                form.on('submit(add_update_parameter)', function (data) {
+                                                    console.log(data.field);
+                                                    $.ajax({
+                                                        cache: false,
+                                                        url: "/api/v1/functioncase/update_child/" + caseid + "/",
+                                                        type: 'PUT',
+                                                        data: {
+                                                            "parent_id": parent_id,
+                                                            "step_id": data.field.step_id,
+                                                            "steps": data.field.steps,
+                                                            "expected_results": data.field.expected_results,
+                                                        },
+                                                        beforeSend: function () {
+                                                            l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                                        },
+                                                        success: function (data) {
+                                                            if (data.code === 1000) {
+                                                                layer.msg(data.msg, {
+                                                                    icon: 6, offset: "t"
+                                                                })
+                                                            } else {
+                                                                layer.msg(data.error, {
+                                                                    icon: 5, offset: "t"
+                                                                })
+                                                            }
+                                                            table.reload(childId);
+                                                        },
+                                                        error: function () {
+                                                            layer.msg("回调失败", {
+                                                                icon: 5,
+                                                                offset: 't'
+                                                            });
+                                                        },
+                                                        complete: function () {
+                                                            layer.close(l_index);
+                                                            layer.close(a);
+                                                        }
+
+                                                    });
+                                                    return false;//阻止表单跳转
+                                                });
+                                            });
+                                        }
+                                    });
+                                } else if (obj.event === 'childDel') {
+                                    layer.confirm('真的要删除此行么', {icon: 2, title: "删除提示"}, function (index) {
+                                        var id = obj.data.id;
+                                        console.log(id);
+                                        $.ajax({
+                                            cache: false,
+                                            url: "/api/v1/functioncase/del_child/" + id + "/",
+                                            type: 'DELETE',
+                                            success: function (data) {
+                                                if (data.code === 1000) {
+                                                    layer.msg(data.msg, {
+                                                        icon: 6, offset: "t"
+                                                    })
+                                                } else {
+                                                    layer.msg(data.error, {
+                                                        icon: 5, offset: "t"
+                                                    })
+                                                }
+                                                table.reload(childId);
+                                            },
+                                            error: function () {
+                                                layer.msg("回调失败", {
+                                                    icon: 5,
+                                                    offset: 't'
+                                                });
+                                            },
+                                        });
+                                    });
+
+                                }
+
+                            }
+                            , toolbarEvent: function (obj, pobj) {
+                                var childId = this.id;
+                                // obj 子表当前行对象
+                                // pobj 父表当前行对象
+                                if (obj.event === 'reload') {
+                                    //重载子表
+                                    table.reload(this.id);
+                                    layer.msg('重载成功！')
+                                } else if (obj.event === 'delete') {
+                                    //删除父行
+                                    pobj.del()
+                                } else if (obj.event === 'update') {
+                                    //更新父行数据
+                                    pobj.update({dynasty: pobj.data.dynasty + '+1'})
+                                } else if (obj.event === 'close') {
+                                    //关闭子表
+                                    pobj.close()
+                                } else if (obj.event === "add_parameter") {
+                                    var parent_id = pobj.data.id;
+                                    console.log(parent_id);
+                                    var Create_apicase = layer.open({
+                                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                                        type: 1,
+                                        title: "添加请求参数",
+                                        skin: "layui-layer-molv",
+                                        shade: 0.6,
+                                        area: ['40%', ''],
+                                        content: $("#add_update_parameter").html(),
+                                        success: function () {
+                                            layui.use(['form', 'jquery'], function () {
+                                                var form = layui.form,
+                                                    $ = layui.$;
+                                                //监听编辑用户信息，
+                                                form.on('submit(add_update_parameter)', function (data) {
+                                                    $.ajax({
+                                                        cache: false,
+                                                        url: "/api/v1/functioncase/add_child/",
+                                                        type: 'POST',
+                                                        data: {
+                                                            "parent_id": parent_id,
+                                                            "step_id": data.field.step_id,
+                                                            "steps": data.field.steps,
+                                                            "expected_results": data.field.expected_results,
+                                                        },
+                                                        beforeSend: function () {
+                                                            l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                                        },
+                                                        success: function (data) {
+                                                            if (data.code === 1000) {
+                                                                layer.msg(data.msg, {
+                                                                    icon: 6, offset: "t"
+                                                                });
+                                                                //table.reload(this.id);
+                                                            } else {
+                                                                layer.msg(data.error, {
+                                                                    icon: 5, offset: "t"
+                                                                })
+                                                            }
+                                                            table.reload(childId);
+                                                        },
+                                                        error: function () {
+                                                            layer.msg("回调失败", {
+                                                                icon: 5,
+                                                                offset: 't'
+                                                            });
+                                                        },
+                                                        complete: function () {
+                                                            layer.close(l_index);
+                                                            layer.close(Create_apicase);
+                                                        }
+
+                                                    });
+                                                    return false;//阻止表单跳转
+                                                });
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                            , checkboxEvent: function (obj, pobj) {
+                                // obj 子表当前行对象
+                                // pobj 父表当前行对象
+                                layer.msg('子表checkbox事件，当前是否选中：' + obj.checked)
+                            }
+                            , editEvent: function (obj, pobj) {
+                                // obj 子表当前行对象
+                                // pobj 父表当前行对象
+                                layer.msg(obj.oldValue + " 已成功改为：" + obj.value);
+                            }
+                            , done: function (data) {
+                                //console.log(data);
+                                soulTable.render(this);
+                            }
+
+                        }
+
+                    ]
+                }
+                , {field: 'premise_condition', title: '前提条件', align: "left"}
+                , {field: 'execution_result', title: '执行结果', align: "left"}
+                , {field: 'note', title: '备注', align: "left", event: "note"}
+                , {field: 'executor', title: '执行人', width: 80, align: "left"}//merge: true行合并
+
+            ]]
+            , filter: {
+                items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
+            }
+            , id: 'testReload'
+            , rowEvent: function (obj) {
+                obj.tr.css({'background': '#ECEFFC'}).siblings().removeAttr('style')
+            }
+            , done: function (res) {   //返回数据执行回调函数
+                layer.close(index);    //返回数据关闭loading
+                soulTable.render(this);
+            }
+        });
+
+        //搜索
+        layui.$, active = {
+            reload: function () {
+                var demoReload = $('#demoReload');
+                console.log(demoReload.val());
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        casename: demoReload.val()
+                    }
+                }, 'data');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            //console.log(checkStatus);
+            switch (obj.event) {
+                //发送钉钉消息
+                case 'ding_ding':
+                    var data = checkStatus.data;
+                    console.log(data);
+                    if (data.length == 0) {
+                        layer.close(index);
+                        layer.msg("请先选中需要发送的接口", {
+                            icon: 2,
+                            offset: "t"
+                        });
+                    } else {
+                        layer.confirm("你确定要发送接口请求结果给相应的负责人吗？\n注意:钉钉机器人发送，不可撤回！", {
+                                icon: 3,
+                                btn: ["确定", "取消"]
+                            }, function () {
+                                var ids = "";
+                                for (i = 0; i < data.length; i++) {
+                                    ids += data[i]["caseid"] + ",";
+                                    console.log(ids);
+                                }
+                                $.ajax({
+                                    cache: false,
+                                    url: "/api/v1/publicapi/dingding/",
+                                    type: 'GET',
+                                    data: {
+                                        "caseid": ids,
+                                        "isprocess": "no"
+                                    },
+                                    //请求前的处理,加载loading
+                                    beforeSend: function () {
+                                        {#document.getElementById("Dingding").setAttribute("disabled", true);#}
+                                        {#document.getElementById("Dingding").innerHTML = "loading...";#}
+                                        l_index = layer.load(0, {
+                                            shade: [0.5, '#DBDBDB'] //0.1透明度的白色背景
+                                        });
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                        $(".layui-laypage-btn").click();
+                                    },
+                                    error: function () {
+                                        layer.msg("回调失败", {
+                                            icon: 5,
+                                            offset: 't'
+                                        });
+                                    },
+                                    complete: function () {
+                                        {#document.getElementById("Dingding").removeAttribute("disabled");#}
+                                        {#document.getElementById("Dingding").innerHTML = "钉钉通知";#}
+                                        layer.close(l_index);
+                                    }
+                                });
+
+                            }, function () {
+                                layer.msg(
+                                    "取消发送钉钉消息",
+                                    {icon: 1, offset: "t"}
+                                );
+                            }
+                        );
+                    }
+                    break;
+                //导出用例
+                case "export_case":
+                    if (checkStatus.data.length > 0) {
+                        soulTable.export(myTable, {
+                            filename: '勾选数据.xlsx',
+                            checked: true, // 只导出勾选数据
+                            border: {
+                                style: 'thin',
+                                color: '000000'
+                            },
+                            head: { // 表头样式
+                                family: 'helvetica', // 字体
+                                size: 14, // 字号
+                                color: 'FFFFFF', // 字体颜色
+                                bgColor: 'ff8c00' // 背景颜色
+                            },
+                            font: { // 正文样式
+                                family: 'Calibri', // 字体
+                                size: 12, // 字号
+                                color: '000000', // 字体颜色
+                                bgColor: 'FFFFFF' //背景颜色t
+                            }
+                        });
+                        layer.msg('操作成功', {icon: 6, offset: 't'});
+                    } else {
+                        layer.msg('请先勾选数据在导出！', {icon: 0, offset: 't'});
+                    }
+                    break;
+                //全屏显示
+                case "fullScreen":
+                    var docE = document.documentElement;
+                    if (docE.requestFullScreen) {
+                        docE.requestFullScreen();
+                    } else if (docE.mozRequestFullScreen) {
+                        docE.mozRequestFullScreen();
+                    } else if (docE.webkitRequestFullScreen) {
+                        docE.webkitRequestFullScreen();
+                    }
+                    break;
+                //导入用例
+                case "import_case":
+                    layer.open({
+                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                        type: 1,
+                        title: "导入用例",
+                        area: ['35%', '30%'],
+                        skin: "layui-layer-rim",
+                        shade: 0.6,
+                        content: $("#importCase").html()
+                    });
+                    break;
+            }
+
+        });
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            //响应结果详情
+            if (obj.event === 'note') {
+                console.log(data.note);
+                layer.prompt({
+                    formType: 2,//多行文本
+                    value: data.note,
+                    shade: false,
+                    title: data.casename + "-备注",
+                    maxmin: true,
+                    skin: "layui-layer-rim",//hui
+                    closeBtn: 0,
+                    zIndex: layer.zIndex,
+                    area: ['600px', '400px'], //自定义文本域宽高
+                    btn: [ "关闭"],
+                    yes: function (index) {
+                        layer.close(index);
+                    }
+                });
+            }
+            //删除用例
+            else if (obj.event === 'del_case') {
+                layer.confirm('真的删除行么', {icon: 2, title: "删除提示"}, function (index) {
+                    console.log(obj.data);
+                    //layer.msg("确定删除",{icon:1});
+                    obj.del();//删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+                    var id = obj.data["id"];
+                    console.log(id);
+                    $.ajax({
+                        cache: false,
+                        url: "/api/v1/functioncase/del_case/" + id + "/",
+                        type: 'DELETE',
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                layer.msg(data.msg, {
+                                    icon: 6, offset: "t"
+                                })
+                            } else {
+                                layer.msg(data.error, {
+                                    icon: 5, offset: "t"
+                                })
+                            }
+                            $(".layui-laypage-btn").click();
+                        },
+                        error: function () {
+                            layer.msg("回调失败", {
+                                icon: 5,
+                                offset: 't'
+                            });
+                        },
+                    });
+                });
+            }
+            //编辑整个用例
+            else if (obj.event === 'update_case') {
+                //获取系统模块参数
+                get_belong_by_system();
+                var a = layer.open({
+                    type: 1,
+                    title: "编辑用例",
+                    area: ['35%', ""],
+                    skin: "layui-layer-molv",
+                    shada: 0.6,
+                    content: $("#add_update_case").html(),
+                    success: function () {
+                        layui.use(['form', 'jquery'], function () {
+                            var form = layui.form;
+                            $ = layui.$;
+                            var caseid = data.id;
+                            console.log(data);
+                            form.val("add_update_case", {
+                                "belong": data.belong,
+                                "function_model": data.function_model,
+                                "function_point": data.function_point,
+                                "casename": data.casename,
+                                "premise_condition": data.premise_condition,
+                                "execution_result": data.execution_result,
+                                "note": data.note,
+                                "executor": data.executor,
+                            });
+                            //监听编辑用户信息，
+                            form.on('submit(add_update_case)', function (data) {
+                                console.log(data.field);
+                                $.ajax({
+                                    cache: false,
+                                    url: "/api/v1/functioncase/update_case/" + String(caseid) + "/",
+                                    type: 'PUT',
+                                    data: {
+                                        "belong": data.field.belong,
+                                        "function_model": data.field.function_model,
+                                        "function_point": data.field.function_point,
+                                        "casename": data.field.casename,
+                                        "premise_condition": data.field.premise_condition,
+                                        "execution_result": data.field.execution_result,
+                                        "note": data.field.note,
+                                        "executor": data.field.executor,
+                                        "system":"{{ system }}"
+                                    },
+                                    beforeSend: function () {
+                                        l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                        $(".layui-laypage-btn").click();
+                                    },
+                                    error: function () {
+                                        layer.msg("回调失败", {
+                                            icon: 5,
+                                            offset: 't'
+                                        });
+                                    },
+                                    complete: function () {
+                                        layer.close(l_index);
+                                        layer.close(a);
+                                    }
+
+                                });
+                                return false;//阻止表单跳转
+                            });
+                        });
+                    }
+                });
+
+            }
+        });
+    });
+
+</script>
+
+<script>
+    //新建用例
+    function add_case() {
+        get_belong_by_system();
+        var Create_apicase = layer.open({
+            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+            type: 1,
+            title: "新建用例",
+            skin: "layui-layer-molv",
+            shade: 0.6,
+            area: ['35%', ''],
+            content: $("#add_update_case").html(),
+            success: function () {
+                layui.use(['form', 'jquery'], function () {
+                    var form = layui.form,
+                        $ = layui.$;
+                    //监听编辑用户信息，
+                    form.val("add_update_case");
+                    form.on('submit(add_update_case)', function (data) {
+                        $.ajax({
+                            cache: false,
+                            url: "/api/v1/functioncase/add_case/",
+                            type: 'POST',
+                            data: {
+                                "belong": data.field.belong,
+                                "function_model": data.field.function_model,
+                                "function_point": data.field.function_point,
+                                "casename": data.field.casename,
+                                "premise_condition": data.field.premise_condition,
+                                "execution_result": data.field.execution_result,
+                                "note": data.field.note,
+                                "executor": data.field.executor,
+                                "system":"{{ system }}"
+                            },
+                            beforeSend: function () {
+                                l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                            },
+                            success: function (data) {
+                                if (data.code === 1000) {
+                                    layer.msg(data.msg, {
+                                        icon: 6, offset: "t"
+                                    })
+                                } else {
+                                    layer.msg(data.error, {
+                                        icon: 5, offset: "t"
+                                    })
+                                }
+                                $(".layui-laypage-btn").click();
+                            },
+                            error: function () {
+                                layer.msg("回调失败", {
+                                    icon: 5,
+                                    offset: 't'
+                                });
+                            },
+                            complete: function () {
+                                layer.close(l_index);
+                                layer.close(Create_apicase);
+                            }
+
+                        });
+                        return false;//阻止表单跳转
+                    });
+                });
+            }
+        });
+    }
+
+    function get_belong_by_system() {
+        $.ajax({
+                url: "/api/v1/menu/get_belong_by_system/",
+                type: 'GET',
+                async: false,
+                data: {
+                    "system": '{{ system }}',
+                    "area": "automation"
+                },
+                success: function (data) {
+                    //res = data;
+                    var str = '';
+                    //data是数组时，index是当前元素的位置，value是值
+                    $.each(data, function (index, value) {
+                        str += "<option value='" + value + "'>" + value + "</option>";
+                    });
+                    console.log(str);
+                    $('#belong').empty();
+                    $('#belong').append(str);
+
+                },
+                error: function () {
+                    layer.msg("回调失败", {
+                        icon: 5,
+                        offset: 't'
+                    });
+                },
+            });
+    }
+
+
+
+
+
+</script>
+
+
+<!--主表头按钮 layui-btn-disabled-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button type="button" onclick="add_case()" class="layui-btn layui-btn-sm">新建用例</button>
+    </div>
+</script>
+<!--主表行内按钮-->
+<script type="text/html" id="barDemo">
+    <a class="layui-icon layui-icon-tips"
+       style="color:#797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"
+       lay-event="update_case"></a>
+    <a class="fa fa-trash-o" lay-event="del_case"
+       style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>
+</script>
+
+
+<!--子表头按钮 layui-btn-disabled-->
+<script type="text/html" id="toolbarchiildDemo">
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-sm" lay-event="reload">重载</a>
+        <button type="button" onclick="add_parameter()" class="layui-btn layui-btn-sm">添加参数</button>
+    </div>
+</script>
+<!--子表行内按钮-->
+<script type="text/html" id="childbarDemo">
+    <a class="layui-icon layui-icon-tips"
+       style="color:#797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"
+       lay-event="update_parameter"></a>
+    <a class="fa fa-trash-o" lay-event="del_parameter"
+       style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>
+</script>
+
+
+</body>
+</html>

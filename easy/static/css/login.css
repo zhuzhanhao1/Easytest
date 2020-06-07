@@ -1,0 +1,111 @@
+html, body {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-filter: contrast(120%);
+    filter: contrast(120%);
+    background-color: black;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(1600px at 70% 120%, rgba(33, 39, 80, 1) 10%, #020409 100%);
+}
+
+.content {
+    width: inherit;
+    height: inherit;
+}
+
+#universe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#footer {
+    position: absolute;
+    z-index: 0;
+    bottom: 0px;
+    height: 310px;
+    width: 100%;
+}
+
+#scene {
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -800px;
+}
+
+.loginBody form.layui-form {
+    padding: 0 20px;
+    width: 300px;
+    height: 335px;
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    margin: -150px 0 0 -150px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 50px #009688;
+}
+
+/*钉钉登录*/
+.homeBox {
+    position: fixed;
+    height: 100%;
+}
+
+.login-container {
+    position: absolute;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    width: 300px;
+    padding: 35px 35px 15px 35px;
+    background: #eaeaea;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+    z-index: 1000;
+    float: right;
+    right: 4%;
+    top: 25%;
+}
+
+.title {
+    margin: 0px auto 0px auto;
+    text-align: center;
+}
+
+.lun-container {
+    width: 210px;
+    height: 140px;
+    position: relative;
+    font-size: 32px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 90px;
+    margin: 200px auto;
+    margin-bottom: 0px;
+    margin-top: 48%;
+    perspective: 1000px;
+    z-index: 1000;
+}
+
