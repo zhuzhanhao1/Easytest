@@ -32,7 +32,11 @@ function get_table_by_title() {
                         {title: '操作', toolbar: '#barDemo', width: 100, align: "left"},
                         {field: 'puisne_module', title: '模块标题'},
                         {field: 'puisne_key', title: '模块的键'},
-                        {field: 'url', title: '接口列表连接'},
+                        {
+                            field: 'url', title: '接口列表连接', templet: function (d) {
+                                return '<a class="layui-blue" href="' + d.url + '" target="_blank">' + d.url + '</a>';
+                            }
+                        }
                     ]]
                 });
                     table.on('tool(treetable)', function (obj) {
@@ -241,6 +245,8 @@ function get_classification(id) {
 //打开页面执行
 $(document).ready(function(){
     var res = get_classification("classification");
+    $('ul').children("li").eq(0).css("background-color","#5FB878");
+    $('ul').children("li").eq(0).css("color","#ffffff");
     layui.use(["table"], function () {
         var table = layui.table,
             layer = layui.layer;
@@ -263,7 +269,11 @@ $(document).ready(function(){
                 {title: '操作', toolbar: '#barDemo', width: 100, align: "left"},
                 {field: 'puisne_module', title: '模块标题'},
                 {field: 'puisne_key', title: '模块的键'},
-                {field: 'url', title: '接口列表连接'},
+               {
+                    field: 'url', title: '接口列表连接', templet: function (d) {
+                        return '<a class="layui-blue" href="' + d.url + '">' + d.url + '</a>';
+                    }
+                }
             ]]
         });
         table.on('tool(treetable)', function (obj) {
