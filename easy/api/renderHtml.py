@@ -25,4 +25,6 @@ def interface_set_views(request):
     '''
         接口管理
     '''
-    return render(request, 'processApi.html')
+    parentId = request.GET.get("parentId","")
+    print(parentId)
+    return render(request, 'processApi.html',{"parentId":parentId})

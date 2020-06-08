@@ -16,5 +16,7 @@ urlpatterns = [
     url(r'interface_manager/add_puisne_module/$', interFace.InterFaceModule.as_view()),
     url(r'interface_manager/update_puisne_module/(?P<pk>[0-9]+)/$', interFace.InterFaceModule.as_view()),
     url(r'interface_manager/del_puisne_module/(?P<pk>[0-9]+)/$', interFace.InterFaceModule.as_view()),
+
+    url(r'interface_set/list/$', interFace.InterFaceSetList.as_view()),
 ]
 

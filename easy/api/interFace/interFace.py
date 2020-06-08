@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
-from easy.models import InterFaceManageClassification,InterFaceManageModule
-from .interFaceSer import InterFaceManageClassificationSer,InterFaceManageModuleSer,UpdateInterFaceManageModuleSer
+from easy.models import InterFaceManageClassification,InterFaceManageModule,InterFaceSet
+from .interFaceSer import InterFaceManageClassificationSer,InterFaceManageModuleSer,UpdateInterFaceManageModuleSer,InterFaceSetSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -127,3 +127,22 @@ class InterFaceModule(APIView):
             print(e)
             error_code["error"] = "删除模块失败"
             return Response(error_code)
+
+class InterFaceSetList(APIView):
+
+    def get(self,request,*args,**kwargs):
+        '''
+            接口集列表
+        '''
+        parentId = request.GET.get("parentId","")
+        obj = InterFaceSet.objects.filter(belong_module=parentId)
+        serializer = InterFaceSetSer(obj, many=True)
+        pageindex = request.GET.get('page', 1)  # 页数
+        pagesize = request.GET.get("limit", 10)  # 每页显示数量
+        pageInator = Paginator(serializer.data, pagesize)
+        # 分页
+        contacts = pageInator.page(pageindex)
+        res = []
+        for contact in contacts:
+            res.append(contact)
+        return Response(data={"code": 0, "msg": "", "count": len(serializer.data), "data": res})

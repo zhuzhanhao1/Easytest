@@ -1,4 +1,4 @@
-from easy.models import InterFaceManageModule,InterFaceManageClassification
+from easy.models import InterFaceManageModule,InterFaceManageClassification,InterFaceSet
 from rest_framework import serializers
 
 class InterFaceManageClassificationSer(serializers.ModelSerializer):
@@ -25,3 +25,12 @@ class UpdateInterFaceManageModuleSer(serializers.ModelSerializer):
     class Meta:
         model = InterFaceManageModule
         fields = ("url","puisne_module","puisne_key")
+
+
+class InterFaceSetSer(serializers.ModelSerializer):
+    '''
+        主菜单
+    '''
+    class Meta:
+        model = InterFaceSet
+        fields = "__all__"
