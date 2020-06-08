@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from easy.models import InterFaceManageModule
 
-
 def index_views(request):
     '''
         首页

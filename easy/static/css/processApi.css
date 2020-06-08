@@ -150,3 +150,15 @@
 /*    !*display: flex;*!*/
 /*    background-image:linear-gradient(to left bottom, hsl(79, 100%, 85%) 0%,hsl(220, 100%, 85%) 100%);*/
 /*}*/
+
+.layui-nav-itemed > .layui-nav-child {
+    max-height: 300px !important;
+    overflow-y: scroll !important;
+}
+.mydepned{
+    display: none;
+}
+
+.my_crumb{
+    height: 25px;
+}

@@ -4,30 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Testapi-流程测试</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon%202.ico' %}">
 
-    <link rel="icon" href="../static/images/favicon%202.ico">
+    <link rel="stylesheet" href="{% static 'layui2.5.5/css/layui.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/soulTable.css' %}">
+    <link rel="stylesheet" href="{% static 'css/processApi.css' %}">
+    <script src="{% static 'layui2.5.5/layui.js' %}"></script>
 
-    <link rel="stylesheet" href="../static/layui2.5.5/css/layui.css">
-    <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/css/soulTable.css">
-    <link rel="stylesheet" href="../static/css/processApi.css">
-
-    <script src="../static/layui2.5.5/layui.js"></script>
-    <style>
-        .layui-nav-itemed > .layui-nav-child {
-            max-height: 300px !important;
-            overflow-y: scroll !important;
-        }
-        .mydepned{
-            display: none;
-        }
-    </style>
 
 </head>
 <body class="layui-layout-body">
 <div style="display: none;">
     <!--创建用例-->
-    <div class="layui-row" id="add_update_case" style="display:none;">
+    <div class="layui-row" id="add_update_case">
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="add_update_case">
 
@@ -333,15 +324,15 @@
     <div style="padding: 15px;">
         <!--  lay-separator="-"-->
         <div class="demoTable">
-            <div>
+            <div class="my_crumb">
                 <span class="layui-breadcrumb" lay-separator="—">
-                    <a href="/"  style="color: #5FB878;">接口管理</a>
+                    <a href="/interface_manager"  style="color: #5FB878!important;">接口管理</a>
                     <a>{{ puisne_module }}</a>
                 </span>
             </div>
             <div id="sousuo">
                 <div class="layui-inline" style="margin-top: -7px;">
-                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入用例名称"
+                    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入接口名称"
                            value="错误接口查询"
                            style="width:200px;color: #999999;">
                 </div>
@@ -466,53 +457,20 @@
                     children: [
                         {
                             elem: '#templateTable'
-                            , url: "/singleapi/parameter_details/"
+                            , url: "/api/v1/interface_set/list/"
                             , where: function (row) {
                                 console.log(row);
-                                return {caseid: row.caseid}
+                                return {parentId: row.belong_module,id:row.id}
                             }
-                            , title: "请求参数详情"
+                            , title: "前置控制器"
                             , skin: 'line'
                             , size: "lg"
                             //, height: 'full-10'
                             , cols: [[
-                                {
-                                    field: 'parameterName',
-                                    title: '参数名称',
-                                    width: 220,
-                                    align: "left",
-                                    style: 'background-color: #eee;'
-                                }
-                                , {
-                                    field: 'parameterThat',
-                                    title: '参数说明',
-                                    width: 250,
-                                    align: "left",
-                                    style: 'background-color: #eee;'
-                                }
-                                , {
-                                    field: 'requestType',
-                                    title: '请求类型',
-                                    width: 150,
-                                    align: "left",
-                                    style: 'background-color: #eee;'
-                                }
-                                , {
-                                    field: 'isMust',
-                                    title: '是否必须',
-                                    width: 150,
-                                    align: "left",
-                                    templet: "#methodTpl",
-                                    sort: true,
-                                    style: 'background-color: #eee;'
-                                }
-                                , {
-                                    field: 'sample',
-                                    title: '示例',
-                                    width: 190,
-                                    align: "left",
-                                    style: 'background-color: #eee;'
-                                }
+                                {field: 'depend_id', title: '依赖的ID', align: "left", event: "depend_id"}
+                                , {field: 'depend_key', title: '依赖的key', align: "left", event: "depend_key"}
+                                , {field: 'replace_key', title: '替换的key', align: "left", event: "replace_key"}
+                                , {field: 'replace_position', title: '替换的位置', align: "left", event: "replace_position"}
                             ]]
                             , done: function (data) {
                                 //console.log(data);
@@ -529,12 +487,23 @@
                     }
                 }
                 , {field: 'method', title: '请求方式', width: 90, align: "left", templet: "#methodTpl"}
+                , {field:'preprocessor', title:'前置控制器', width:100, templet: function (d) {
+                    console.log(d.preprocessor);
+                    console.log(typeof (d.preprocessor))
+                        var preprocessor = "";
+                        if (d.preprocessor == "True") {
+                            preprocessor = "<input type='checkbox' value='" + d.preprocessor + "' id='preprocessor' lay-filter='preprocessor' checked='checked' name='preprocessor'  lay-skin='switch' lay-text='开启|关闭' >";
+                        }
+                        else {
+                            preprocessor = "<input type='checkbox' value='" + d.preprocessor + "' id='preprocessor' lay-filter='preprocessor'  name='preprocessor'  lay-skin='switch' lay-text='开启|关闭' >";
+
+                        }
+                        console.log(preprocessor);
+                        return preprocessor;
+                    }}
                 , {field: 'params', title: 'Query参数', align: "left", event: 'params'}
                 , {field: 'body', title: 'Body参数', align: "left", event: 'body'}
-                , {field: 'depend_id', title: '依赖的ID', align: "left", event: "depend_id"}
-                , {field: 'depend_key', title: '依赖的key', align: "left", event: "depend_key"}
-                , {field: 'replace_key', title: '替换的key', align: "left", event: "replace_key"}
-                , {field: 'replace_position', title: '替换的位置', align: "left", event: "replace_position"}
+
                 , {
                     field: 'durantion',
                     title: '响应时长',
@@ -602,7 +571,7 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-
+          //监听性别操作
         //头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
@@ -2313,6 +2282,7 @@
         });
     }
 </script>
+
 
 <!--role表头按钮-->
 <script type="text/html" id="roletoolbarDemo">

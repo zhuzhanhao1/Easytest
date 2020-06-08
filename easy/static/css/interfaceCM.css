@@ -31,5 +31,9 @@
 }
 
 body{
-    background-image:linear-gradient(to left bottom, hsl(50, 30%, 95%) 50%,hsl(50, 30%, 85%) 100%);
+    /*background-image:linear-gradient(to left bottom, hsl(50, 30%, 95%) 50%,hsl(50, 30%, 85%) 100%);*/
+}
+
+.layui-form-label{
+    width:90px;
 }

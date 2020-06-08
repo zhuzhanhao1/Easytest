@@ -135,7 +135,10 @@ class InterFaceSetList(APIView):
             接口集列表
         '''
         parentId = request.GET.get("parentId","")
+        now_id = request.GET.get("id","")
         obj = InterFaceSet.objects.filter(belong_module=parentId)
+        if now_id:
+            obj = InterFaceSet.objects.filter(Q(belong_module=parentId) & Q(id=now_id))
         serializer = InterFaceSetSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量
