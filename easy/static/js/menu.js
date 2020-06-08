@@ -34,8 +34,6 @@ function get_table_by_title() {
                         {field: 'puisne_key', title: '模块的键'},
                         {
                             field: 'url', title: '接口列表连接', templet: function (d) {
-                                console.log(d.id);
-                                console.log(d.url);
                                 return '<a class="layui-blue" href="' + d.url +"?parentId="+ d.id + '">' + d.url + '</a>';
                             }
                         }
@@ -273,7 +271,7 @@ $(document).ready(function(){
                 {field: 'puisne_key', title: '模块的键'},
                {
                     field: 'url', title: '接口列表连接', templet: function (d) {
-                        return '<a class="layui-blue" href="' + d.url + '">' + d.url + '</a>';
+                        return '<a class="layui-blue" href="' + d.url +"?parentId="+ d.id + '">' + d.url + '</a>';
                     }
                 }
             ]]

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Testapi-菜单管理</title>
+    {% load static %}
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,14 +19,14 @@
     <script src="../static/jquery-3.4.1/jquery-3.4.1.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="../static/layui2.5.5/layui.js"></script>
-    <script src="../static/js/menu.js"></script>
+    <script src="{% static 'js/menu.js' %} "></script>
 </head>
 
 <body>
 
-<div>
+<div style="display: none;">
     <!--添加 编辑-->
-    <div class="layui-row" id="add_update_module" style="display: none;">
+    <div class="layui-row" id="add_update_module">
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="add_update_module">
 
@@ -66,7 +67,7 @@
         </div>
     </div>
     <!--添加分类-->
-    <div class="layui-row" id="add_classification" style="display: none;">
+    <div class="layui-row" id="add_classification">
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="add_classification">
 
@@ -89,8 +90,9 @@
             </form>
         </div>
     </div>
-    <!--主题内容-->
-    <div class="classification_manage">
+</div>
+<!--主题内容-->
+<div class="classification_manage">
         <div class="mylist">
             <button class="layui-btn layui-btn-sm mybtn" onclick="add_classification()">添加系统分类</button>
             <ul class="list-group" id="classification">
@@ -114,8 +116,6 @@
             <table id="treetable" lay-filter="treetable"></table>
         </div>
     </div>
-</div>
-
 
 {#表头按钮#}
 <script type="text/html" id="toolbarDemo">

@@ -25,7 +25,7 @@
 
 </head>
 <body class="layui-layout-body">
-<div>
+<div style="display: none;">
     <!--创建用例-->
     <div class="layui-row" id="add_update_case" style="display:none;">
         <div class="layui-col-md11">
@@ -333,11 +333,11 @@
     <div style="padding: 15px;">
         <!--  lay-separator="-"-->
         <div class="demoTable">
-            <div class="layui-breadcrumb">
-					<span class="layui-icon layui-icon-link" style="font-size: 22px;color: #fff;">
-						<a href="" class="index" style="color: #fff;">http://amberdata.cn/{{ system }}api</a>
-						<a class="kit-side-fold casetitle" style="font-size: 22px;color: #fff;">{{ crumbs }}</a>
-					</span>
+            <div>
+                <span class="layui-breadcrumb" lay-separator="—">
+                    <a href="/"  style="color: #5FB878;">接口管理</a>
+                    <a>{{ puisne_module }}</a>
+                </span>
             </div>
             <div id="sousuo">
                 <div class="layui-inline" style="margin-top: -7px;">
