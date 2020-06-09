@@ -27,4 +27,4 @@ def interface_set_views(request):
     parentId = request.GET.get("parentId","")
     puisne_module = InterFaceManageModule.objects.get(id=parentId).puisne_module
     print(parentId)
-    return render(request, 'processApi.html',{"parentId":parentId,"puisne_module":puisne_module})
+    return render(request, 'interfaceSet.html',{"parentId":parentId,"puisne_module":puisne_module})
