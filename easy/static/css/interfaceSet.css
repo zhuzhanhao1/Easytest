@@ -165,3 +165,16 @@
 .fa-trash-o:hover{
     color: red;
 }
+.my_textarea{
+    width: 90%;
+    min-height:150px;
+}
+.my_send{
+    left: 30%;
+}
+#my_url{
+    width: 90%;
+}
+#method{
+    margin-left: 30px;
+}

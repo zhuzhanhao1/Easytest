@@ -7,147 +7,89 @@
     {% load static %}
     <link rel="icon" href="{% static 'images/favicon%202.ico' %}">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'layui2.5.5/css/layui.css' %}">
     <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/soulTable.css' %}">
     <link rel="stylesheet" href="{% static 'css/interfaceSet.css' %}">
-    <link rel="stylesheet" src="{% static 'css/quickTest.css' %}">
 
+
+    <script src="{% static 'jquery-3.4.1/jquery-3.4.1.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'layui2.5.5/layui.js' %}"></script>
-    <script src="{% static 'js/interfaceSet.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    {#    <script src="{% static 'js/interfaceSet.js' %}"></script>#}
 
 
 
 </head>
 <body class="layui-layout-body">
+
+
 <div style="display: none;">
+    <div class="layui-row" id="interface_debug" style="display: none;">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="interface_debug">
 
-    <div class="layui-row" id="interface_debug">
-        <div class="modal fade">
-            <div class="modal-content">
-                <div class="modal-header" style="margin-top: 10px;">
-                    接口调试
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">Request</label>
+                    <div class="layui-inline" id="method">
+                        <div class="layui-input-inline">
+                            <select name="method">
+                                <option>GET</option>
+                                <option>POST</option>
+                                <option>DELETE</option>
+                                <option>PUT</option>
+                                <option>FILE</option>
+                                <option>PATCH</option>
+                                <option>OPITIONS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn my_send" lay-submit lay-filter="interface_debug">Send</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form class="layui-form" lay-filter="interface_debug">
 
-                        <div class="layui-form-item" style="margin-top: 20px;">
-                            <label class="layui-form-label">Request</label>
-                            <div class="layui-inline">
-                                <div class="layui-input-inline" id="method" style="width: 120px;">
-                                    <select name="addMethod" id="addMethod">
-                                        <option>GET</option>
-                                        <option>POST</option>
-                                        <option>DELETE</option>
-                                        <option>PUT</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <div class="layui-input-inline">
-                                    <input type="text" name="addUrl" class="layui-input"
-                                           style="width: 790px;margin-left: -25px;" maxlength="300" id="addUrl"
-                                           placeholder="url">
-                                </div>
-                            </div>
-                            <div class="layui-inline" style="margin-left: 555px;">
-                                <button type="submit" class="layui-btn  layui-btn-warm" data-dismiss="modal"
-                                        id="addsubmitBtn" lay-filter="interface_debug">Send
-                                </button>
-                            </div>
-                        </div>
-                        <div id="addheadersdiv" name="addheadersdiv" style="margin-top: 30px;">
-                            <label class="layui-form-label">Headers</label>
-                            <div class="layui-input-inline">
-                                <ul id="headers" style="list-style-type: none">
-                                    <li style="margin-bottom:1px;">
-                                        <input id="headers_data" class="addheaders myinput" maxlength="200"
-                                               name="headers_key"
-                                               type="text" placeholder="Key" value="accessToken"/>
-                                        <input class="addheaders myinput" name="headers_value" type="text"
-                                               placeholder="Value"/>
-
-                                        <input id="addheaders" type="button" class="layui-btn  layui-btn-normal mybtn"
-                                               value="+" style="width: 36px;font-size: 20px;margin-right: -10px;">
-                                        <input id="delheaders" type="button" class="layui-btn  layui-btn-danger mybtn"
-                                               style="width: 36px;font-size: 20px;" value="-">
-                                        <input id="addmergeheaders" type="text" style="display:None" maxlength="5000"
-                                               name="addmergeheaders"/>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div id="addformdatadiv" name="addformdatadiv" style="margin-top: 30px;">
-                            <label class="layui-form-label">Params</label>
-                            <div class="layui-input-inline">
-                                <ul id="formdatas" style="list-style-type: none">
-                                    <li style="margin-bottom:1px;">
-                                        <input type="text" class="addformdata myinput" maxlength="200"
-                                               name="formdatas_key"
-                                               placeholder="Key"/>
-                                        <input type="text" class="addformdata myinput" name="formdatas_value"
-                                               placeholder="Value"/>
-
-                                        <input id="addformdata" type="button" class="layui-btn  layui-btn-normal mybtn"
-                                               style="width: 36px;font-size: 20px;margin-right: -10px;"
-                                               value="+">
-                                        <input id="delformdata" type="button" class="layui-btn  layui-btn-danger mybtn"
-                                               style="width: 36px;font-size: 20px;"
-                                               value="-">
-                                        <input id="addmergeformdatas" type="text" style="display:None" maxlength="5000"
-                                               name="addmergeformdatas"/>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        {#						<hr class="layui-bg-gray">#}
-                        <div class="layui-form-item layui-form-text" style="margin-top: 30px;">
-                            <label class="layui-form-label">Body</label>
-                            <div class="layui-input-block">
-								<textarea id="body" name="body" placeholder="仅支持输入JSON格式的内容数据" class="layui-textarea"
-                                          style="width: 400px;height: 300px;"></textarea>
-                            </div>
-                        </div>
-
-                        {#						<div class="layui-form-item layui-form-text" style="margin-top: 30px;">#}
-                        {#							<label class="layui-form-label">response</label>#}
-                        {#							<div class="layui-input-inline">#}
-                        {#								<textarea id="response" name="response" class="layui-textarea"#}
-                        {#										  style="width: 910px;height: 500px;" placeholder="响应内容在此区域展示"></textarea>#}
-                        {#							</div>#}
-                        {#							<label class="layui-form-label" style="width: 112px;color: chocolate;font-family:cursive">默认复制结果内容</label><br><br><br>#}
-                        {#							<div class="layui-inline">#}
-                        {#								<input type="button" class="layui-btn layui-btn-warm" id="jsoncn" value="前往json.cn粘贴"/>#}
-                        {#							</div>#}
-                        {#						</div>#}
-
-
-                        <div class="layui-collapse" lay-filter="test">
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">测试已完成，快点我获取响应结果吧~~~</h2>
-                                <div class="layui-colla-content">
-                                    <div class="layui-form-item layui-form-text">
-                                        <label class="layui-form-label">response</label>
-                                        <div class="layui-input-inline">
-											<textarea id="responses" name="response" class="layui-textarea"
-                                                      style="width: 910px;height: 500px;"
-                                                      placeholder="响应内容在此区域展示"></textarea>
-                                        </div>
-                                        <label class="layui-form-label"
-                                               style="width: 112px;color: chocolate;font-family:cursive">默认复制结果内容</label><br><br><br>
-                                        <div class="layui-inline">
-                                            <input type="button" class="layui-btn layui-btn-warm" id="jsoncn"
-                                                   value="前往json.cn粘贴"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">URL</label>
+                    <div class="layui-input-block">
+                        <input type="text" id= "my_url" name="url" class="layui-input"  placeholder="请输入请求接口路径">
+                    </div>
                 </div>
-            </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Headers</label>
+                    <div class="layui-input-block">
+                        <textarea  name="headers" id="headers" placeholder="仅支持输入JSON格式的内容数据" class="form-control layui-textarea my_textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Params</label>
+                    <div class="layui-input-block">
+                        <textarea  name="params" placeholder="仅支持输入JSON格式的内容数据" class="layui-textarea my_textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Body</label>
+                    <div class="layui-input-block">
+                        <textarea  name="body" placeholder="仅支持输入JSON格式的内容数据" class="layui-textarea my_textarea"></textarea>
+                    </div>
+                </div>
+                <p>
+                  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+                     aria-expanded="false" aria-controls="collapseExample">
+                    响应结果
+                  </a>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body" id="response">
+
+                  </div>
+                </div>
+
+            </form>
         </div>
     </div>
     <!--创建用例-->
@@ -480,6 +422,28 @@
 </div>
 
 
+
+<script>
+    function jsonstr() {
+        $('#headers').blur(function () {
+            console.log("1234");
+            var input;
+            try {
+                if ($('#headers').val().length == 0) {
+                    return;
+                }
+
+                input = eval('(' + $('#headers').val() + ')');
+            } catch (error) {
+                return alert("Input data is not valid JSON, please check. Error: " + error);
+            }
+
+            var header = $('#headers').val(JSON.stringify(input, null, 4));
+            console.log(header);
+        })
+    }
+</script>
+
 <!--数据表格JS-->
 <script>
     // 自定义模块
@@ -577,7 +541,7 @@
             }
             , cols: [[ //表头, fixed: 'left'
                 {type: 'checkbox'}
-                , {title: '操作', toolbar: '#barDemo', width: 80, align: "left"}
+                , {title: '操作', toolbar: '#barDemo', width: 120,align: "left"}
                 , {field: 'id', title: '序号', width: 60, align: "left"}
                 , {field: 'identity', title: '角色', width: 170, align: "left"}
                 , {
@@ -600,7 +564,7 @@
                             , size: "lg"
                             //, height: 'full-10'
                             , cols: [[
-                                {field: 'depend_id', title: '依赖的ID', align: "left", event: "depend_id"}
+                                {field: 'depend_id', title: '依赖的ID', align: "left", edit: 'text', event: "depend_id"}
                                 , {field: 'depend_key', title: '依赖的key', align: "left", event: "depend_key"}
                                 , {field: 'replace_key', title: '替换的key', align: "left", event: "replace_key"}
                                 , {field: 'replace_position', title: '替换的位置', align: "left", event: "replace_position"}
@@ -621,8 +585,8 @@
                 }
                 , {field: 'method', title: '请求方式', width: 90, align: "left", templet: "#methodTpl"}
                 , {field:'preprocessor', title:'前置控制器', width:100, templet: function (d) {
-                    console.log(d.preprocessor);
-                    console.log(typeof (d.preprocessor))
+                        console.log(d.preprocessor);
+                        console.log(typeof (d.preprocessor))
                         var preprocessor = "";
                         if (d.preprocessor == "True") {
                             preprocessor = "<input type='checkbox' value='" + d.preprocessor + "' id='preprocessor' lay-filter='preprocessor' checked='checked' name='preprocessor'  lay-skin='switch' lay-text='开启|关闭' >";
@@ -704,7 +668,7 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-          //监听性别操作
+        //监听性别操作
         //头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
@@ -1922,74 +1886,72 @@
             }
             //接口调试
             else if(obj.event === "interface_debug"){
+                console.log(data);
                 var debug = layer.open({
-                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                type: 1,
-                title: "接口调试",
-                skin: "layui-layer-molv",
-                shade: 0.6,
-                area: ['50%', '100%'],
-                offset: 'rb',
-                content: $("#interface_debug").html(),
-                success: function () {
-                    layui.use(['form', "jquery"], function () {
-                        var form = layui.form,
-                            $ = layui.$;
-                        form.val("interface_debug",{
-                            "depend":"unexist"
-                        });
-                        form.on('submit(interface_debug)', function (data) {
-                            $.ajax({
-                                cache: false,
-                                 url: "/api/v1/processapi/add_case/",
-                                type: 'POST',
-                                data: {
-                                    "identity": data.field.identity,
-                                    "casename": data.field.casename,
-                                    "url": data.field.url,
-                                    "method": data.field.method,
-                                    "belong": '{{ belong }}',
-                                    "params": data.field.params,
-                                    "body": data.field.body,
-                                    "depend_id": data.field.dependid,
-                                    "depend_key": data.field.dependkey,
-                                    "replace_key": data.field.replacekey,
-                                    "replace_position": num,
-                                    "system": "{{ system }}",
-                                    "head": data.field.head
-                                },
-                                beforeSend: function () {
-                                    l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
-                                },
-                                success: function (data) {
-                                    if (data.code === 1000) {
-                                        layer.msg(data.msg, {
-                                            icon: 6, offset: "t"
-                                        })
-                                    } else {
-                                        layer.msg(data.error, {
-                                            icon: 5, offset: "t"
-                                        })
-                                    }
-                                    $(".layui-laypage-btn").click();
-                                },
-                                error: function () {
-                                    layer.msg("回调失败", {
-                                        icon: 5,
-                                        offset: 't'
-                                    });
-                                },
-                                complete: function () {
-                                    layer.close(l_index);
-                                    layer.close(debug);
-                                }
-
+                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                    type: 1,
+                    title: "接口调试",
+                    skin: "layui-layer-molv",
+                    shade: 0.6,
+                    area: ['40%', '100%'],
+                    offset: 'rb',
+                    content: $("#interface_debug").html(),
+                    success: function () {
+                        layui.use(['form',"jquery"], function () {
+                            var form = layui.form,
+                                $ = layui.$;
+                            form.val("interface_debug",{
+                                "url":data.url,
+                                "params":data.params,
+                                "body":data.body,
+                                "method":data.method,
+                                "headers":data.header
                             });
-                            return false;//阻止表单跳转
+                            form.on('submit(interface_debug)', function (data) {
+                                $.ajax({
+                                    cache: false,
+                                    url: "/api/v1/interface_set/debug/",
+                                    type: 'POST',
+                                    data: {
+                                        "url": data.field.url,
+                                        "method": data.field.method,
+                                        "headers":data.field.headers,
+                                        "params": data.field.params,
+                                        "body": data.field.body,
+                                    },
+                                    beforeSend: function () {
+                                        l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    },
+                                    error: function () {
+                                        layer.msg("回调失败", {
+                                            icon: 5,
+                                            offset: 't'
+                                        });
+
+                                    },
+                                    complete: function () {
+                                        $("#response").val("ewhgwehbweb");
+                                        layer.close(l_index);
+                                        //layer.close(debug);
+                                    }
+
+                                });
+                                return false;//阻止表单跳转
+                            });
                         });
-                    });
-                }
-            });
+                    }
+                });
             }
         });
     });
@@ -2047,8 +2009,8 @@
                         "depend":"unexist"
                     });
                     form.on('radio(depend)', function(data){
-                      console.log(data.elem); //得到radio原始DOM对象
-                      console.log(data.value); //被点击的radio的value值
+                        console.log(data.elem); //得到radio原始DOM对象
+                        console.log(data.value); //被点击的radio的value值
                         if (data.value == "exist"){
                             $(".mydepend").css("display","block")
                             console.log("我应该展现依赖相关内容")
@@ -2451,7 +2413,7 @@
                                     url: "/api/v1/systemrole/get_token_by_id/",
                                     type: 'PUT',
                                     data:{
-                                      ids: JSON.stringify(list_id)
+                                        ids: JSON.stringify(list_id)
                                     },
                                     success: function (data) {
                                         //layer.closeAll();
@@ -2486,6 +2448,7 @@
         });
     }
 </script>
+
 
 
 <!--role表头按钮-->

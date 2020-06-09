@@ -91,13 +91,5 @@ $("#jsoncn").click(function () {
 })
 
 
-layui.use(['element', 'layer'], function () {
-    var element = layui.element;
-    var layer = layui.layer;
 
-    //监听折叠
-    element.on('collapse(test)', function (data) {
-        console.log(data.show);
-        //layer.msg('查看结果：' + data.show);
-    });
-});
+
