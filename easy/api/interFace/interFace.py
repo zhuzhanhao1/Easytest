@@ -6,11 +6,12 @@ from .interFaceSer import InterFaceManageClassificationSer,InterFaceManageModule
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django_redis import get_redis_connection
+# from django_redis import get_redis_connection
 import json
 from easy.config.Status import *
+from easy.common.interfaceRun import InterfaceRun
 
-class InterFaceClassification(APIView):
+class InterfaceClassification(APIView):
     '''
         接口分类
     '''
@@ -57,7 +58,7 @@ class InterFaceClassification(APIView):
             error_code["error"] = "添加系统分类失败"
         return Response(error_code)
 
-class InterFaceModule(APIView):
+class InterfaceModule(APIView):
 
     def get(self,request,*args,**kwargs):
         title = request.GET.get("title","")
@@ -128,7 +129,7 @@ class InterFaceModule(APIView):
             error_code["error"] = "删除模块失败"
             return Response(error_code)
 
-class InterFaceSetList(APIView):
+class InterfaceSetList(APIView):
 
     def get(self,request,*args,**kwargs):
         '''
@@ -149,3 +150,51 @@ class InterFaceSetList(APIView):
         for contact in contacts:
             res.append(contact)
         return Response(data={"code": 0, "msg": "", "count": len(serializer.data), "data": res})
+
+class RunInterfaceDebugTest(APIView):
+
+    def parameter_check(self, url,method):
+        """
+        验证必传参数 method, url, headers
+        """
+        try:
+            if not method or not url:
+                error_code["error"] = "必填参数method或URL不存在"
+                return error_code
+            else:
+                return right_code
+        except Exception as e:
+            error_code["error"] = "未知错误"
+            return error_code
+
+    def post(self, request, *args, **kwargs):
+        '''
+            接口测试
+        '''
+        datas = request.data
+        method=datas.get("method","")
+        url=datas.get("url","")
+        headers=datas.get("headers","")
+        params=datas.get("params","")
+        body=datas.get("body","")
+        #参数校验
+        result = self.parameter_check(url,method)
+        print(result)
+        if result["code"] == 1001:
+            return Response(result)
+        try:
+            response_headers,response_body,duration,status_code = InterfaceRun().run_main(method, url, headers, params, body)
+            # response = json.dumps(response, ensure_ascii=False, sort_keys=True, indent=2)
+            right_code["msg"] = "接口调试成功"
+            right_code["response_headers"] = response_headers
+            right_code["response_body"] = response_body
+            right_code["duration"] = duration
+            right_code["status_code"] = status_code
+            print(right_code)
+        except TypeError as e:
+            error_code["error"] = "操作或函数应用于不适当类型的对象"
+            return Response(right_code)
+        except json.decoder.JSONDecodeError as e:
+            error_code["error"] = "json.loads()读取字符串报错"
+            return Response(right_code)
+        return Response(right_code)
