@@ -662,7 +662,8 @@
                                             });
                                         }
                                     });
-                                } else if (obj.event === 'childDel') {
+                                }
+                                else if (obj.event === 'childDel') {
                                     layer.confirm('真的要删除此行么', {icon: 2, title: "删除提示"}, function (index) {
                                         var id = obj.data.id;
                                         console.log(id);
