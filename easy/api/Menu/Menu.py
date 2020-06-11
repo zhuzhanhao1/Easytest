@@ -19,7 +19,6 @@ class MainMenuApi(APIView):
         obj = MainMenu.objects.filter()
         id_list = [i.id for i in obj]
         main_menu_data = MainMenuSer(obj, many=True).data
-        print(main_menu_data)
         for id in id_list:
             query_set = ChildMenu.objects.filter(classification_id=id)
             if query_set:

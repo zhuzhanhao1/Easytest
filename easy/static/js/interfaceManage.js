@@ -450,9 +450,11 @@ function del_classification() {
         console.log("标题:" + title);
         layer.confirm('你确定要删除'+title+'？', {
           btn: ['取消','确定'] //按钮
-        }, function(){
+        },
+        function(){
           layer.msg('辛亏没删除，删除就彻底找不回咯！', {icon: 1});
-        }, function(){
+        },
+        function(){
             $.ajax({
                 url: "/api/v1/interface_manager/del_classification/",
                 type: 'DELETE',

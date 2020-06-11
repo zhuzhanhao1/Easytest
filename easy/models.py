@@ -84,6 +84,7 @@ class InterFaceSet(models.Model):
     # SET_NULL删除主表，置空此字段,CASCADE级联删除
     belong_module = models.ForeignKey(InterFaceManageModule, on_delete=models.CASCADE, verbose_name='所属模块的id')
     preprocessor = models.CharField(max_length=20,verbose_name="前置处理器",default=False)
+
     depend_id = models.CharField(max_length=20,verbose_name="依赖的id",null=True,blank=True)
     depend_key = models.CharField(max_length=500,verbose_name="依赖的key",null=True,blank=True)
     replace_key = models.CharField(max_length=500,verbose_name="替换的key",null=True,blank=True)

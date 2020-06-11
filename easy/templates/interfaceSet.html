@@ -25,7 +25,7 @@
 
 
 <div style="display: none;">
-
+    <!--debug-->
     <div class="layui-row" id="interface_debug">
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="interface_debug">
@@ -82,7 +82,7 @@
             </form>
         </div>
     </div>
-
+    <!--返回响应内容-->
     <div class="layui-row" id="response_info">
 
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
@@ -114,32 +114,17 @@
             </div>
         </fieldset>
     </div>
-    <!--创建用例-->
+
+    <!--创建+编辑-接口-->
     <div class="layui-row" id="add_update_case">
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="add_update_case">
 
                 <div class="layui-form-item" style="margin-top: 20px;">
-                    {#                    <label class="layui-form-label">系统角色</label>#}
-                    {#                    <div class="layui-input-block">#}
-                    {#                        <select name="identity" id="identity" lay-verify="required">#}
-                    {#                            <option value=""></option>#}
-                    {#                        </select>#}
-                    {#                    </div>#}
-                    {#                </div>#}
-                    <label class="layui-form-label">负责人</label>
+                    <label class="layui-form-label">接口名称</label>
                     <div class="layui-input-block">
-                        <select name="head" id="head" lay-verify="required">
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">用例名称</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="casename" required lay-verify="required"
-                               placeholder="请输入用例名称"
+                        <input type="text" name="interface_name" required lay-verify="required"
+                               placeholder="请输入接口名称"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -155,18 +140,22 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">请求方式</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="method" value="get" title="GET" checked>
-                        <input type="radio" name="method" value="post" title="POST">
-                        <input type="radio" name="method" value="put" title="PUT">
-                        <input type="radio" name="method" value="delete" title="Delete">
-                        <input type="radio" name="method" value="file" title="File">
+                        <select name="method">
+                                <option>GET</option>
+                                <option>POST</option>
+                                <option>DELETE</option>
+                                <option>PUT</option>
+                                <option>FILE</option>
+                                <option>PATCH</option>
+                                <option>OPITIONS</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">Query Params</label>
                     <div class="layui-input-block">
-                        <textarea name="params" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea name="query" placeholder="请输入内容" class="layui-textarea"></textarea>
                     </div>
                 </div>
 
@@ -179,13 +168,12 @@
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">存有依赖</label>
+                    <label class="layui-form-label">前置处理</label>
                     <div class="layui-input-block">
-                        <input type="radio" lay-filter="depend" name="depend" value="exist" title="存在">
-                        <input type="radio" lay-filter="depend" checked name="depend" value="unexist" title="不存在">
+                        <input type="radio" lay-filter="preprocessor" name="preprocessor" value="True" title="存在">
+                        <input type="radio" lay-filter="preprocessor" checked name="preprocessor" value="False" title="不存在">
                     </div>
                 </div>
-
 
                 <div class="layui-form-item mydepend" style="display: none;">
                     <label class="layui-form-label">替换区域</label>
@@ -197,23 +185,23 @@
 
 
                 <div class="layui-form-item mydepend" style="display: none;">
-                    <label class="layui-form-label">依赖的ID</label>
+                    <label class="layui-form-label">前置id</label>
                     <div class="layui-input-block">
-                        <input type="text" name="dependid" placeholder="无依赖不必填" class="layui-input">
+                        <input type="text" name="depend_id" placeholder="无依赖不必填" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item mydepend" style="display: none;">
-                    <label class="layui-form-label">依赖的key</label>
+                    <label class="layui-form-label">前置的的key</label>
                     <div class="layui-input-block">
-                        <input type="text" name="dependkey" placeholder="无依赖不必填" class="layui-input">
+                        <input type="text" name="depend_key" placeholder="无依赖不必填" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item mydepend" style="display: none;">
                     <label class="layui-form-label">替换的key</label>
                     <div class="layui-input-block">
-                        <input type="text" name="replacekey" placeholder="无依赖不必填" class="layui-input">
+                        <input type="text" name="replace_key" placeholder="无依赖不必填" class="layui-input">
                     </div>
                 </div>
 
@@ -226,71 +214,6 @@
                                 style="float: right;margin-right: 10px;">
                             重置
                         </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!--添加编辑用户信息-->
-    <div class="layui-row" id="add_update_role">
-        <div class="layui-col-md11">
-            <form class="layui-form" lay-filter="add_update_role">
-
-                <div class="layui-form-item" style="margin-top: 20px;">
-                    <label class="layui-form-label">系统</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="system" name="system" required lay-verify="required"
-                               autocomplete="off" class="layui-input" value="{{ system }}">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="role" name="role" required lay-verify="required"
-                               placeholder="请输入角色名" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">账号</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="username" name="username" required lay-verify="required"
-                               placeholder="请输入账号" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">密码</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="password" name="password" required lay-verify="required"
-                               placeholder="请输入密码" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">令牌</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="token" name="token"
-                               placeholder="请输入令牌,可以不填" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">IP</label>
-                    <div class="layui-input-block">
-                        <input type="text" id="url" name="url" required lay-verify="required"
-                               placeholder="请输入IP地址" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn layui-btn-warm" lay-submit lay-filter="add_update_role"
-                                style="float: right;margin-left:5px;">立即提交
-                        </button>
-                        <button type="reset" style="float: right;" class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>
             </form>
@@ -379,30 +302,6 @@
         </div>
     </div>
 
-    <!--编辑替换位置-->
-    <div class="layui-row" id="replace_position">
-        <div class="layui-col-md11">
-            <form class="layui-form" lay-filter="replace_position">
-
-                <div class="layui-form-item" style="margin-top: 20px;">
-                    <label class="layui-form-label">替换区域</label>
-                    <div class="layui-input-block">
-                        <input type="checkbox" name="params" value="params" title="Query区域">
-                        <input type="checkbox" name="body" value="body" title="Body区域">
-                    </div>
-                </div>
-
-                <div class="layui-form-item" style="margin-top: 30px;">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="replace_position"
-                                style="float:right;background-color: yellowgreen;">确定
-                        </button>
-                    </div>
-                </div>
-            </form>
-            +
-        </div>
-    </div>
 
 </div>
 <!--主题内容-table-->
@@ -434,30 +333,11 @@
 </div>
 
 
-<!--role表头按钮-->
-<script type="text/html" id="roletoolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add_role">添加角色</button>
-        <button class="layui-btn layui-btn-sm" lay-event="get_token">获取令牌</button>
-    </div>
-</script>
-<!--role表行内按钮-->
-<script type="text/html" id="rolebarDemo">
-    <a class="layui-icon layui-icon-tips" style="color:#797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;" lay-event="update_role"></a>
-    <a class="fa fa-trash-o" lay-event="del_role" style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>
-</script>
-
-<script type="text/html" id="resultDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="dingding">钉钉通知</button>
-    </div>
-</script>
 <!--表头按钮-->
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button type="button" onclick="get_user_info()" class="layui-btn layui-btn-sm">用户信息</button>
         <button type="button" onclick="add_case()" class="layui-btn layui-btn-sm">添加接口</button>
-        <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>
+{#        <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>#}
         <button id="Dingding" class="layui-btn layui-btn-sm" lay-event="ding_ding">钉钉通知</button>
         <button id="Runcase" class="layui-btn layui-btn-sm" lay-event="run_case">执行接口</button>
         <button class="layui-btn layui-btn-sm" lay-event="export_report">生成报表</button>
@@ -467,9 +347,9 @@
 <script type="text/html" id="barDemo">
     <a class="fa fa-pencil-square-o"
        style="color:#797979;font-size: 20px;padding:0 2px;margin-top:1px;vertical-align:middle;font-weight: lighter;"
-       lay-event="update_case"></a>
+       lay-event="update_interface"></a>
 
-    <a class="fa fa-trash-o" lay-event="del_case"
+    <a class="fa fa-trash-o" lay-event="del_interface"
        style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>
 
     <a class="fa fa-bug" lay-event="interface_debug"

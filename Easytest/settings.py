@@ -86,7 +86,6 @@ WSGI_APPLICATION = 'Easytest.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -105,6 +104,16 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://zhuzhanhao.cn:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -148,3 +157,50 @@ STATIC_URL = '/static/'
 
 #开启该中间件之后，默认会为任何开放的HttpResponse设置X-Frame-Options协议头为DENY,如果你想要设置为SAMEOGIGIN
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+#配置日志
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s,%(process)d,%(name)s,%(levelname)s,%(filename)s:%(lineno)d,%(message)s'
+        },
+    },
+    'filters': {
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+            # 'filters': ['special'],
+        },
+        'default': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(os.path.curdir, 'Error.log'),
+            'maxBytes': 1024 * 1024 * 50,  # 50 MB
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['default', 'console'] if DEBUG else ["default"],
+            'level': 'ERROR',
+            'propagate': False
+        },
+        '': {
+            'handlers': ['default', 'console'] if DEBUG else ["default"],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+    }
+}
