@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'interface_set/del_interface/(?P<pk>[0-9]+)/$', interFace.InterfaceSetList.as_view()),
 
     url(r'interface_set/debug_test/$', interFace.RunInterfaceDebugTest.as_view()),
+    url(r'interface_set/test/$', interFace.RunInterfaceDebugTest.as_view()),
 ]
 

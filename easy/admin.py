@@ -25,4 +25,4 @@ class InterFaceManageModuleAdmin(admin.ModelAdmin):
 
 @admin.register(InterFaceSet)
 class InterFaceSetAdmin(admin.ModelAdmin):
-    list_display = ("interface_name","identity","url","method","header","params","body","belong_module","preprocessor")
+    list_display = ("interface_name","url","method","headers","params","body","belong_module","preprocessor")

@@ -16,12 +16,7 @@ layui.use(['table', "soulTable"], function (data) {
         elem: '#test'
         , url: '/api/v1/interface_set/list/' //数据接口"exports"
         , toolbar: '#toolbarDemo'
-        , defaultToolbar: [
-            'filter', {title: '导出数据', layEvent: 'export_case', icon: 'layui-icon-download-circle'}, {
-                title: '全屏显示',
-                layEvent: 'fullScreen',
-                icon: 'layui-icon-top'
-            }, {title: '导入数据', layEvent: 'import_case', icon: 'layui-icon-upload-circle'}, 'print']
+        , defaultToolbar: ['filter',  {title: '导入数据', layEvent: 'import_case', icon: 'layui-icon-upload-circle'}, 'print']
         , title: '接口流程测试'
         , page: {groups: 5} //开启分页
         , loading: false
@@ -109,14 +104,13 @@ layui.use(['table', "soulTable"], function (data) {
             , {
                 field: 'interface_name',
                 title: '接口名称',
-                width: 220,
                 align: "left",
                 excel: {color: '0040ff', bgColor: 'f3fef3'},
                 edit: "text"
                 //templet: "#casenameTpl"
             }
             , {
-                field: 'url', title: '请求路径', width: 220, align: "left", edit: "text", templet: function (res) {
+                field: 'url', title: '请求路径', align: "left", edit: "text", templet: function (res) {
                     var a = res.url.split("/");
                     return '<span>' + a[a.length - 1] + '</span>'
                 }
@@ -317,57 +311,8 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 ]
             }
-            //, {
-            //    field: 'preprocessor', title: '前置控制器', width: 100, templet: function (d) {
-            //        console.log(d.preprocessor);
-            //        console.log(typeof (d.preprocessor))
-            //        var preprocessor = "";
-            //        if (d.preprocessor == "True") {
-            //            preprocessor = "<input type='checkbox' value='" + d.preprocessor + "' id='preprocessor' lay-filter='preprocessor' checked='checked' name='preprocessor'  lay-skin='switch' lay-text='开启|关闭' >";
-            //        } else {
-            //           preprocessor = "<input type='checkbox' value='" + d.preprocessor + "' id='preprocessor' lay-filter='preprocessor'  name='preprocessor'  lay-skin='switch' lay-text='开启|关闭' >";
-            //        }
-            //        console.log(preprocessor);
-            //        return preprocessor;
-            //    }
-            //}
             , {field: 'params', title: 'Query参数', align: "left", event: 'params'}
             , {field: 'body', title: 'Body参数', align: "left", event: 'body'}
-
-            , {
-                field: 'durantion',
-                title: '响应时长',
-                align: "left",
-                sort: true,
-                width: 100,
-                event: "durantion",
-                templet: function (res) {
-                    if (res.duration < 1) {
-                        let a = String(res.duration * 1000) + "毫秒";
-                        return '<span>' + a + '</span>'
-                    } else if (res.duration >= 1 && res.duration < 3) {
-                        let b = String(res.duration) + "秒";
-                        return '<span style="color: cornflowerblue;">' + b + '</span>'
-                    } else {
-                        let b = String(res.duration) + "秒";
-                        return '<span style="color: deeppink;">' + b + '</span>'
-                    }
-                }
-            }
-            , {
-                field: 'result', title: '响应结果', align: "left", event: "detail", templet: function (res) {
-                    if (res.result == null) {
-                        return '<span>' + res.result + '</span>'
-                    } else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
-                        let b = JSON.parse(res.result);
-                        return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
-                    } else {
-                        return '<span>' + res.result + '</span>'
-                    }
-                }
-            }
-            , {field: 'head', title: '负责人', width: 80, edit: "text", align: "left"}//merge: true行合并
-
         ]]
         , filter: {
             items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
@@ -407,474 +352,8 @@ layui.use(['table', "soulTable"], function (data) {
         var checkStatus = table.checkStatus(obj.config.id);
         console.log(checkStatus);
         switch (obj.event) {
-            //执行用例
-            case 'run_case':
-                var data = checkStatus.data;
-                var len = data.length;
-                console.log(data);
-                if (len == 0) {
-                    layer.close(index);
-                    layer.msg("请先选中需要执行的用例", {
-                        icon: 2,
-                        offset: "t"
-                    });
-                } else {
-                    var l = [];
-                    for (i = 0; i < data.length; i++) {
-                        var dic = {};
-                        dic["caseid"] = data[i]["caseid"];
-                        dic['identity'] = data[i]['identity'];
-                        dic['casename'] = data[i]['casename'];
-                        dic["url"] = data[i]['url'];
-                        dic['method'] = data[i]['method'];
-                        dic['params'] = data[i]['params'];
-                        dic['body'] = data[i]['body'];
-                        dic['depend_id'] = data[i]['depend_id'];
-                        dic['depend_key'] = data[i]['depend_key'];
-                        dic['replace_key'] = data[i]['replace_key'];
-                        dic['replace_position'] = data[i]['replace_position'];
-                        l.push(dic);
-                    }
-                    console.log(l);
-                    $.ajax({
-                        cache: false,
-                        url: "/api/v1/processapi/run/",
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            "request": JSON.stringify(l)
-                        },
-                        //请求前的处理,加载loading
-                        beforeSend: function () {
-                            if (data.length > 1) {
-                                document.getElementById("Runcase").setAttribute("disabled", true);
-                                document.getElementById("Runcase").innerHTML = "loading...";
-                                l_index = layer.msg('执行接口中，小伙伴请稍候~~', {icon: 16, time: false, shade: 0.5});
-                                //l_index = layer.load(0, {shade: [0.5, '#DBDBDB']}); //0.1透明度的白色背景
-                                var process = layer.open({
-                                    type: 1,
-                                    title: false,
-                                    area: ['50%', ''],
-                                    skin: "layui-layer-rim",
-                                    //shade: 0.8,
-                                    offset: "b",
-                                    content: $("#progress_bar").html(),
-                                    success: function () {
-                                        layui.use('element', function () {
-                                            var $ = layui.jquery
-                                                , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-                                            var sitv = setInterval(function () {
-                                                $.ajax({
-                                                    cache: false,
-                                                    url: "/api/v1/processapi/run/",
-                                                    dataType: 'JSON',
-                                                    type: 'GET',
-                                                    success: function (num_progress) {
-                                                        console.log(num_progress);
-                                                        element.progress('demo', num_progress + '%');
-                                                        if (num_progress > 33 && num_progress < 66) {
-                                                            $(".layui-progress-bar").addClass("layui-bg-orange");
-                                                        } else if (num_progress >= 66 && num_progress < 100) {
-                                                            $(".layui-progress-bar").removeClass("layui-bg-orange");
-                                                            $(".layui-progress-bar").addClass("layui-bg-red");
-                                                        } else if (num_progress == "100") {
-                                                            $(".layui-progress-bar").removeClass("layui-bg-red");
-                                                            clearInterval(sitv);
-                                                            layer.close(process);
-                                                        }
-                                                    },
-                                                    error: function (data) {
-                                                        if (data.responseJSON.code === 1001) {
-                                                            layer.msg(data.responseJSON.error, {
-                                                                icon: 5,
-                                                                offset: 't'
-                                                            });
-                                                        } else {
-                                                            layer.msg("回调失败", {
-                                                                icon: 5,
-                                                                offset: 't'
-                                                            });
-                                                        }
-                                                    },
-                                                });
-
-                                            }, 250);// 每10毫秒查询一次后台进度
-                                        });
-                                    }
-                                });
-                            } else {
-                                document.getElementById("Runcase").setAttribute("disabled", true);
-                                document.getElementById("Runcase").innerHTML = "loading...";
-                                l_index = layer.msg('执行接口中，小伙伴请稍候~~', {icon: 16, time: false, shade: 0.5});
-                            }
-
-                        },
-                        success: function (data) {
-                            console.log(data);//object
-                            if (len > 0) {
-                                if (data.errors > 0) {
-                                    let failcases = data.failcases;
-                                    let errors = data.errors;
-                                    let pass = len - errors;
-                                    console.log(typeof (errors))
-                                    var result = layer.open({
-                                        type: 1,
-                                        title: false,
-                                        shade: false,
-                                        area: ['80%', '80%'],
-                                        //content: $("#process_result").html(),
-                                        content: '<div style="padding:15px;">' +
-                                            //'<blockquote class="layui-elem-quote">所属项目：ERMS数字档案室系统</blockquote>'+
-                                            '<fieldset class="layui-elem-field">' +
-                                            '<legend>执行结果</legend>' +
-                                            '<div class="layui-field-box">' +
-                                            '<label>用例总数：</label>' +
-                                            '<span style="color: blue" id="all_num"></span>、' +
-                                            '<label>成功的用例数：</label>' +
-                                            '<span style="color: yellowgreen" id="success_num"></span>、' +
-                                            '<label>失败的用例数：</label>' +
-                                            '<span style="color: red" id="fail_num"></span>' +
-                                            '</div>' +
-                                            '</fieldset>' +
-                                            '<fieldset class="layui-elem-field layui-field-title">' +
-                                            '<legend>执行失败的接口用例列表</legend>' +
-                                            '<div class="layui-field-box" style="padding: 15px;">' +
-                                            '<table class="layui-hide" id="templateTable"  lay-filter="templateTable"></table>' +
-                                            '</div>' +
-                                            '</fieldset>' +
-                                            '</div>',
-                                        success: function (data) {
-                                            document.getElementById("all_num").innerText = len;
-                                            $("#success_num").html(pass);
-                                            $("#fail_num").html(errors);
-
-                                            var myTable = table.render({
-                                                elem: '#templateTable'
-                                                , url: '/api/v1/processapi/result_list/'
-                                                , page: true
-                                                , toolbar: '#resultDemo'
-                                                //, height: 'full-20'
-                                                , limit: 10
-                                                , cols: [[
-                                                    {type: 'checkbox'}
-                                                    , {field: 'casename', title: '接口名称', width: 300, align: "left"}
-                                                    , {
-                                                        field: 'duration', width: 100, title: '响应时长', align: "left",
-                                                        templet: function (res) {
-                                                            if (res.duration < 1) {
-                                                                let a = String(res.duration * 1000) + "毫秒";
-                                                                return '<span>' + a + '</span>'
-                                                            } else if (res.duration >= 1 && res.duration < 3) {
-                                                                let b = String(res.duration) + "秒";
-                                                                return '<span style="color: cornflowerblue;">' + b + '</span>'
-                                                            } else {
-                                                                let b = String(res.duration) + "秒";
-                                                                return '<span style="color: deeppink;">' + b + '</span>'
-                                                            }
-                                                        }
-                                                    }
-                                                    , {
-                                                        field: 'result',
-                                                        title: '响应结果',
-                                                        width: 800,
-                                                        align: "left",
-                                                        event: "detail",
-                                                        templet: function (res) {
-                                                            if (res.result == null) {
-                                                                return '<span>' + res.result + '</span>'
-                                                            } else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
-                                                                let b = JSON.parse(res.result);
-                                                                return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
-                                                            } else if (res.result != "") {
-                                                                let a = JSON.parse(res.result);
-                                                                return '<span>' + JSON.stringify(a) + '</span>'
-                                                            } else {
-                                                                return '<span>' + res.result + '</span>'
-                                                            }
-                                                        }
-                                                    }
-                                                    , {field: 'head', width: 90, title: '负责人', align: "left"}
-                                                ]]
-                                                , where: {
-                                                    caseids: JSON.stringify(failcases),
-                                                    system: "{{ system }}"
-                                                }
-                                            });
-                                            //头工具栏事件
-                                            table.on('toolbar(templateTable)', function (obj) {
-                                                var checkStatus = table.checkStatus(obj.config.id);
-                                                //console.log(checkStatus);
-                                                switch (obj.event) {
-                                                    //发送钉钉消息
-                                                    case 'dingding':
-                                                        var data = checkStatus.data;
-                                                        console.log(data);
-                                                        if (data.length == 0) {
-                                                            layer.close(index);
-                                                            layer.msg("请先选中需要发送的接口", {
-                                                                icon: 2,
-                                                                offset: "t"
-                                                            });
-                                                        } else {
-                                                            layer.confirm("你确定要发送接口请求结果给相应的负责人吗？\n注意:请求正常发送所有结果信息，请求失败发送错误内容", {
-                                                                    icon: 3,
-                                                                    btn: ["确定", "取消"]
-                                                                }, function () {
-                                                                    var ids = "";
-                                                                    for (i = 0; i < data.length; i++) {
-                                                                        ids += data[i]["caseid"] + ",";
-                                                                        console.log(ids);
-                                                                    }
-                                                                    $.ajax({
-                                                                        cache: false,
-                                                                        url: "/api/v1/ding_ding/",
-                                                                        type: 'GET',
-                                                                        data: {
-                                                                            "caseid": ids,
-                                                                            "isprocess": "yes"
-                                                                        },
-                                                                        //请求前的处理,加载loading
-                                                                        beforeSend: function () {
-                                                                            document.getElementById("Dingding").setAttribute("disabled", true);
-                                                                            document.getElementById("Dingding").innerHTML = "loading...";
-                                                                            l_index = layer.msg('发送钉钉中，小伙伴请稍候~~', {
-                                                                                icon: 16,
-                                                                                time: false,
-                                                                                shade: 0.5
-                                                                            });
-                                                                            //l_index = layer.load(0, {shade: [0.5, '#DBDBDB']}); //0.1透明度的白色背景
-                                                                        },
-                                                                        success: function (data) {
-                                                                            if (data.code === 1001) {
-                                                                                layer.msg(data.msg, {
-                                                                                    icon: 6,
-                                                                                    offset: 't',
-                                                                                });
-                                                                            } else {
-                                                                                layer.msg(data.error, {
-                                                                                    icon: 5,
-                                                                                    offset: 't',
-                                                                                });
-                                                                            }
-
-
-                                                                        },
-                                                                        error: function (data) {
-                                                                            if (data.responseJSON.code === 1001) {
-                                                                                layer.msg(data.responseJSON.error, {
-                                                                                    icon: 5,
-                                                                                    offset: 't'
-                                                                                });
-                                                                            } else {
-                                                                                layer.msg("回调失败", {
-                                                                                    icon: 5,
-                                                                                    offset: 't'
-                                                                                });
-                                                                            }
-                                                                        },
-                                                                        complete: function () {
-                                                                            document.getElementById("Dingding").removeAttribute("disabled");
-                                                                            document.getElementById("Dingding").innerHTML = "钉钉通知";
-                                                                            layer.close(l_index);
-                                                                        }
-                                                                    });
-
-                                                                }, function () {
-                                                                    layer.msg(
-                                                                        "取消发送钉钉消息",
-                                                                        {icon: 1, offset: "t"}
-                                                                    );
-                                                                }
-                                                            );
-                                                        }
-                                                        break;
-                                                }
-
-                                            });
-                                            //监听行工具事件
-                                            table.on('tool(templateTable)', function (obj) {
-                                                var data = obj.data;
-                                                //console.log(obj);
-                                                if (obj.event === 'detail') {
-                                                    console.log(data.result);
-                                                    //var strjson = JSON.parse(data.result);
-                                                    layer.prompt({
-                                                        formType: 2,//多行文本
-                                                        value: data.result,
-                                                        shade: false,
-                                                        title: data.casename + "响应结果",
-                                                        maxmin: true,
-                                                        skin: "layui-layer-rim",//hui
-                                                        closeBtn: 0,
-                                                        zIndex: layer.zIndex,
-                                                        area: ['750px', '500px'], //自定义文本域宽高
-                                                        btn: ["点我查看详情", "关闭"],
-                                                        yes: function () {
-                                                            var index = layer.open({
-                                                                type: 2,
-                                                                title: data.casename + "详细信息",
-                                                                //shadeClose: true,
-                                                                shade: false,
-                                                                zIndex: layer.zIndex,
-                                                                maxmin: true, //开启最大化最小化按钮
-                                                                area: ['600px', '1200px'],
-                                                                content: "/detail_process_api/?id=" + data.caseid,
-                                                            });
-                                                            layer.full(index);
-                                                        },
-                                                        btn2: function (index) {
-                                                            layer.close(index);
-                                                        }
-                                                    });
-                                                }
-
-                                            });
-                                        },
-                                        btn: ['关闭'],
-                                        yes: function () {
-                                            layer.close(result);
-                                            $(".layui-laypage-btn").click();
-                                        }
-                                    });
-                                } else {
-                                    layer.msg("接口执行全部成功", {
-                                        icon: 6,
-                                        offset: 't',
-                                    })
-                                    $(".layui-laypage-btn").click();
-                                }
-                            } else if (len == 1) {
-                                //处理单个接口执行
-                                let strjson = JSON.stringify(data, null, 4);
-                                layer.prompt({
-                                    formType: 2,//多行文本
-                                    value: strjson,
-                                    title: '响应结果',
-                                    maxmin: true, //允许全屏最小化
-                                    anim: 4,//从左滚动进来
-                                    //shade: 0.6, //遮罩透明度
-                                    skin: "layui-layer-rim",
-                                    //监听取消按钮
-                                    zIndex: layer.zIndex,
-                                    shade: false,
-                                    btn: ["json.cn", "关闭"],
-                                    yes: function () {
-                                        layer.open({
-                                            type: 2,
-                                            title: "json.cn",
-                                            //shadeClose: true,
-                                            shade: false,
-                                            zIndex: layer.zIndex,
-                                            maxmin: true, //开启最大化最小化按钮
-                                            area: ['893px', '600px'],
-                                            content: 'https://www.json.cn',
-                                            success: function () {
-                                                layer.setTop(layero);
-                                            }
-                                        });
-
-                                    },
-                                    btn2: function (index, layro) {//这里就是你要的
-                                        layer.close(index);
-                                        $(".layui-laypage-btn").click();
-                                    },
-                                    area: ['700px', '500px'] //自定义文本域宽高
-                                });
-                            } else if (data.status_code == 500 || data.status_code == 401) {
-                                layer.msg(data.msg, {
-                                    icon: 5,
-                                    offset: 't',
-                                });
-                            }
-                        },
-                        error: function (data) {
-                            layer.msg("NameError", {
-                                icon: 5,
-                                offset: 't',
-                            });
-                        },
-                        complete: function () {
-                            document.getElementById("Runcase").removeAttribute("disabled");
-                            document.getElementById("Runcase").innerHTML = "执行用例";
-                            layer.close(l_index);
-                        }
-                    });
-                }
-                break;
-            //发送钉钉消息
-            case 'ding_ding':
-                var data = checkStatus.data;
-                console.log(data);
-                if (data.length == 0) {
-                    layer.close(index);
-                    layer.msg("请先选中需要发送的接口", {
-                        icon: 2,
-                        offset: "t"
-                    });
-                } else {
-                    layer.confirm("你确定要发送接口请求结果给相应的负责人吗？\n注意:请求正常发送所有结果信息，请求失败发送错误内容", {
-                            icon: 3,
-                            btn: ["确定", "取消"]
-                        }, function () {
-                            var ids = "";
-                            for (i = 0; i < data.length; i++) {
-                                ids += data[i]["caseid"] + ",";
-                                console.log(ids);
-                            }
-                            $.ajax({
-                                cache: false,
-                                url: "/api/v1/publicapi/dingding/",
-                                type: 'GET',
-                                data: {
-                                    "caseid": ids,
-                                    "isprocess": "yes"
-                                },
-                                //请求前的处理,加载loading
-                                beforeSend: function () {
-                                    l_index = layer.msg('发送钉钉中，小伙伴请稍候~~', {icon: 16, time: false, shade: 0.5});
-                                    //l_index = layer.load(0, {shade: [0.5, '#DBDBDB']}); //0.1透明度的白色背景
-                                },
-                                success: function (data) {
-                                    if (data.code === 1000) {
-                                        layer.msg(data.msg, {
-                                            icon: 6, offset: "t"
-                                        })
-                                    } else {
-                                        layer.msg(data.error, {
-                                            icon: 5, offset: "t"
-                                        })
-                                    }
-                                },
-                                error: function (data) {
-                                    if(data.responseJSON.code ===1001){
-                                            layer.msg(data.responseJSON.error, {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                        else{
-                                            layer.msg("回调失败", {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                },
-                                complete: function () {
-                                    layer.close(l_index);
-                                }
-                            });
-
-                        }, function () {
-                            layer.msg(
-                                "取消发送钉钉消息",
-                                {icon: 1, offset: "t"}
-                            );
-                        }
-                    );
-                }
-                break;
             //导出用例
-            case "export_case":
+            case "export_interface":
                 if (checkStatus.data.length > 0) {
                     soulTable.export(myTable, {
                         filename: '勾选数据.xlsx',
@@ -898,7 +377,7 @@ layui.use(['table', "soulTable"], function (data) {
                     });
                     layer.msg('操作成功', {icon: 6, offset: 't'});
                 } else {
-                    layer.msg('请先勾选数据在导出！', {icon: 0, offset: 't'});
+                    layer.msg('前端的导出，没调取接口，需先勾选数据在导出，后期改为后台导出！', {icon: 0, offset: 't'});
                 }
                 break;
             //全屏显示
@@ -912,66 +391,34 @@ layui.use(['table', "soulTable"], function (data) {
                     docE.webkitRequestFullScreen();
                 }
                 break;
-            //导入用例
-            case "import_case":
+            //导入接口
+            case "import_interface":
                 layer.open({
                     //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                     type: 1,
-                    title: "导入用例",
+                    title: "导入接口",
                     area: ['35%', '30%'],
                     skin: "layui-layer-rim",
                     shade: 0.6,
-                    content: $("#import_case").html()
+                    content: $("#import_interface").html()
                 });
                 break;
             //批量删除
             case "batch_delete":
                 var data = checkStatus.data;
-                layer.confirm('真的删除行么', function (index) {
-                    console.log(data);
-                    layer.close(index);
-                    var l = [];
-                    for (i = 0; i < data.length; i++) {
-                        var dic = {};
-                        dic["caseid"] = data[i]["caseid"];
-                        l.push(dic);
-                    }
-                    console.log(l);
-                    $.ajax({
-                        cache: false,
-                        url: "/api/v1/processapi/del_case/0/",
-                        type: 'DELETE',
-                        data: {
-                            "ids": JSON.stringify(l),
+                if (checkStatus.data.length > 0) {
+                    layer.confirm('你确定要删除吗' + '？', {
+                            btn: ['取消', '确定'] //按钮
                         },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                layer.msg(data.msg, {
-                                    icon: 6, offset: "t"
-                                })
-                            } else {
-                                layer.msg(data.error, {
-                                    icon: 5, offset: "t"
-                                })
-                            }
-                            $(".layui-laypage-btn").click();
+                        function () {
+                            layer.msg('幸亏没删除，删除就彻底找不回咯！', {icon: 0, offset: "t"});
                         },
-                        error: function (data) {
-                            if(data.responseJSON.code ===1001){
-                                            layer.msg(data.responseJSON.error, {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                        else{
-                                            layer.msg("回调失败", {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                        },
-                    });
-                });
+                        function () {
+                            layer.msg('请联系超级管理员删除！', {icon: 0, offset: "t"});
+                        });
+                }else{
+                    layer.msg('请先勾选需要删除的接口哦！', {icon: 0, offset: "t"});
+                }
                 break;
             //导出报表
             case 'export_report':
@@ -1060,46 +507,13 @@ layui.use(['table', "soulTable"], function (data) {
         var data = obj.data;
         var id = data['id'];
         console.log(obj);
-        if (obj.event === 'detail') {
-            console.log(data.result);
-            //var strjson = JSON.parse(data.result);
-            layer.prompt({
-                formType: 2,//多行文本
-                value: data.result,
-                shade: false,
-                title: data.interface_name + "响应结果",
-                //anim: 4,//从左滚动进来
-                maxmin: true,
-                skin: "layui-layer-rim",//hui
-                closeBtn: 0,
-                zIndex: layer.zIndex,
-                area: ['800px', '600px'], //自定义文本域宽高
-                btn: ["详情", "关闭"],
-                yes: function () {
-                    var index = layer.open({
-                        type: 2,
-                        title: data.interface_name + "详细信息",
-                        //shadeClose: true,
-                        shade: false,
-                        zIndex: layer.zIndex,
-                        maxmin: true, //开启最大化最小化按钮
-                        area: ['600px', '1200px'],
-                        content: "/detail/?id=" + id,
-                    });
-                    layer.full(index);
-                },
-                btn2: function (index) {
-                    layer.close(index);
-                }
-            });
-        }
         //删除接口用例
-        else if (obj.event === 'del_interface') {
+       if (obj.event === 'del_interface') {
             layer.confirm('你确定要删除吗' + '？', {
                     btn: ['取消', '确定'] //按钮
                 },
                 function () {
-                    layer.msg('辛亏没删除，删除就彻底找不回咯！', {icon: 1});
+                    layer.msg('幸亏没删除，删除就彻底找不回咯！', {icon: 0,offset:"t"});
                 },
                 function () {
                     $.ajax({
@@ -1523,7 +937,6 @@ layui.use(['table', "soulTable"], function (data) {
         }
     });
 });
-
 
 //新建用例
 function add_case() {

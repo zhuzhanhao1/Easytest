@@ -24,9 +24,8 @@ class InterfaceClassification(APIView):
         '''
             返回分类列表
         '''
-        obj = InterFaceManageClassification.objects.filter()
-        classification = [i.classification for i in obj]
-        return Response(classification)
+        classification_list = InterFaceManageClassification.objects.filter().values_list('classification', flat=True)
+        return Response(classification_list)
 
     def delete(self, request, *args, **kwargs):
         '''
@@ -238,7 +237,6 @@ class InterfaceSetList(APIView):
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class RunInterfaceDebugTest(APIView):
 
     def parameter_check(self, url, method):
@@ -287,3 +285,12 @@ class RunInterfaceDebugTest(APIView):
             error_code["error"] = "json.loads()读取字符串报错"
             return Response(right_code)
         return Response(right_code)
+
+    def get(self,request,*args, **kwargs):
+        obj = InterFaceSet.objects.filter(id__in=[1,2,3,4]).values("url","method","header",
+              "params","body","depend_id","depend_key","replace_key","replace_position")
+        return Response(obj)
+
+
+
+

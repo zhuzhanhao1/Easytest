@@ -23,7 +23,6 @@
 </head>
 <body class="layui-layout-body">
 
-
 <div style="display: none;">
     <!--debug-->
     <div class="layui-row" id="interface_debug">
@@ -221,7 +220,7 @@
     </div>
 
     <!--导入测试用例-->
-    <div class="layui-row" id="import_case">
+    <div class="layui-row" id="import_interface">
         <div class="layui-col-md11">
             <form class="layui-form" enctype="multipart/form-data" action="/publicapi/import_case/" method="post">
 
@@ -239,69 +238,6 @@
             </form>
         </div>
     </div>
-
-    <!--设置定时任务-->
-    <div class="layui-row" id="timing_task">
-        <div class="layui-col-md11">
-            <form class="layui-form" lay-filter="example">
-
-                {#				<div class="layui-form-item" style="margin-top: 20px;">#}
-                {#					<label class="layui-form-label">开始时间</label>#}
-                {#					<div class="layui-input-block" style="width: 80%">#}
-                {#						<input type="text" name="date" id="test5" placeholder="HH:mm:ss" class="layui-input test-item">#}
-                {#					</div>#}
-                {#				</div>#}
-
-                <div class="layui-form-item" style="margin-top: 20px;">
-                    <label class="layui-form-label">结束时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="date1" class="layui-input test-item" id="test5" placeholder="HH:mm:ss">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">时间间隔</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="date2" class="layui-input test-item shijian" id="test5"
-                               placeholder="开始运行时间等于现在时间加上时间间隔">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">运行的ID</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="caseid" lay-verify="title" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item" style="margin-top: 20px;">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" id="time" lay-submit lay-filter="example"
-                                style="float: right;">确定
-                        </button>
-                        <button type="reset" class="layui-btn layui-btn-primary"
-                                style="float: right;margin-right: 10px;">
-                            重置
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!--进度条-->
-    <div class="layui-row" id="progress_bar">
-        <div class="layui-col-md11">
-            <blockquote class="layui-elem-quote">
-                <span>接口进度 (执行接口数/需要执行的接口总数)：</span>
-                <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
-                    <div class="layui-progress-bar" lay-percent="0%">
-                    </div>
-                </div>
-            </blockquote>
-        </div>
-    </div>
-
 
 </div>
 <!--主题内容-table-->
@@ -337,29 +273,23 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button type="button" onclick="add_case()" class="layui-btn layui-btn-sm">添加接口</button>
-{#        <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>#}
-        <button id="Dingding" class="layui-btn layui-btn-sm" lay-event="ding_ding">钉钉通知</button>
-        <button id="Runcase" class="layui-btn layui-btn-sm" lay-event="run_case">执行接口</button>
-        <button class="layui-btn layui-btn-sm" lay-event="export_report">生成报表</button>
+        <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="export_interface">导出接口</button>
     </div>
 </script>
 <!--行内按钮-->
 <script type="text/html" id="barDemo">
     <a class="fa fa-pencil-square-o"
        style="color:#797979;font-size: 20px;padding:0 2px;margin-top:1px;vertical-align:middle;font-weight: lighter;"
-       lay-event="update_interface"></a>
+       lay-event="update_interface">
+    </a>
 
     <a class="fa fa-trash-o" lay-event="del_interface"
-       style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>
+       style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;">
+    </a>
 
     <a class="fa fa-bug" lay-event="interface_debug"
-       style="color: #5FB878;font-size: 20px;padding:0 2px;margin-top:1px;vertical-align:middle;font-weight: lighter;"></a>
-</script>
-
-<!--用例名字超链接模板-->
-<script type="text/html" id="casenameTpl">
-    <a href="/detail?processid={% verbatim %}{{d.id}}{% endverbatim %}" class="layui-table-link" target="_blank">
-        {% verbatim %}{{d.interface_name}}{% endverbatim %}
+       style="color: #5FB878;font-size: 20px;padding:0 2px;margin-top:1px;vertical-align:middle;font-weight: lighter;">
     </a>
 </script>
 

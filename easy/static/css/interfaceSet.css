@@ -2,17 +2,6 @@
     left: 0px;
 }
 
-/*#casetitle {*/
-/*    font-size: 22px;*/
-/*    padding: 0px;*/
-/*    color: white;*/
-/*    margin-left: -5px;*/
-/*}*/
-
-/*#casetitle:hover {*/
-/*    color: red;*/
-/*}*/
-
 .layui-form-item {
     margin-bottom: 10px;
 }
@@ -51,30 +40,6 @@
 .layui-laypage a, .layui-laypage span {
     color: #fff;
 }
-
-
-/*#layui-table-page1 > .layui-laypage {*/
-/*    position: fixed;*/
-/*    right: 30px;*/
-/*}*/
-
-/*.layui-breadcrumb a {*/
-/*    color: #fff !important;*/
-/*}*/
-
-/*.layui-breadcrumb > * {*/
-/*    font-size: 22px;*/
-/*}*/
-
-/*.layui-breadcrumb span[lay-separator] {*/
-/*    color: #fff;*/
-/*    margin: 0px 0px 0px;*/
-/*    margin-right: -10px;*/
-/*}*/
-
-/*.layui-breadcrumb a + a {*/
-/*    color: #fff !important;*/
-/*}*/
 
 .soul-bottom-contion {
     border-top: solid 0px #fff;
