@@ -220,7 +220,7 @@ function get_classification(id) {
             $.each(data, function (index, value) {
                 str +=  '<li class="list-group-item d-flex justify-content-between align-items-center">'+
                             '<span type="button" onclick="get_table_by_title()">'+value+'</span>'+
-                            '<a type="button" onclick="del_classification()" class="badge badge-primary badge-pill my_del_btn">删除</a>'+
+                            '<a type="button" onclick="del_classification()" class="fa fa-trash-o my_del_btn"></a>'+
                         '</li>';
                 if(index === 0){
                     res = value;

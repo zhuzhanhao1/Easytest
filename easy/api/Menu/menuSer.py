@@ -33,5 +33,4 @@ class MenuAppendSer(serializers.ModelSerializer):
 
     def get_children(self,obj):
         queryset = obj.childmenu_set.all()
-        print(queryset)
         return [{"title": row.title, "icon": row.icon,"href": row.href, "spread": row.spread} for row in queryset]

@@ -84,9 +84,9 @@ class InterFaceSet(models.Model):
     depend_key = models.CharField(max_length=500,verbose_name="依赖的key",null=True,blank=True)
     replace_key = models.CharField(max_length=500,verbose_name="替换的key",null=True,blank=True)
     replace_position = models.CharField(max_length=50,verbose_name="替换的内容区域", null=True,blank=True)
-    # head = models.CharField(max_length=20, verbose_name="负责人", null=True, blank=True)
-    # duration = models.FloatField(blank=True, null=True, verbose_name='响应时长')
-    # result = models.TextField(blank=True, null=True, verbose_name='执行结果')
+    head = models.CharField(max_length=20, verbose_name="负责人", null=True, blank=True)
+    duration = models.FloatField(blank=True, null=True, verbose_name='响应时长')
+    result = models.TextField(blank=True, null=True, verbose_name='执行结果')
 
     def __str__(self):
         return self.interface_name
@@ -95,38 +95,35 @@ class InterFaceSet(models.Model):
         verbose_name_plural = '接口集管理'
 
 
-# class InterfaceCaseSet(models.Model):
-#     '''
-#         接口用例集
-#     '''
-#     interface_case_set_name = models.CharField(max_length=100,verbose_name="接口用例集名称")
-#
-#
-# class InterFaceCases(models.Model):
-#     '''
-#         接口用例分类
-#     '''
-#     #parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='接口用例集id')
-#     interface_case_name = models.CharField(max_length=50, verbose_name="接口用例名称")
-#
-#
-#     def __str__(self):
-#         return self.interface_case_name
-#
-#     class Meta:
-#         verbose_name = '接口用例名称'
-#         verbose_name_plural = '接口用例名称'
-#
-#
-# class InterFaceCase(models.Model):
-#     '''
-#         接口用例
-#     '''
-#     parent = models.ForeignKey(InterFaceCases, on_delete=models.CASCADE, verbose_name='接口分类id')
-#     interface_id = models.IntegerField(max_length = 20,verbose_name="接口id")
-#     interface_name = models.CharField(max_length=100,verbose_name="接口名称")
-#     description = models.CharField(max_length=500, verbose_name="描述",null=True,blank=True)
+class InterfaceCaseSet(models.Model):
+    '''
+        接口用例集
+    '''
+    interface_case_set_name = models.CharField(max_length=50,verbose_name="接口用例集名称")
+    def __str__(self):
+        return self.interface_case_set_name
 
+    class Meta:
+        verbose_name_plural = '接口用例集'
+
+class InterFaceCase(models.Model):
+    '''
+        接口用例
+    '''
+    parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='接口用例集id')
+    interface_case_name = models.CharField(max_length=50, verbose_name="接口用例名称")
+    description = models.CharField(max_length=255, verbose_name="描述", null=True, blank=True)
+
+    interface_id = models.IntegerField(max_length = 20,verbose_name="接口id")
+    interface_name = models.CharField(max_length=50,verbose_name="接口名称")
+
+
+    def __str__(self):
+        return self.interface_name
+
+    class Meta:
+        verbose_name = '接口用例名称'
+        verbose_name_plural = '接口用例名称'
 
 
 

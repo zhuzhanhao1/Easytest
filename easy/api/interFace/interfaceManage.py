@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
 from easy.models import InterFaceManageClassification, InterFaceManageModule, InterFaceSet
-from .interFaceSer import InterFaceManageClassificationSer, InterFaceManageModuleSer, \
+from .interfaceManageSer import InterFaceManageClassificationSer, InterFaceManageModuleSer, \
     UpdateInterFaceManageModuleSer, InterFaceSetSer, DependIdSer, DependKeySer, ReplaceKeySer,\
     ReplacePositionSer,ParamsSer,BodySer,InterfaceNameSer,UrlSer,InterfaceAllSer
 

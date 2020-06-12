@@ -17,5 +17,4 @@ class MainMenuApi(APIView):
     def get(self,request,*args,**kwargs):
         obj = MainMenu.objects.filter()
         menu_data = MenuAppendSer(obj, many=True).data
-        print(menu_data)
         return Response(menu_data)

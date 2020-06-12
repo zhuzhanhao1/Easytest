@@ -208,24 +208,23 @@ iframe {
 }
 
 .logo {
-    color: #fff;
     float: left;
     line-height: 60px;
-    font-size: 20px;
+    font-size: 18px;
     padding: 0 25px;
     text-align: center;
     width: 150px;
 }
 
 .hideMenu {
-    float: left;
+    /*float: left;*/
     width: 20px;
     height: 20px;
     margin-top: 15px;
     font-size: 17px;
     line-height: 20px;
     text-align: center;
-    padding: 5px 5px;
+    /*padding: 5px 5px;*/
     color: #fff;
     background-color: #ECEFFC;
 }
@@ -303,14 +302,14 @@ iframe {
 .user-photo {
     width: 200px;
     height: 120px;
-    padding: 15px 0 5px;
+    /*padding: 15px 0 5px;*/
 }
 
 .user-photo a.img {
     display: block;
     width: 100px;
     height: 100px;
-    margin: 10px auto 10px;
+    margin: 10px auto -15px;
 }
 
 .user-photo a.img img {
@@ -360,9 +359,10 @@ iframe {
 /*layui-body*/
 .layui-body {
     overflow: hidden;
-    border-top: 1px solid #5FB878;
+    /*border-top: 1px solid #5FB878;*/
     border-left: 1px solid #5FB878;
-    background: #fff;
+    /*background: #fff;*/
+     margin-top: -50px;
 }
 
 #top_tabs_box {
@@ -678,9 +678,30 @@ iframe {
 /*}*/
 
 .layui-layout-admin .layui-header {
-    border-bottom: 1px solid #5FB878;
+    /*border-bottom: 1px solid #5FB878;*/
 }
 
 .layui-nav .layui-nav-more {
     border-color: black transparent transparent !important;
+}
+
+
+.my_logo {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    color: black;
+    font-size: 20px;
+    font-family: 'Bubblegum Sans', cursive;
+    text-transform: uppercase;
+}
+
+.my_logo {
+    position: absolute;
+    background: white;
+    border-radius: 100%;
+}
+.my_logout{
+    font-size:20px!important;
+    margin-left:170px;
 }

@@ -25,6 +25,11 @@ def interface_set_views(request):
         接口管理
     '''
     parentId = request.GET.get("parentId","")
-    puisne_module = InterFaceManageModule.objects.get(id=parentId).puisne_module
-    print(parentId)
+    puisne_module = InterFaceManageModule.objects.get(id=parentId)
     return render(request, 'interfaceSet.html',{"parentId":parentId,"puisne_module":puisne_module})
+
+def interface_case_views(request):
+    '''
+        接口管理
+    '''
+    return render(request, 'interfaceCase.html')

@@ -1,20 +1,19 @@
 .mylist{
-    width: 25%;
+    width: 20%;
     float: left;
 }
 .classification_manage{
     margin: 20px;
 }
 .mytable{
-    width: 70%;
+    width: 75%;
     float: right;
 }
 .mybtn{
     margin-bottom: 10px
 }
-.my_del_btn{
-    color: #ffffff!important;
-    background-color: red;
+.my_del_btn:hover{
+    color: red!important;
 }
 .mylist ul li:hover {
     background:#5FB878;

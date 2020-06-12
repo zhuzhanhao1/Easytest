@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^home/', renderHtml.home_views),
     url(r'^interface_manager/', renderHtml.interface_manager_views),
     url(r'^interface_set/', renderHtml.interface_set_views),
+    url(r'^interface_case/', renderHtml.interface_case_views),
 ]
