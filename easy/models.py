@@ -9,7 +9,6 @@ class MainMenu(models.Model):
     icon =  models.CharField(max_length=50, verbose_name="图标")
     href = models.CharField(max_length=100, verbose_name="链接")
     spread = models.BooleanField(default=False, verbose_name="默认不展开")
-    children = models.TextField(verbose_name="子菜单",default=[])
 
     def __str__(self):
         return self.title

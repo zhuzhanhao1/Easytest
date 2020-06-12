@@ -5,7 +5,7 @@ from .models import MainMenu,ChildMenu,InterFaceManageClassification,InterFaceMa
 
 @admin.register(MainMenu)
 class MainMenuAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title','icon','href','spread','children')  # 在后台列表下显示的字段
+    list_display = ('id', 'title','icon','href','spread')  # 在后台列表下显示的字段
     search_fields = ('title',)
 
 @admin.register(ChildMenu)
