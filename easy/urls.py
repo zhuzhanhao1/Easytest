@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 #导入api相关模块
 from easy.api.Menu import Menu
-from easy.api.interFace import interfaceManage
+from easy.api.interFace import interfaceManage,interfaceCase,relevanceInterface
 
 
 urlpatterns = [
@@ -22,10 +22,15 @@ urlpatterns = [
     url(r'interface_set/add_interface/$', interfaceManage.InterfaceSetList.as_view()),
     url(r'interface_set/update_interface/(?P<pk>[0-9]+)/$', interfaceManage.InterfaceSetList.as_view()),
     url(r'interface_set/del_interface/(?P<pk>[0-9]+)/$', interfaceManage.InterfaceSetList.as_view()),
-
+    #接口集调试
     url(r'interface_set/debug_test/$', interfaceManage.RunInterfaceDebugTest.as_view()),
-    url(r'interface_set/test/$', interfaceManage.RunInterfaceDebugTest.as_view()),
+    #接口用例
+    url(r'interface_case/list/$', interfaceCase.InterfaceCase.as_view()),
+    url(r'interface_case/add_case/$', interfaceCase.InterfaceCase.as_view()),
+    url(r'interface_case/update_case/(?P<pk>[0-9]+)/$', interfaceCase.InterfaceCase.as_view()),
+    url(r'interface_case/del_case/(?P<pk>[0-9]+)/$', interfaceCase.InterfaceCase.as_view()),
 
-    url(r'interface_case/list/$', interfaceManage.InterfaceSetList.as_view()),
+    url(r'relevance_interface/list/$', relevanceInterface.InterfaceCaseData.as_view()),
+
 ]
 

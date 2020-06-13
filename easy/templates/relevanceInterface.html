@@ -16,7 +16,7 @@
     <script>
         var parentId = '{{ parentId }}';
     </script>
-    <script src="{% static 'js/interfaceSet.js' %}"></script>
+    <script src="{% static 'js/relevanceInterface.js' %}"></script>
 
 
 </head>
@@ -247,14 +247,13 @@
         <div class="demoTable">
             <div class="my_crumb">
                 <span class="layui-breadcrumb" lay-separator="—">
-                    <a href="/interface_manager" style="color: #5FB878!important;">接口管理</a>
-                    <a>{{ puisne_module }}</a>
+                    <a href="/interface_case" style="color: #5FB878!important;">接口用例管理</a>
+                    <a>{{ interface_case_name }}</a>
                 </span>
             </div>
             <div id="sousuo">
                 <div class="layui-inline" style="margin-top: -7px;">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入接口名称"
-                           value="错误接口查询"
                            style="width:200px;color: #999999;">
                 </div>
                 <button class="layui-btn layui-icon layui-icon-search" data-type="reload"

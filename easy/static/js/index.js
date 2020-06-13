@@ -52,19 +52,6 @@ var $,tab,dataStr,layer;
             tab.tabMove();
         });
 
-        $(".img").click(function () {
-            layer.confirm('你确定要退出系统吗？', {
-                    btn: ['取消', '确定'] //按钮
-                },
-                function () {
-                    layer.msg('很高兴能继续为你服务！', {icon: 0, offset: "t"});
-                },
-                function () {
-                    layer.msg('老老实实点我旁边的退出按钮退出吧！', {icon: 0, offset: "t"});
-                });
-        });
-
-
         //手机设备的简单适配
         $('.site-tree-mobile').on('click', function(){
             $('body').addClass('site-mobile');
@@ -140,4 +127,6 @@ var $,tab,dataStr,layer;
     function addTab(_this){
         tab.tabAdd(_this);
     }
+
+
 

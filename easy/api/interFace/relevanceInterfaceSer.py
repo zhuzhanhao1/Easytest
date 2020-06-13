@@ -1,13 +1,13 @@
-from easy.models import InterFaceCase
+from easy.models import InterFaceCaseData
 from rest_framework import serializers
 
 
-class InterFaceCaseSer(serializers.ModelSerializer):
+class InterFaceCaseDataSer(serializers.ModelSerializer):
     '''
         主菜单
     '''
     class Meta:
-        model = InterFaceCase
+        model = InterFaceCaseData
         # exclude = ("",)
         fields = "__all__"
 
@@ -16,6 +16,6 @@ class DescriptionSer(serializers.ModelSerializer):
         主菜单
     '''
     class Meta:
-        model = InterFaceCase
+        model = InterFaceCaseData
         # exclude = ("",)
         fields = ("description",)

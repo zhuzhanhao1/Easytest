@@ -21,7 +21,7 @@
 
     <script src="{% static 'layui2.5.5/layui.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
-{#    <script src="{% static 'js/cache.js' %}"></script>#}
+    <script src="{% static 'js/cache.js' %}"></script>
 </head>
 
 <body class="main_body">
@@ -30,54 +30,59 @@
     <div class="layui-header header" style="background-color: #FFFFFF!important;color: #0C0C0C!important;width: 200px;">
         <div class="layui-main">
             <span><i href="javascript:;" class="seraph hideMenu layui-icon layui-icon-shrink-right"></i></span>
-            <span style="color: #0C0C0C;"  class="logo my_logo">自动化测试平台</span>
-            <!-- 显示/隐藏菜单 -->
-
-            <!-- 顶部右侧菜单 -->
-{#            <ul class="layui-nav top_menu topLevelMenus" style="padding-right: 0px;">#}
-{#                <li class="layui-nav-item lockcms" pc>#}
-{#                    <a style="color: #0C0C0C!important;" href="javascript:;"><i class="seraph layui-icon layui-icon-password"></i><cite>锁屏</cite></a>#}
-{#                </li>#}
-{#                <li class="layui-nav-item" id="userInfo">#}
-{#                    <a style="color: #0C0C0C!important;" href="javascript:;"><img src="./../static/images/login.png" class="layui-nav-img userAvatar"#}
-{#                                                width="35" height="35"><cite class="adminName">{{ name }}</cite></a>#}
-{#                    <dl class="layui-nav-child">#}
-{#                        <dd><a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span#}
-{#                                class="layui-badge-dot"></span></a></dd>#}
-{#                        <dd><a href="javascript:;" data-url="/web_info/"><i class="seraph layui-icon"#}
-{#                                                                            data-icon="&#xe612;">&#xe612;</i><cite>个人资料</cite><span#}
-{#                                class="layui-badge-dot"></span></a></dd>#}
-{#                        <dd><a href="javascript:;" class="showNotice"><i#}
-{#                                class="layui-icon">&#xe645;</i><cite>系统公告</cite><span#}
-{#                                class="layui-badge-dot"></span></a></dd>#}
-{#                        <dd pc><a href="javascript:;" class="functionSetting"><i class="layui-icon">&#xe620;</i><cite>功能设定</cite><span#}
-{#                                class="layui-badge-dot"></span></a></dd>#}
-{#                        <dd pc><a href="javascript:;" class="changeSkin"><i#}
-{#                                class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>#}
-{#                        <dd><a href="/logout/" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a>#}
-{#                        </dd>#}
-{#                    </dl>#}
-{#                </li>#}
-{#            </ul>#}
+            <span  class="logo my_logo bubbling functionSetting" title="更多功能">自动化测试平台</span>
+            <!-- 清楚缓存的class：clearCache -->
         </div>
     </div>
     <!-- 左侧导航 -->
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
-            <a class="img" title="头像是不是很帅呢(#^.^#)">
+            <a class="img lockcms" title="点我将会锁屏哦(#^.^#)">
                 <img src="./../static/images/login.png" class="userAvatar">
             </a>
             <a href="/logout/" class="fa fa-sign-out my_logout" title="退出系统"></a>
+            <div><span class="my_loginer">钉钉用户：{{loginer}}</span></div>
         </div>
+
 
         <div class="navBar layui-side-scroll" id="navBar">
             <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item layui-this">
                     <a href="javascript:;" data-url="/web_welcome/">
-                        <i class="layui-icon"></i><cite>首页</cite></a>
+                        <i class="layui-icon"></i><cite>首页</cite>
+                    </a>
                 </li>
             </ul>
+            <div class="clock">
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <em class="divider">:</em>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <em class="divider">:</em>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+                <div class="flip">
+                    <div class="digital front" data-number="0"></div>
+                    <div class="digital back" data-number="1"></div>
+                </div>
+            </div>
         </div>
+
     </div>
     <!-- 右侧内容 -->
     <div class="layui-body layui-form">
@@ -106,6 +111,114 @@
         </div>
     </div>
 </div>
+
+<script>
+    //字体冒泡
+    "use strict";
+    // For a better performance, use requestAnimationFrame instead of setInterval
+    // https://css-tricks.com/snippets/javascript/replacements-setinterval-using-requestanimationframe/
+    var requestInterval = function (fn, delay) {
+        var start = new Date().getTime();
+        var handle = {value: 0};
+        var loop = function () {
+            handle.value = requestAnimationFrame(loop);
+            var current = new Date().getTime();
+            var delta = current - start;
+            if (delta >= delay) {
+                fn();
+                start = new Date().getTime();
+            }
+        };
+        handle.value = requestAnimationFrame(loop);
+        return handle;
+    };
+    var sample = function (arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    };
+    var bubbleSizes = [3, 6, 9, 12];
+    var bubbleText = document.querySelector(".bubbling");
+    var bubblePositions = Array.from(Array(bubbleText.offsetWidth).keys());
+    requestInterval(function () {
+        var bubbleSize = sample(bubbleSizes);
+        var bubblePosition = sample(bubblePositions);
+        var bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.style.width = bubbleSize + "px";
+        bubble.style.height = bubbleSize + "px";
+        bubble.style.left = bubblePosition + "px";
+        bubbleText.append(bubble);
+        var bubbleAnimation = bubble.animate([{bottom: "10px", opacity: 1}, {bottom: "180%", opacity: 0.6}], {
+            fill: "forwards",
+            duration: 3000
+        });
+        bubbleAnimation.onfinish = function () {
+            return bubble.remove();
+        };
+    }, 300);
+</script>
+<script>
+    //时钟
+    "use strict";
+    var Flipper = /** @class */ (function () {
+        function Flipper(node, currentTime, nextTime) {
+            this.isFlipping = false;
+            this.duration = 600;
+            this.flipNode = node;
+            this.frontNode = node.querySelector(".front");
+            this.backNode = node.querySelector(".back");
+            this.setFrontTime(currentTime);
+            this.setBackTime(nextTime);
+        }
+
+        Flipper.prototype.setFrontTime = function (time) {
+            this.frontNode.dataset.number = time;
+        };
+        Flipper.prototype.setBackTime = function (time) {
+            this.backNode.dataset.number = time;
+        };
+        Flipper.prototype.flipDown = function (currentTime, nextTime) {
+            var _this = this;
+            if (this.isFlipping) {
+                return false;
+            }
+            this.isFlipping = true;
+            this.setFrontTime(currentTime);
+            this.setBackTime(nextTime);
+            this.flipNode.classList.add("running");
+            setTimeout(function () {
+                _this.flipNode.classList.remove("running");
+                _this.isFlipping = false;
+                _this.setFrontTime(nextTime);
+            }, this.duration);
+        };
+        return Flipper;
+    }());
+    var getTimeFromDate = function (date) {
+        return date
+            .toTimeString()
+            .slice(0, 8)
+            .split(":")
+            .join("");
+    };
+    var flips = document.querySelectorAll(".flip");
+    var now = new Date();
+    var nowTimeStr = getTimeFromDate(new Date(now.getTime() - 1000));
+    var nextTimeStr = getTimeFromDate(now);
+    var flippers = Array.from(flips).map(function (flip, i) {
+        return new Flipper(flip, nowTimeStr[i], nextTimeStr[i]);
+    });
+    setInterval(function () {
+        var now = new Date();
+        var nowTimeStr = getTimeFromDate(new Date(now.getTime() - 1000));
+        var nextTimeStr = getTimeFromDate(now);
+        for (var i = 0; i < flippers.length; i++) {
+            if (nowTimeStr[i] === nextTimeStr[i]) {
+                continue;
+            }
+            flippers[i].flipDown(nowTimeStr[i], nextTimeStr[i]);
+        }
+    }, 1000);
+</script>
 
 </body>
 

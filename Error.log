@@ -682,3 +682,1026 @@ Traceback (most recent call last):
     ) from e
 ValueError: Field 'id' expected a number but got ''.
 2020-06-12 23:10:38,770,10032,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 12:27:29,044,5180,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 12:27:29,047,5180,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 12:58:49,605,5180,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 12:58:49,606,5180,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:04:20,153,10080,django.request,ERROR,log.py:228,Internal Server Error: /home/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\python\project\Easytest\easy\api\renderHtml.py", line 14, in home_views
+    return render(request, 'search.html')
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: search.html
+2020-06-13 13:04:20,155,10080,django.server,ERROR,basehttp.py:157,"GET /home/ HTTP/1.1" 500 83390
+2020-06-13 13:27:44,108,6196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:27:44,112,6196,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:36:19,072,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:36:19,080,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:41:10,143,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:41:10,143,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:42:16,271,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:42:16,273,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:44:00,505,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:44:00,506,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:50:30,083,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:50:30,084,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:50:32,032,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:50:32,034,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:50:41,894,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:50:41,896,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:50:52,126,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:50:52,127,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:50:52,631,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:50:52,632,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:51:04,336,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:51:04,337,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:54:39,229,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:54:39,230,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:56:00,981,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:56:00,982,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 13:57:39,904,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 13:57:39,905,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 14:21:51,066,244,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 143, in get
+    obj = InterFaceSet.objects.filter(belong_module=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\related_lookups.py", line 115, in get_prep_lookup
+    self.rhs = target_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-13 14:21:51,068,244,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 18851
+2020-06-13 16:22:36,777,5628,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 18, in get
+    serializer = InterFaceCase(obj, many=True)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\base.py", line 500, in __init__
+    raise TypeError("%s() got an unexpected keyword argument '%s'" % (cls.__name__, kwarg))
+TypeError: InterFaceCase() got an unexpected keyword argument 'many'
+2020-06-13 16:22:36,779,5628,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 17601
+2020-06-13 16:23:20,413,5628,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 18, in get
+    serializer = InterFaceCase(obj, many=True)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\base.py", line 500, in __init__
+    raise TypeError("%s() got an unexpected keyword argument '%s'" % (cls.__name__, kwarg))
+TypeError: InterFaceCase() got an unexpected keyword argument 'many'
+2020-06-13 16:23:20,413,5628,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10&parentId= HTTP/1.1" 500 17601
+2020-06-13 16:23:23,997,5628,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 18, in get
+    serializer = InterFaceCase(obj, many=True)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\base.py", line 500, in __init__
+    raise TypeError("%s() got an unexpected keyword argument '%s'" % (cls.__name__, kwarg))
+TypeError: InterFaceCase() got an unexpected keyword argument 'many'
+2020-06-13 16:23:23,999,5628,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10 HTTP/1.1" 500 17567
+2020-06-13 16:25:38,817,11004,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 21, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 514, in to_representation
+    for field in fields:
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 1038, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 1115, in get_field_names
+    serializer_class=self.__class__.__name__
+AssertionError: ("Creating a ModelSerializer without either the 'fields' attribute or the 'exclude' attribute has been deprecated since 3.3.0, and is now disallowed. Add an explicit fields = '__all__' to the InterFaceCaseSer serializer.",)
+2020-06-13 16:25:38,819,11004,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/list/?page=1&limit=10 HTTP/1.1" 500 19259
+2020-06-13 21:41:44,047,7084,django.request,ERROR,log.py:228,Internal Server Error: /relevance_interface/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\python\project\Easytest\easy\api\renderHtml.py", line 49, in relevance_interface_views
+    interface_case_name = InterFaceManageModule.objects.get(id=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 417, in get
+    self.model._meta.object_name
+easy.models.InterFaceManageModule.DoesNotExist: InterFaceManageModule matching query does not exist.
+2020-06-13 21:41:44,048,7084,django.server,ERROR,basehttp.py:157,"GET /relevance_interface/?parentId=3 HTTP/1.1" 500 77752

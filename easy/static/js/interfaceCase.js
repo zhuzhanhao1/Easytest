@@ -17,10 +17,10 @@ layui.use(['table', "soulTable"], function (data) {
         , url: '/api/v1/interface_case/list/' //数据接口"exports"
         , toolbar: '#toolbarDemo'
         , defaultToolbar: ['filter',  {title: '导入数据', layEvent: 'import_case', icon: 'layui-icon-upload-circle'}, 'print']
-        , title: '接口流程测试'
+        , title: '接口用例'
         , page: {groups: 5} //开启分页
         , loading: false
-        , height: 'full-60'
+        , height: 'full-70'
         , drag: {toolbar: true}//实现固定列与非固定列之间的转换
         , rowDrag: {
             trigger: 'row', done: function (obj) {
@@ -79,7 +79,6 @@ layui.use(['table', "soulTable"], function (data) {
         , limit: 10
         , limits: [10, 20, 30, 50, 100, 200, 500]
         , where: {//额外参数
-            parentId: parentId
         }
         , contextmenu: {
             // 表头右键菜单配置
@@ -107,8 +106,8 @@ layui.use(['table', "soulTable"], function (data) {
                 excel: {color: '0040ff', bgColor: 'f3fef3'},
                 edit: "text"
             }
-            , {field: '', title: 'Query参数', align: "left"}
-            , {field: '', title: 'Body参数', align: "left"}
+            , {field: 'description', title: '描述', align: "left",edit: "text"}
+            , {field: 'create_data', title: '创建时间', align: "left"}
         ]]
         , filter: {
             items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
@@ -226,7 +225,7 @@ layui.use(['table', "soulTable"], function (data) {
         var id = data['id'];
         console.log(obj);
         //删除接口用例
-       if (obj.event === 'del_interface') {
+       if (obj.event === 'del_case') {
             layer.confirm('你确定要删除吗' + '？', {
                     btn: ['取消', '确定'] //按钮
                 },
@@ -235,7 +234,7 @@ layui.use(['table', "soulTable"], function (data) {
                 },
                 function () {
                     $.ajax({
-                        url: "/api/v1/interface_set/del_interface/" + id + "/",
+                        url: "/api/v1/interface_case/del_case/" + id + "/",
                         type: 'DELETE',
                         success: function (data) {
                             if (data.code === 1000) {
@@ -265,6 +264,12 @@ layui.use(['table', "soulTable"], function (data) {
                     });
                 });
         }
+       else if(obj.event === "join"){
+           var href = "/relevance_interface?parentId=" + id;
+           console.log(href);
+            //$(window).attr('location',href);
+            $(location).attr('href', href);
+       }
     });
     table.on('edit(test)', function (obj) {
         var value = obj.value //得到修改后的值
@@ -273,10 +278,10 @@ layui.use(['table', "soulTable"], function (data) {
         //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
         if (field == "interface_case_name") {
             $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                url: "/api/v1/interface_case/update_case/" + data.id + '/',
                 type: 'PUT',
                 data: {
-                    "interface_name": value
+                    "interface_case_name": value
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -306,10 +311,10 @@ layui.use(['table', "soulTable"], function (data) {
         }
         else if (field == "description") {
             $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                url: "/api/v1/interface_case/update_case/" + data.id + '/',
                 type: 'PUT',
                 data: {
-                    "url": value
+                    "description": value
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -348,63 +353,24 @@ function add_case() {
         title: "新建用例",
         skin: "layui-layer-molv",
         shade: 0.6,
-        area: ['35%', '70%'],
+        area: ['35%', '30%'],
         //offset: 't',
         content: $("#add_update_case").html(),
         success: function () {
             layui.use(['form', "jquery"], function () {
                 var form = layui.form,
                     $ = layui.$;
-                form.val("add_update_case", {
-                    "preprocessor": "False"
-                });
-                form.on('radio(preprocessor)', function (data) {
-                    console.log(data.elem); //得到radio原始DOM对象
-                    console.log(data.value); //被点击的radio的value值
-                    if (data.value == "True") {
-                        $(".mydepend").css("display", "block")
-                        console.log("我应该展现依赖相关内容")
-                    } else {
-                        $(".mydepend").css("display", "none")
-                    }
-                });
+                form.val("add_update_case", {});
                 form.render('radio', 'preprocessor'); //更新 lay-filter="depend" 所在容器内的全部 radio 状态
                 form.on('submit(add_update_case)', function (data) {
                     console.log(data.field);
-                    let position_arr = ["params", "body"];
-                    let par = [];
-                    position_arr.map(function (data) {
-                        //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
-                        if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
-                            par.push(data);
-                        }
-                    });
-                    console.log(par);
-                    let num = "";
-                    if (par.length == 2) {
-                        num = 2
-                    } else if (par.length == 1 && par.indexOf("params") == 0) {
-                        num = 0
-                    } else if (par.length == 1 && par.indexOf("body") == 0) {
-                        num = 1
-                    }
-                    console.log("请求的replace_position为：" + String(num));
                     $.ajax({
                         cache: false,
-                        url: "/api/v1/interface_set/add_interface/",
+                        url: "/api/v1/interface_case/add_case/",
                         type: 'POST',
                         data: {
-                            "interface_name": data.field.interface_name,
-                            "url": data.field.url,
-                            "method": data.field.method,
-                            "belong_module": parentId,
-                            "params": data.field.query,
-                            "preprocessor": data.field.preprocessor,
-                            "body": data.field.body,
-                            "depend_id": data.field.depend_id,
-                            "depend_key": data.field.depend_key,
-                            "replace_key": data.field.replace_key,
-                            "replace_position": num,
+                            "interface_case_name": data.field.interface_case_name,
+                            "description": data.field.description,
                         },
                         beforeSend: function () {
                             l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});

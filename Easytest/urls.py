@@ -23,9 +23,11 @@ urlpatterns = [
     # 后台页面
     url(r'^admin/', admin.site.urls),
     # 返回页面
+    url(r'^login/', renderHtml.login_views),
     url(r'^index/', renderHtml.index_views),
     url(r'^home/', renderHtml.home_views),
     url(r'^interface_manager/', renderHtml.interface_manager_views),
     url(r'^interface_set/', renderHtml.interface_set_views),
     url(r'^interface_case/', renderHtml.interface_case_views),
+    url(r'^relevance_interface/', renderHtml.relevance_interface_views),
 ]

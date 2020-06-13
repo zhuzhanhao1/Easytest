@@ -85,7 +85,7 @@ layui.define(["element","jquery"],function(exports){
 		//显示左侧菜单
 		var _this = this;
 		$(".navBar ul").html('<li class="layui-nav-item layui-this">' +
-			'<a data-url="../../temptlates/search.html">' +
+			'<a data-url="../../temptlates/home.html">' +
 			'<i class="layui-icon" data-icon="&#xe68e;"></i>' +
 			'<cite>首页</cite>' +
 			'</a>' +
