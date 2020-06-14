@@ -130,10 +130,9 @@
 .fa-trash-o:hover{
     color: red;
 }
-.my_textarea{
-    width: 90%;
-    min-height:180px;
-}
+/*.layui-textarea{*/
+/*    min-height:150px;*/
+/*}*/
 .my_send{
     left: 30%;
 }
@@ -143,4 +142,22 @@
 .my_textarea_body{
     width: 90%;
     min-height:220px;
+}
+.my_submit{
+    position: fixed;
+    bottom: 20px;
+    width: 35%;
+    left: 62%;
+}
+
+.my_search_input{
+    float: left;
+    margin-right: 20px;
+}
+.layui-field-box{
+    padding: 20px 20px;
+}
+.my_textarea{
+    width: 90%;
+    min-height:180px;
 }

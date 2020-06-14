@@ -49,6 +49,25 @@
                 </div>
 
                 <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">接口协议</label>
+                        <div class="layui-input-inline">
+                            <select name="tcp">
+                                <option>http</option>
+                                <option>https</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+{#                        <label class="layui-form-label">IP地址</label>#}
+                        <div class="layui-input-inline">
+                            <input type="text" name="ip" class="layui-input" placeholder="请输入请求ip地址">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
                     <label class="layui-form-label">URL</label>
                     <div class="layui-input-block">
                         <input type="text" id="my_url" name="url" class="layui-input" placeholder="请输入请求接口路径">
@@ -67,14 +86,14 @@
                     <label class="layui-form-label">Params</label>
                     <div class="layui-input-block">
                         <textarea name="params" placeholder="仅支持输入JSON格式的内容数据"
-                                  class="layui-textarea my_textarea"></textarea>
+                                  class="form-control layui-textarea my_textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">Body</label>
                     <div class="layui-input-block">
                         <textarea name="body" placeholder="仅支持输入JSON格式的内容数据"
-                                  class="layui-textarea my_textarea_body"></textarea>
+                                  class="form-control layui-textarea my_textarea_body"></textarea>
                     </div>
                 </div>
             </form>
@@ -119,11 +138,20 @@
             <form class="layui-form" lay-filter="add_update_case">
 
                 <div class="layui-form-item" style="margin-top: 20px;">
-                    <label class="layui-form-label">接口名称</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="interface_name" required lay-verify="required"
-                               placeholder="请输入接口名称"
-                               autocomplete="off" class="layui-input">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">接口协议</label>
+                        <div class="layui-input-inline">
+                            <select name="tcp">
+                                <option>http</option>
+                                <option>https</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        {#                        <label class="layui-form-label">IP地址</label>#}
+                        <div class="layui-input-inline">
+                            <input type="text"  name="ip" class="layui-input" placeholder="请输入请求ip地址">
+                        </div>
                     </div>
                 </div>
 
@@ -149,6 +177,16 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">接口名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="interface_name" required lay-verify="required"
+                               placeholder="请输入接口名称"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">Query Params</label>
@@ -254,8 +292,7 @@
             <div id="sousuo">
                 <div class="layui-inline" style="margin-top: -7px;">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入接口名称"
-                           value="错误接口查询"
-                           style="width:200px;color: #999999;">
+                           style="width:250px;color: #999999;">
                 </div>
                 <button class="layui-btn layui-icon layui-icon-search" data-type="reload"
                         style="margin-top: -7px;">搜索

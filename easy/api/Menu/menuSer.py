@@ -1,5 +1,6 @@
-from easy.models import MainMenu,ChildMenu
+from easy.models import MainMenu, ChildMenu
 from rest_framework import serializers
+
 
 class MainMenuSer(serializers.ModelSerializer):
     '''
@@ -28,9 +29,9 @@ class MenuAppendSer(serializers.ModelSerializer):
 
     class Meta:
         model = MainMenu
-        fields = ('title', 'icon', 'href', 'spread','children')
+        fields = ('title', 'icon', 'href', 'spread', 'children')
 
-
-    def get_children(self,obj):
+    def get_children(self, obj):
         queryset = obj.childmenu_set.all()
-        return [{"title": row.title, "icon": row.icon,"href": row.href, "spread": row.spread} for row in queryset]
+        return [{"title": row.title, "icon": row.icon,
+                 "href": row.href, "spread": row.spread} for row in queryset]

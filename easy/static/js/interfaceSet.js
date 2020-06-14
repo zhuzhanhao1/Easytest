@@ -109,6 +109,8 @@ layui.use(['table', "soulTable"], function (data) {
                 edit: "text"
                 //templet: "#casenameTpl"
             }
+            , {field: 'tcp', title: '协议', width: 80, align: "left", edit: "text"}
+            , {field: 'ip', title: 'host', width: 150, align: "left", edit: "text"}
             , {
                 field: 'url', title: '请求路径', align: "left", edit: "text", templet: function (res) {
                     var a = res.url.split("/");
@@ -337,7 +339,7 @@ layui.use(['table', "soulTable"], function (data) {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                , where: {casename: demoReload.val()}
+                , where: {interface_name: demoReload.val()}
             }, 'data');
         }
     };
@@ -656,7 +658,7 @@ layui.use(['table', "soulTable"], function (data) {
             var a = layer.open({
                 type: 1,
                 title: "编辑接口",
-                area: ['35%', "80%"],
+                area: ['35%',],
                 skin: "layui-layer-molv",
                 shada: 0.6,
                 content: $("#add_update_case").html(),
@@ -667,6 +669,8 @@ layui.use(['table', "soulTable"], function (data) {
                         console.log(data);
                         form.val("add_update_case", {
                             "interface_name": data.interface_name,
+                            "tcp": data.tcp,
+                            "ip": data.ip,
                             "url": data.url,
                             "method": data.method,
                             "params": data.query,
@@ -715,6 +719,8 @@ layui.use(['table', "soulTable"], function (data) {
                                 type: 'PUT',
                                 data: {
                                     "interface_name": data.field.interface_name,
+                                    "tcp": data.field.tcp,
+                                    "ip": data.field.ip,
                                     "url": data.field.url,
                                     "method": data.field.method,
                                     "belong_module": parentId,
@@ -784,6 +790,8 @@ layui.use(['table', "soulTable"], function (data) {
                             $ = layui.$;
                         form.val("interface_debug", {
                             "url": data.url,
+                            "tcp": data.tcp,
+                            "ip": data.ip,
                             "params": data.params,
                             "body": data.body,
                             "method": data.method,
@@ -798,6 +806,8 @@ layui.use(['table', "soulTable"], function (data) {
                                 type: 'POST',
                                 data: {
                                     "url": data.field.url,
+                                    "tcp": data.field.tcp,
+                                    "ip": data.field.ip,
                                     "method": data.field.method,
                                     "headers": data.field.headers,
                                     "params": data.field.params,
@@ -839,17 +849,24 @@ layui.use(['table', "soulTable"], function (data) {
 
                                 },
                                 error: function (data) {
-                                    if (data.responseJSON.code === 1001) {
-                                        layer.msg(data.responseJSON.error, {
-                                            icon: 5,
-                                            offset: 't'
-                                        });
-                                    } else {
-                                        layer.msg("回调失败", {
-                                            icon: 5,
-                                            offset: 't'
-                                        });
+                                    try {
+                                        if (data.responseJSON.code === 1001) {
+                                            layer.msg(data.responseJSON.error, {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                        else {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                    } catch(e) {
+                                        console.log('捕获到异常：',e);
+                                        layer.msg('捕获到异常,查看控制台', {icon: 5, offset: "t"})
                                     }
+
                                 },
                                 complete: function () {
 
@@ -902,12 +919,79 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 }
             });
-        } else if (field == "url") {
+        }
+        else if (field == "url") {
             $.ajax({
                 url: "/api/v1/interface_set/update_interface/" + data.id + '/',
                 type: 'PUT',
                 data: {
                     "url": value
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        layer.msg(data.msg, {
+                            icon: 6, offset: "t"
+                        })
+                    } else {
+                        layer.msg(data.error, {
+                            icon: 5, offset: "t"
+                        })
+                    }
+                },
+                error: function (data) {
+                    if (data.responseJSON.code === 1001) {
+                        layer.msg(data.responseJSON.error, {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    } else {
+                        layer.msg("回调失败", {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    }
+                }
+            });
+        }
+        else if (field == "tcp") {
+            $.ajax({
+                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                type: 'PUT',
+                data: {
+                    "tcp": value
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        layer.msg(data.msg, {
+                            icon: 6, offset: "t"
+                        })
+                    } else {
+                        layer.msg(data.error, {
+                            icon: 5, offset: "t"
+                        })
+                    }
+                },
+                error: function (data) {
+                    if (data.responseJSON.code === 1001) {
+                        layer.msg(data.responseJSON.error, {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    } else {
+                        layer.msg("回调失败", {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    }
+                }
+            });
+        }
+        else if (field == "ip") {
+            $.ajax({
+                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                type: 'PUT',
+                data: {
+                    "ip": value
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -946,7 +1030,7 @@ function add_case() {
         title: "新建用例",
         skin: "layui-layer-molv",
         shade: 0.6,
-        area: ['35%', '70%'],
+        area: ['35%',],
         //offset: 't',
         content: $("#add_update_case").html(),
         success: function () {
@@ -1044,3 +1128,4 @@ function add_case() {
         }
     });
 }
+

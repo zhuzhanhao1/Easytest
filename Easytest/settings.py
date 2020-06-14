@@ -43,13 +43,13 @@ INSTALLED_APPS = [
 
 # REST全局配置
 REST_FRAMEWORK = {
-    #JSONRenderer：以JSON的格式返回、BaseRenderer：数据嵌套到HTML中展示
+    # JSONRenderer：以JSON的格式返回、BaseRenderer：数据嵌套到HTML中展示
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
-    #全局版本控制
-    "DEFAULT_VERSIONING_CLASS":"rest_framework.versioning.URLPathVersioning",
-    "ALLOWED_VERSIONS" : ["v1","v2"],   #允许的版本
-    "VERSION_PARAM":"version",          #版本默认传参
-    "DEFAULT_VERSION":"v1",             #默认版本号为V1,当没有传版本号时
+    # 全局版本控制
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
+    "ALLOWED_VERSIONS": ["v1", "v2"],  # 允许的版本
+    "VERSION_PARAM": "version",  # 版本默认传参
+    "DEFAULT_VERSION": "v1",  # 默认版本号为V1,当没有传版本号时
 }
 
 
@@ -90,16 +90,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ZzhTest',
-        'USER':'root',
-        'PASSWORD':'123456',
+        'USER': 'root',
+        'PASSWORD': '123456',
         # 'HOST':'127.0.0.1',#mac-localhost
         # 'HOST':'192.168.10.78',#win-docker
-        'HOST':'zhuzhanhao.cn',#aliyun
-        'PORT':'3307',
-        "CONN_MAX_AGE":9,
-        #取消外键检查
-        'OPTIONS':{
-                "init_command":"SET foreign_key_checks = 0;",
+        'HOST': 'zhuzhanhao.cn',  # aliyun
+        'PORT': '3307',
+        "CONN_MAX_AGE": 9,
+        # 取消外键检查
+        'OPTIONS': {
+                "init_command": "SET foreign_key_checks = 0;",
         }
     }
 }
@@ -155,11 +155,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#开启该中间件之后，默认会为任何开放的HttpResponse设置X-Frame-Options协议头为DENY,如果你想要设置为SAMEOGIGIN
+# 开启该中间件之后，默认会为任何开放的HttpResponse设置X-Frame-Options协议头为DENY,如果你想要设置为SAMEOGIGIN
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
-#配置日志
+# 配置日志
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

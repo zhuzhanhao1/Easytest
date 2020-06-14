@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from easy.models import InterFaceCase
-from .interfaceCaseSer import InterFaceCaseSer,DescriptionSer
+from .interfaceCaseSer import InterFaceCaseSer, DescriptionSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,7 +20,13 @@ class InterfaceCase(APIView):
         res = []
         for contact in contacts:
             res.append(contact)
-        return Response(data={"code": 0, "msg": "", "count": len(serializer.data), "data": res})
+        return Response(
+            data={
+                "code": 0,
+                "msg": "",
+                "count": len(
+                    serializer.data),
+                "data": res})
 
     def put(self, request, pk, *args, **kwargs):
         data = request.data
@@ -41,7 +47,6 @@ class InterfaceCase(APIView):
                 print(e)
                 error_code["error"] = str(e)
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
-
 
     def post(self, request, *args, **kwargs):
         '''

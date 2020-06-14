@@ -4,7 +4,7 @@ from django.http import Http404
 from easy.models import InterFaceManageClassification, InterFaceManageModule, InterFaceSet
 from .interfaceManageSer import InterFaceManageClassificationSer, InterFaceManageModuleSer, \
     UpdateInterFaceManageModuleSer, InterFaceSetSer, DependIdSer, DependKeySer, ReplaceKeySer,\
-    ReplacePositionSer,ParamsSer,BodySer,InterfaceNameSer,UrlSer,InterfaceAllSer
+    ReplacePositionSer,ParamsSer,BodySer,InterfaceNameSer,UrlSer,InterfaceAllSer,InterfaceSetSearchSer,TcpSer,IPSer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -140,7 +140,11 @@ class InterfaceSetList(APIView):
         '''
         parentId = request.GET.get("parentId", "")
         now_id = request.GET.get("id", "")
+        interface_name = request.GET.get("interface_name","")
         obj = InterFaceSet.objects.filter(belong_module=parentId)
+        if interface_name:
+            obj = InterFaceSet.objects.filter(Q(belong_module=parentId) & Q(interface_name__contains=interface_name))
+
         if now_id:
             obj = InterFaceSet.objects.filter(Q(belong_module=parentId) & Q(id=now_id))
         serializer = InterFaceSetSer(obj, many=True)
@@ -180,6 +184,10 @@ class InterfaceSetList(APIView):
                         serializer = InterfaceNameSer(obj, data=data)
                     elif i == "url":
                         serializer = UrlSer(obj, data=data)
+                    elif i == "tcp":
+                        serializer = TcpSer(obj, data=data)
+                    elif i == "ip":
+                        serializer = IPSer(obj, data=data)
                     if serializer.is_valid():
                         serializer.save()
                         right_code["msg"] = "编辑成功"
@@ -239,13 +247,13 @@ class InterfaceSetList(APIView):
 
 class RunInterfaceDebugTest(APIView):
 
-    def parameter_check(self, url, method):
+    def parameter_check(self, tcp,ip,url, method):
         """
         验证必传参数 method, url, headers
         """
         try:
-            if not method or not url:
-                error_code["error"] = "必填参数method或URL不存在"
+            if not method or not url or not tcp or not ip:
+                error_code["error"] = "必填参数有缺失"
                 return error_code
             else:
                 return right_code
@@ -258,17 +266,21 @@ class RunInterfaceDebugTest(APIView):
             接口测试
         '''
         datas = request.data
+
         method = datas.get("method", "")
+        tcp = datas.get("tcp", "")
+        ip = datas.get("ip", "")
         url = datas.get("url", "")
         headers = datas.get("headers", "")
         params = datas.get("params", "")
         body = datas.get("body", "")
         # 参数校验
-        result = self.parameter_check(url, method)
+        result = self.parameter_check(tcp,ip,url,method)
         print(result)
         if result["code"] == 1001:
             return Response(result)
         try:
+            url = tcp + "://" + ip + "/" + url
             response_headers, response_body, duration, status_code = InterfaceRun().run_main(method, url, headers,
                                                                                              params, body)
             # response = json.dumps(response, ensure_ascii=False, sort_keys=True, indent=2)
@@ -291,6 +303,30 @@ class RunInterfaceDebugTest(APIView):
               "params","body","depend_id","depend_key","replace_key","replace_position")
         return Response(obj)
 
+
+class InterfaceSetSearchList(APIView):
+
+    def get(self, request, *args, **kwargs):
+        '''
+            接口集列表
+        '''
+        interface_name = request.GET.get("interfaceName","")
+        url = request.GET.get("url","")
+        belongModule = request.GET.get("belongModule","")
+        systemClassification = request.GET.get("systemClassification", "")
+        obj = InterFaceSet.objects.filter()
+        if belongModule:
+            obj = InterFaceSet.objects.filter(belong_module__puisne_module__contains=belongModule)
+        serializer = InterfaceSetSearchSer(obj, many=True)
+        pageindex = request.GET.get('page', 1)  # 页数
+        pagesize = request.GET.get("limit", 10)  # 每页显示数量
+        pageInator = Paginator(serializer.data, pagesize)
+        # 分页
+        contacts = pageInator.page(pageindex)
+        res = []
+        for contact in contacts:
+            res.append(contact)
+        return Response(data={"code": 0, "msg": "", "count": len(serializer.data), "data": res})
 
 
 

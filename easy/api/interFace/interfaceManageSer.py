@@ -35,6 +35,7 @@ class InterFaceSetSer(serializers.ModelSerializer):
         model = InterFaceSet
         fields = "__all__"
 
+
 class DependIdSer(serializers.ModelSerializer):
     '''
         前置的id
@@ -99,10 +100,36 @@ class UrlSer(serializers.ModelSerializer):
         model = InterFaceSet
         fields = ("url",)
 
+class IPSer(serializers.ModelSerializer):
+    '''
+        请求ip
+    '''
+    class Meta:
+        model = InterFaceSet
+        fields = ("ip",)
+class TcpSer(serializers.ModelSerializer):
+    '''
+        请求ip
+    '''
+    class Meta:
+        model = InterFaceSet
+        fields = ("tcp",)
+
 class InterfaceAllSer(serializers.ModelSerializer):
     '''
         请求路径
     '''
     class Meta:
         model = InterFaceSet
-        fields = ("interface_name","url","method","belong_module","params","preprocessor","body","depend_id","depend_key","replace_key","replace_position",)
+        fields = ("interface_name","tcp","ip","url","method","belong_module","params","preprocessor","body","depend_id","depend_key","replace_key","replace_position",)
+
+class InterfaceSetSearchSer(serializers.ModelSerializer):
+    '''
+        请求路径
+    '''
+
+    belong_module = serializers.CharField(source="belong_module.puisne_module")
+    classification = serializers.CharField(source="belong_module.parent.classification")
+    class Meta:
+        model = InterFaceSet
+        fields = ("id","interface_name","url","method","belong_module","classification")

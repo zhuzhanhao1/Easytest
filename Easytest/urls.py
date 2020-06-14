@@ -13,21 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.contrib import admin
 from easy.api import renderHtml
 
 urlpatterns = [
-    #django-restframework
+    # django-restframework
     url(r'^api/(?P<version>\w+)/', include('easy.urls')),
     # 后台页面
     url(r'^admin/', admin.site.urls),
     # 返回页面
-    url(r'^login/', renderHtml.login_views),
-    url(r'^index/', renderHtml.index_views),
+    url(r'^login/$', renderHtml.login_views),
+    url(r'^dingding_login/$', renderHtml.dingding_login_views),
+    url(r'^logout/$', renderHtml.logout_views),
+    url(r'^index/$', renderHtml.index_views),
     url(r'^home/', renderHtml.home_views),
     url(r'^interface_manager/', renderHtml.interface_manager_views),
     url(r'^interface_set/', renderHtml.interface_set_views),
     url(r'^interface_case/', renderHtml.interface_case_views),
     url(r'^relevance_interface/', renderHtml.relevance_interface_views),
+    url(r'^interface_search/', renderHtml.interface_search_views),
 ]

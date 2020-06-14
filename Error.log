@@ -1705,3 +1705,1073 @@ Traceback (most recent call last):
     self.model._meta.object_name
 easy.models.InterFaceManageModule.DoesNotExist: InterFaceManageModule matching query does not exist.
 2020-06-13 21:41:44,048,7084,django.server,ERROR,basehttp.py:157,"GET /relevance_interface/?parentId=3 HTTP/1.1" 500 77752
+2020-06-14 13:11:21,666,8780,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 454, in get_attribute
+    return get_attribute(instance, self.source_attrs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 94, in get_attribute
+    instance = getattr(instance, attr)
+AttributeError: 'InterFaceCaseData' object has no attribute 'interfaceSet'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\relevanceInterface.py", line 18, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 516, in to_representation
+    attribute = field.get_attribute(instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 487, in get_attribute
+    raise type(exc)(msg)
+AttributeError: Got AttributeError when attempting to get a value for field `url` on serializer `InterFaceCaseDataSer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `InterFaceCaseData` instance.
+Original exception text was: 'InterFaceCaseData' object has no attribute 'interfaceSet'.
+2020-06-14 13:11:21,669,8780,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=1 HTTP/1.1" 500 18990
+2020-06-14 13:17:23,105,10232,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 454, in get_attribute
+    return get_attribute(instance, self.source_attrs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 94, in get_attribute
+    instance = getattr(instance, attr)
+AttributeError: 'InterFaceCaseData' object has no attribute 'interfaceset'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\relevanceInterface.py", line 18, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 516, in to_representation
+    attribute = field.get_attribute(instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 487, in get_attribute
+    raise type(exc)(msg)
+AttributeError: Got AttributeError when attempting to get a value for field `url` on serializer `InterFaceCaseDataSer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `InterFaceCaseData` instance.
+Original exception text was: 'InterFaceCaseData' object has no attribute 'interfaceset'.
+2020-06-14 13:17:23,108,10232,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=1 HTTP/1.1" 500 18990
+2020-06-14 16:43:49,167,11012,django.request,ERROR,log.py:228,Internal Server Error: /relevance_interface/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\python\project\Easytest\easy\api\renderHtml.py", line 49, in relevance_interface_views
+    interface_case_name = InterFaceCase.objects.get(id=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 404, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-14 16:43:49,169,11012,django.server,ERROR,basehttp.py:157,"GET /relevance_interface/ HTTP/1.1" 500 124725
+2020-06-14 17:28:47,203,11060,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 313, in get
+    obj = obj.objects.filter(belong_module__puisne_module__contains=belongModule)
+AttributeError: 'QuerySet' object has no attribute 'objects'
+2020-06-14 17:28:47,205,11060,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10&interface_name=post&url=&belongModule=%E5%8D%95%E4%BD%8D&systemClassification= HTTP/1.1" 500 17327
+2020-06-14 18:17:18,226,11856,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/add_interface/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\relevanceInterface.py", line 42, in post
+    interface_name = InterFaceSet.objects.get(id)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 404, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1247, in build_filter
+    arg, value = filter_expr
+TypeError: cannot unpack non-iterable int object
+2020-06-14 18:17:18,228,11856,django.server,ERROR,basehttp.py:157,"POST /api/v1/relevance_interface/add_interface/ HTTP/1.1" 500 18203
+2020-06-14 20:49:21,096,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EDAE908>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/navigation/get_object_list_in_department (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EDAE908>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 72, in run_main
+    res = self.post(url,headers,params,data)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 17, in post
+    res = requests.post(url, params=params, data=json.dumps(data), headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 119, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/navigation/get_object_list_in_department (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EDAE908>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 20:49:36,115,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EE5B608>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EE5B608>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EE5B608>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 20:49:36,121,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 20:51:54,949,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EF6B608>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EF6B608>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EF6B608>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 20:51:54,951,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 20:52:53,092,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EEFEAC8>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EEFEAC8>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EEFEAC8>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 20:52:53,095,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 20:57:28,022,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EE01C08>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EE01C08>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EE01C08>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 20:57:28,027,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 21:03:12,439,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EF7A308>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EF7A308>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EF7A308>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 21:03:12,441,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 21:04:43,706,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8F012B88>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8F012B88>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8F012B88>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 21:04:43,708,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 21:06:03,250,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EFAF348>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EFAF348>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EFAF348>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 21:06:03,255,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21746
+2020-06-14 21:08:31,953,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EDB24C8>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EDB24C8>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EDB24C8>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 21:08:31,958,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 21:10:15,441,4196,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 157, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 84, in create_connection
+    raise err
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\connection.py", line 74, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1298, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1247, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1026, in _send_output
+    self.send(msg)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 966, in send
+    self.connect()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 184, in connect
+    conn = self._new_conn()
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001EE8EDB2A48>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 720, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\util\retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EDB2A48>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceManage.py", line 277, in post
+    params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 69, in run_main
+    res = self.get(url,headers,params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 11, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='192.168.10.78', port=80): Max retries exceeded with url: /ermsapi/policy/get_retention_policy_list (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001EE8EDB2A48>: Failed to establish a new connection: [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。'))
+2020-06-14 21:10:15,445,4196,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 21740
+2020-06-14 22:34:14,009,10596,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\relevanceInterface.py", line 19, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 514, in to_representation
+    for field in fields:
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 1038, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 1139, in get_field_names
+    serializer_class=self.__class__.__name__
+AssertionError: The field 'tcp' was declared on serializer InterFaceCaseDataSer, but has not been included in the 'fields' option.
+2020-06-14 22:34:14,010,10596,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=1 HTTP/1.1" 500 19124

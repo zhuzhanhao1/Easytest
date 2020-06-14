@@ -18,9 +18,9 @@ layui.use(['table', "soulTable"], function (data) {
         , toolbar: '#toolbarDemo'
         , defaultToolbar: ['filter',  {title: '导入数据', layEvent: 'import_case', icon: 'layui-icon-upload-circle'}, 'print']
         , title: '接口流程测试'
-        //, page: {groups: 5} //开启分页
+        , page: {groups: 5} //开启分页
         , loading: false
-        //, height: 'full-60'
+        , height: 'full-60'
         , drag: {toolbar: true}//实现固定列与非固定列之间的转换
         , rowDrag: {
             trigger: 'row', done: function (obj) {
@@ -106,8 +106,11 @@ layui.use(['table', "soulTable"], function (data) {
                 excel: {color: '0040ff', bgColor: 'f3fef3'},
                 edit: "text"
             }
-
             , {field: 'description', title: '描述', align: "left", edit: "text"}
+            , {field: 'interface_id', title: '关联的接口id', align: "left"}
+            , {field: 'duration', title: '响应时长', align: "left"}
+            , {field: 'result', title: '响应结果', align: "left"}
+            , {field: 'head', title: '负责人', align: "left",edit: "text"}
         ]]
         , filter: {
             items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
@@ -132,7 +135,7 @@ layui.use(['table', "soulTable"], function (data) {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                , where: {casename: demoReload.val()}
+                , where: {interface_name: demoReload.val()}
             }, 'data');
         }
     };
@@ -293,6 +296,9 @@ layui.use(['table', "soulTable"], function (data) {
                         layer.close(l_index);
                     }
                 });
+                break;
+
+
         }
 
     });
@@ -312,7 +318,7 @@ layui.use(['table', "soulTable"], function (data) {
                 },
                 function () {
                     $.ajax({
-                        url: "/api/v1/interface_set/del_interface/" + id + "/",
+                        url: "/api/v1/relevance_interface/del_interface/" + id + "/",
                         type: 'DELETE',
                         success: function (data) {
                             if (data.code === 1000) {
@@ -342,135 +348,35 @@ layui.use(['table', "soulTable"], function (data) {
                     });
                 });
         }
-        //编辑请求Query
-        else if (obj.event === 'params') {
-            layer.prompt({
-                formType: 2
-                , value: data.params
-                , title: ["编辑Query parmas"]
-                , shade: false
-                , area: ['600px', '400px'] //自定义文本域宽高
-
-            }, function (value, index) {
-                console.log(value);
-                console.log(index);
-                $.ajax({
-                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                    type: 'PUT',
-                    data: {
-                        "params": value
-                    },
-                    success: function (data) {
-                        if (data.code === 1000) {
-                            layer.msg(data.msg, {
-                                icon: 6, offset: "t"
-                            })
-                        } else {
-                            layer.msg(data.error, {
-                                icon: 5, offset: "t"
-                            })
-                        }
-                    },
-                    error: function (data) {
-                        if (data.responseJSON.code === 1001) {
-                            layer.msg(data.responseJSON.error, {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        } else {
-                            layer.msg("回调失败", {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        }
-                    },
-                });
-                //同步更新缓存对应的值
-                obj.update({
-                    params: value
-                });
-                layer.close(index);
-            });
-        }
-        //编辑请求体
-        else if (obj.event === 'body') {
-            layer.prompt({
-                formType: 2
-                , value: data.body
-                , title: ["编辑data forms"]
-                , shade: 0.6
-                , area: ['600px', '400px'] //自定义文本域宽高
-                , maxlength: 500000
-
-            }, function (value, index) {
-                console.log(value);
-                console.log(index);
-                $.ajax({
-                    cache: false,
-                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                    type: 'PUT',
-                    async: false,
-                    data: {
-                        "body": value
-                    },
-                    success: function (data) {
-                        if (data.code === 1000) {
-                            layer.msg(data.msg, {
-                                icon: 6, offset: "t"
-                            })
-                        } else {
-                            layer.msg(data.error, {
-                                icon: 5, offset: "t"
-                            })
-                        }
-                    },
-                    error: function (data) {
-                        if (data.responseJSON.code === 1001) {
-                            layer.msg(data.responseJSON.error, {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        } else {
-                            layer.msg("回调失败", {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        }
-                    },
-                });
-                //同步更新缓存对应的值
-                obj.update({
-                    body: value
-                });
-                layer.close(index);
-
-            });
-        }
         //编辑接口整体
         else if (obj.event === 'update_interface') {
             var a = layer.open({
                 type: 1,
-                title: "编辑接口",
-                area: ['35%', "80%"],
+                title: "编辑关联的接口",
+                area: ['40%', "100%"],
                 skin: "layui-layer-molv",
                 shada: 0.6,
+                offset:"rb",
                 content: $("#add_update_case").html(),
                 success: function () {
                     layui.use(['form', "jquery"], function () {
                         var form = layui.form;
-                        var id = data.id;
-                        console.log(data);
+                        let interface_id = data["interface_id"];
+                        let belong_module = data["belong_module"];
+                        console.log(interface_id,belong_module);
                         form.val("add_update_case", {
-                            "interface_name": data.interface_name,
+                            "interface_name": data.relevance_interface_name,
                             "url": data.url,
+                            "tcp": data.tcp,
+                            "ip": data.ip,
                             "method": data.method,
-                            "params": data.query,
+                            "params": data.params,
                             "body": data.body,
                             "preprocessor": data.preprocessor,
                             "depend_id": data.depend_id,
                             "depend_key": data.depend_key,
                             "replace_key": data.replace_key,
-                            //"replaceposition": data.replace_position,
+                            "replace_position": data.replace_position,
                         });
                         //监听编辑用户信息，
                         form.on('radio(preprocessor)', function (data) {
@@ -485,41 +391,24 @@ layui.use(['table', "soulTable"], function (data) {
                         });
                         form.render('radio', 'preprocessor'); //更新 lay-filter="preprocessor" 所在容器内的全部 radio 状态
                         form.on('submit(add_update_case)', function (data) {
-                            console.log(data.field);
-                            let position_arr = ["params", "body"];
-                            let par = [];
-                            position_arr.map(function (data) {
-                                //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
-                                if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
-                                    par.push(data);
-                                }
-                            });
-                            console.log(par);
-                            let num = "";
-                            if (par.length == 2) {
-                                num = 2
-                            } else if (par.length == 1 && par.indexOf("params") == 0) {
-                                num = 0
-                            } else if (par.length == 1 && par.indexOf("body") == 0) {
-                                num = 1
-                            }
-                            console.log("请求的replace_position为：" + String(num));
                             $.ajax({
                                 cache: false,
-                                url: "/api/v1/interface_set/update_interface/" + id + "/",
+                                url: "/api/v1/interface_set/update_interface/" + interface_id + "/",
                                 type: 'PUT',
                                 data: {
                                     "interface_name": data.field.interface_name,
                                     "url": data.field.url,
+                                    "tcp": data.field.tcp,
+                                    "ip": data.field.ip,
                                     "method": data.field.method,
-                                    "belong_module": parentId,
-                                    "params": data.field.query,
+                                    "belong_module": belong_module,
+                                    "params": data.field.params,
                                     "preprocessor": data.field.preprocessor,
                                     "body": data.field.body,
                                     "depend_id": data.field.depend_id,
                                     "depend_key": data.field.depend_key,
                                     "replace_key": data.field.replace_key,
-                                    "replace_position": num,
+                                    "replace_position": data.field.replace_position,
                                 },
                                 beforeSend: function () {
                                     l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
@@ -579,6 +468,8 @@ layui.use(['table', "soulTable"], function (data) {
                             $ = layui.$;
                         form.val("interface_debug", {
                             "url": data.url,
+                            "tcp": data.tcp,
+                            "ip": data.ip,
                             "params": data.params,
                             "body": data.body,
                             "method": data.method,
@@ -593,6 +484,8 @@ layui.use(['table', "soulTable"], function (data) {
                                 type: 'POST',
                                 data: {
                                     "url": data.field.url,
+                                    "tcp": data.field.tcp,
+                                    "ip": data.field.ip,
                                     "method": data.field.method,
                                     "headers": data.field.headers,
                                     "params": data.field.params,
@@ -610,15 +503,21 @@ layui.use(['table', "soulTable"], function (data) {
                                     $("#response_headers").html(response_headers);
                                     let response_body = JSON.stringify(data.response_body, null, 4);
                                     $("#response_body").html(response_body);
-                                    if (data.code === 1000) {
-                                        layer.msg(data.msg, {
-                                            icon: 6, offset: "t"
-                                        })
-                                    } else {
-                                        layer.msg(data.error, {
-                                            icon: 5, offset: "t"
-                                        })
+                                    try {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        }
+                                        else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    } catch(e) {
+                                        console.log('捕获到异常：',e);
                                     }
+
                                     layer.open({
                                         //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                                         type: 1,
@@ -634,20 +533,28 @@ layui.use(['table', "soulTable"], function (data) {
 
                                 },
                                 error: function (data) {
-                                    if (data.responseJSON.code === 1001) {
-                                        layer.msg(data.responseJSON.error, {
-                                            icon: 5,
-                                            offset: 't'
-                                        });
-                                    } else {
-                                        layer.msg("回调失败", {
-                                            icon: 5,
-                                            offset: 't'
-                                        });
+                                    try {
+                                        if (data.responseJSON.code === 1001) {
+                                            layer.msg(data.responseJSON.error, {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                        else {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                    } catch(e) {
+                                        console.log('捕获到异常：',e);
+                                        layer.msg(e, {
+                                                icon: 5, offset: "t"
+                                            })
                                     }
+
                                 },
                                 complete: function () {
-
                                     layer.close(l_index);
                                     //layer.close(debug);
                                 }
@@ -667,7 +574,7 @@ layui.use(['table', "soulTable"], function (data) {
         //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
         if (field == "interface_name") {
             $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                url: "/api/v1/relevance_interface/update_interface/" + data.id + '/',
                 type: 'PUT',
                 data: {
                     "interface_name": value
@@ -697,12 +604,46 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 }
             });
-        } else if (field == "url") {
+        }
+        else if (field == "description") {
             $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                url: "/api/v1/relevance_interface/update_interface/" + data.id + '/',
                 type: 'PUT',
                 data: {
-                    "url": value
+                    "description": value
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        layer.msg(data.msg, {
+                            icon: 6, offset: "t"
+                        })
+                    } else {
+                        layer.msg(data.error, {
+                            icon: 5, offset: "t"
+                        })
+                    }
+                },
+                error: function (data) {
+                    if (data.responseJSON.code === 1001) {
+                        layer.msg(data.responseJSON.error, {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    } else {
+                        layer.msg("回调失败", {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    }
+                }
+            });
+        }
+        else if (field == "head") {
+            $.ajax({
+                url: "/api/v1/relevance_interface/update_interface/" + data.id + '/',
+                type: 'PUT',
+                data: {
+                    "head": value
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -733,109 +674,22 @@ layui.use(['table', "soulTable"], function (data) {
     });
 });
 
-//新建用例
-function add_case() {
-    var add_interface = layer.open({
-        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-        type: 1,
-        title: "新建用例",
-        skin: "layui-layer-molv",
+function add_relevance_interface() {
+    var search_interface = layer.open({
+        type: 2,
+        title: "从接口库中搜索后添加",
+        area: ['80%', "80%"],
+        skin: 'layui-layer-molv',
         shade: 0.6,
-        area: ['35%', '70%'],
-        //offset: 't',
-        content: $("#add_update_case").html(),
+        minmax:true,
+        content: '/interface_search/?parentId='+parentId,
         success: function () {
-            layui.use(['form', "jquery"], function () {
-                var form = layui.form,
-                    $ = layui.$;
-                form.val("add_update_case", {
-                    "preprocessor": "False"
-                });
-                form.on('radio(preprocessor)', function (data) {
-                    console.log(data.elem); //得到radio原始DOM对象
-                    console.log(data.value); //被点击的radio的value值
-                    if (data.value == "True") {
-                        $(".mydepend").css("display", "block")
-                        console.log("我应该展现依赖相关内容")
-                    } else {
-                        $(".mydepend").css("display", "none")
-                    }
-                });
-                form.render('radio', 'preprocessor'); //更新 lay-filter="depend" 所在容器内的全部 radio 状态
-                form.on('submit(add_update_case)', function (data) {
-                    console.log(data.field);
-                    let position_arr = ["params", "body"];
-                    let par = [];
-                    position_arr.map(function (data) {
-                        //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
-                        if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
-                            par.push(data);
-                        }
-                    });
-                    console.log(par);
-                    let num = "";
-                    if (par.length == 2) {
-                        num = 2
-                    } else if (par.length == 1 && par.indexOf("params") == 0) {
-                        num = 0
-                    } else if (par.length == 1 && par.indexOf("body") == 0) {
-                        num = 1
-                    }
-                    console.log("请求的replace_position为：" + String(num));
-                    $.ajax({
-                        cache: false,
-                        url: "/api/v1/interface_set/add_interface/",
-                        type: 'POST',
-                        data: {
-                            "interface_name": data.field.interface_name,
-                            "url": data.field.url,
-                            "method": data.field.method,
-                            "belong_module": parentId,
-                            "params": data.field.query,
-                            "preprocessor": data.field.preprocessor,
-                            "body": data.field.body,
-                            "depend_id": data.field.depend_id,
-                            "depend_key": data.field.depend_key,
-                            "replace_key": data.field.replace_key,
-                            "replace_position": num,
-                        },
-                        beforeSend: function () {
-                            l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
-                        },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                layer.msg(data.msg, {
-                                    icon: 6, offset: "t"
-                                })
-                            } else {
-                                layer.msg(data.error, {
-                                    icon: 5, offset: "t"
-                                })
-                            }
-                            $(".layui-laypage-btn").click();
-                        },
-                        error: function (data) {
-                            if (data.responseJSON.code === 1001) {
-                                layer.msg(data.responseJSON.error, {
-                                    icon: 5,
-                                    offset: 't'
-                                });
-                            } else {
-                                layer.msg("回调失败", {
-                                    icon: 5,
-                                    offset: 't'
-                                });
-                            }
-                        },
-                        complete: function () {
-                            layer.close(l_index);
-                            layer.close(add_interface);
-                        }
-
-                    });
-                    return false;//阻止表单跳转
-                });
-            });
+            layer.msg('打开搜索界面成功！', {icon: 6, offset: 't'});
+        },
+        btn: ['关闭'],
+        yes: function () {
+            layer.close(search_interface);
         }
+
     });
 }
