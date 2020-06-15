@@ -144,3 +144,9 @@
     width: 90%;
     min-height:220px;
 }
+.my_submit{
+    position: fixed;
+    bottom: 20px;
+    width: 35%;
+    left: 62%;
+}

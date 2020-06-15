@@ -186,19 +186,24 @@
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
-
+                <div class="layui-form-item">
+                    <label class="layui-form-label">Headers</label>
+                    <div class="layui-input-block">
+                        <textarea name="headers" placeholder="仅支持输入JSON格式的内容数据" class="layui-textarea"></textarea>
+                    </div>
+                </div>
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">Query Params</label>
                     <div class="layui-input-block">
-                        <textarea name="query" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea name="query" placeholder="仅支持输入JSON格式的内容数据" class="layui-textarea"></textarea>
                     </div>
                 </div>
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">Form Data</label>
                     <div class="layui-input-block">
-                                <textarea name="body" id="body" placeholder="请输入内容"
+                                <textarea name="body" id="body" placeholder="仅支持输入JSON格式的内容数据"
                                           class="layui-textarea"></textarea>
                     </div>
                 </div>
@@ -214,8 +219,14 @@
                 <div class="layui-form-item mydepend" style="display: none;">
                     <label class="layui-form-label">替换区域</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="params" value="params" title="params">
-                        <input type="checkbox" name="body" value="body" title="body">
+{#                        <input type="checkbox" name="params" value="params" title="params">#}
+{#                        <input type="checkbox" name="body" value="body" title="body">#}
+                        <select name="replace_position">
+                            <option value="">无替换区域</option>
+                            <option value="0">替换params区域</option>
+                            <option value="1">替换body区域</option>
+                            <option value="2">替换param和body区域</option>
+                        </select>
                     </div>
                 </div>
 
@@ -228,28 +239,27 @@
                 </div>
 
                 <div class="layui-form-item mydepend" style="display: none;">
-                    <label class="layui-form-label">前置的的key</label>
+                    <label class="layui-form-label">取前置结果的JSONPATH</label>
                     <div class="layui-input-block">
-                        <input type="text" name="depend_key" placeholder="无依赖不必填" class="layui-input">
+                        <textarea name="depend_key"  placeholder="无前置不必填"
+                                          class="layui-textarea"></textarea>
+
+{#                        <input type="text" name="depend_key" placeholder="无依赖不必填" class="layui-input">#}
                     </div>
                 </div>
 
                 <div class="layui-form-item mydepend" style="display: none;">
-                    <label class="layui-form-label">替换的key</label>
+                    <label class="layui-form-label">取请求内容的JSONPATH</label>
                     <div class="layui-input-block">
-                        <input type="text" name="replace_key" placeholder="无依赖不必填" class="layui-input">
+                        <textarea name="replace_key"  placeholder="无前置不必填"
+                                          class="layui-textarea"></textarea>
+{#                        <input type="text" name="replace_key" placeholder="无依赖不必填" class="layui-input">#}
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="add_update_case"
-                                style="float: right;">立即提交
-                        </button>
-                        <button type="reset" class="layui-btn layui-btn-primary"
-                                style="float: right;margin-right: 10px;">
-                            重置
-                        </button>
+                        <button type="button" class="layui-btn layui-btn-fluid my_submit" lay-submit lay-filter="add_update_case">保存</button>
                     </div>
                 </div>
             </form>

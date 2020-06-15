@@ -132,7 +132,7 @@ layui.use(['table', "soulTable"], function (data) {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                , where: {casename: demoReload.val()}
+                , where: {interface_case_name: demoReload.val()}
             }, 'data');
         }
     };
@@ -213,6 +213,57 @@ layui.use(['table', "soulTable"], function (data) {
                         });
                 }else{
                     layer.msg('请先勾选需要删除的接口哦！', {icon: 0, offset: "t"});
+                }
+                break;
+            //执行接口用例
+            case "interface_case_run":
+                var data = checkStatus.data;
+                var len = data.length;
+                console.log(data);
+                if (len == 0) {
+                    layer.close(index);
+                    layer.msg("请先选中需要执行的接口用例", {
+                        icon: 2,
+                        offset: "t"
+                    });
+                } else {
+                    let l = [];
+                    for (i = 0; i < data.length; i++) {
+                        l.push(data[i]["id"]);
+                    }
+                    console.log(l);
+                    $.ajax({
+                        url: "/api/v1/interface_case/run/",
+                        type: 'POST',
+                        data:{
+                            id_list:JSON.stringify(l)
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                layer.msg(data.msg, {
+                                    icon: 6, offset: "t"
+                                })
+                            } else {
+                                layer.msg(data.error, {
+                                    icon: 5, offset: "t"
+                                })
+                            }
+                            $(".layui-laypage-btn").click();
+                        },
+                        error: function (data) {
+                            if (data.responseJSON.code === 1001) {
+                                layer.msg(data.responseJSON.error, {
+                                    icon: 5,
+                                    offset: 't'
+                                });
+                            } else {
+                                layer.msg("回调失败", {
+                                    icon: 5,
+                                    offset: 't'
+                                });
+                            }
+                        },
+                    });
                 }
                 break;
         }

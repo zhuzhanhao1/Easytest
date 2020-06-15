@@ -65,21 +65,31 @@ layui.use(['table', "soulTable"], function (data) {
     //搜索
     layui.$, active = {
         reload: function () {
-            var interfaceName = $('#interfaceName');
-            var url = $('#url');
-            var belongModule = $('#belongModule');
-            var systemClassification = $('#systemClassification');
-            console.log(interfaceName.val());
+            let interfaceName = $('#interfaceName').val();
+            let url = $('#url').val();
+            let belongModule = $('#belongModule').val();
+            let systemClassification = $('#systemClassification').val();
+            let dic = {
+                "interface_name__contains":interfaceName,
+                "url__contains":url,
+                "belong_module__puisne_module__contains":belongModule,
+                "belong_module__parent__classification__contains":systemClassification
+            };
+            console.log(dic);
+            search_dic = {}
+            for (var key in dic){
+                if(dic[key] != ""){
+                    search_dic[key] = dic[key]
+                }
+            }
+            console.log(search_dic)
             //执行重载
             table.reload('testReload', {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    interfaceName: interfaceName.val(),
-                    url: url.val(),
-                    belongModule: belongModule.val(),
-                    systemClassification: systemClassification.val(),
+                    search_dic:JSON.stringify(search_dic)
                 }
             }, 'data');
         }

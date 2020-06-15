@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'interface_case/add_case/$', interfaceCase.InterfaceCase.as_view()),
     url(r'interface_case/update_case/(?P<pk>[0-9]+)/$',interfaceCase.InterfaceCase.as_view()),
     url(r'interface_case/del_case/(?P<pk>[0-9]+)/$',interfaceCase.InterfaceCase.as_view()),
+    url(r'interface_case/run/$', interfaceCase.InterfaceCaseRun.as_view()),
 
     url(r'relevance_interface/list/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/add_interface/$',relevanceInterface.InterfaceCaseData.as_view()),

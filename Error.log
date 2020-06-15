@@ -2775,3 +2775,533 @@ Traceback (most recent call last):
     serializer_class=self.__class__.__name__
 AssertionError: The field 'tcp' was declared on serializer InterFaceCaseDataSer, but has not been included in the 'fields' option.
 2020-06-14 22:34:14,010,10596,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=1 HTTP/1.1" 500 19124
+2020-06-15 12:56:57,346,8212,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 317, in get
+    obj = InterFaceSet.objects.filter(i=value)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1250, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1087, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1483, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'i' into field. Choices are: belong_module, belong_module_id, body, depend_id, depend_key, duration, headers, id, interface_name, interfacecasedata, ip, method, params, preprocessor, replace_key, replace_position, result, tcp, url
+2020-06-15 12:56:57,355,8212,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10&search_list=%5B%7B%22interface_name__contains%22%3A%2212%22%7D%5D HTTP/1.1" 500 18582
+2020-06-15 13:34:21,686,8227,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 318, in get
+    obj = InterFaceSet.objects.filter(i=value)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1250, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1087, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1483, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'i' into field. Choices are: belong_module, belong_module_id, body, depend_id, depend_key, duration, headers, id, interface_name, interfacecasedata, ip, method, params, preprocessor, replace_key, replace_position, result, tcp, url
+2020-06-15 13:34:21,692,8227,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10&search_list=%5B%7B%22interface_name__contains%22%3A%2212%22%7D%5D HTTP/1.1" 500 18582
+2020-06-15 13:39:51,437,8227,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 324, in get
+    sql = sql - "|"
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+2020-06-15 13:39:51,442,8227,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10&search_list=%5B%7B%22interface_name__contains%22%3A%2211%22%7D%2C%7B%22url__contains%22%3A%2211%22%7D%5D HTTP/1.1" 500 16704
+2020-06-15 13:45:42,685,8582,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 313, in get
+    search_list = json.loads(request.GET.get("search_list"))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+2020-06-15 13:45:42,689,8582,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10 HTTP/1.1" 500 16657
+2020-06-15 13:55:41,896,8582,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 313, in get
+    search_list = json.loads(request.GET.get("search_list"))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+2020-06-15 13:55:41,901,8582,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10 HTTP/1.1" 500 16657
+2020-06-15 13:56:50,712,8695,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 313, in get
+    search_list = json.loads(request.GET.get("search_list"))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+2020-06-15 13:56:50,716,8695,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10 HTTP/1.1" 500 16657
+2020-06-15 14:01:19,393,8773,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 313, in get
+    print(**kwargs)
+TypeError: 'version' is an invalid keyword argument for print()
+2020-06-15 14:01:19,404,8773,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10&search_dic=%7B%22interface_name__contains%22%3A%221212%22%7D HTTP/1.1" 500 16596
+2020-06-15 14:03:42,761,8795,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/search/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 316, in get
+    obj = InterFaceSet.objects.filter(json.loads(search_dic))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1236, in build_filter
+    raise FieldError("Cannot parse keyword query as dict")
+django.core.exceptions.FieldError: Cannot parse keyword query as dict
+2020-06-15 14:03:42,775,8795,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/search/?page=1&limit=10&search_dic=%7B%22interface_name__contains%22%3A%221212%22%7D HTTP/1.1" 500 17720
+2020-06-15 16:38:51,420,11209,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/utils/deprecation.py", line 93, in __call__
+    response = self.process_request(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 54, in process_request
+    path = self.get_full_path_with_slash(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 94, in get_full_path_with_slash
+    'url': request.get_host() + new_path,
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api/v1/interface_case/run/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+2020-06-15 16:38:51,428,11209,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run HTTP/1.1" 500 64888
+2020-06-15 16:39:06,359,11209,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/utils/deprecation.py", line 93, in __call__
+    response = self.process_request(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 54, in process_request
+    path = self.get_full_path_with_slash(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 94, in get_full_path_with_slash
+    'url': request.get_host() + new_path,
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api/v1/interface_case/run/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+2020-06-15 16:39:06,363,11209,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run HTTP/1.1" 500 64895
+2020-06-15 16:40:12,608,11209,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/utils/deprecation.py", line 93, in __call__
+    response = self.process_request(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 54, in process_request
+    path = self.get_full_path_with_slash(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 94, in get_full_path_with_slash
+    'url': request.get_host() + new_path,
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api/v1/interface_case/run/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+2020-06-15 16:40:12,609,11209,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run HTTP/1.1" 500 64831
+2020-06-15 16:40:34,872,11209,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/utils/deprecation.py", line 93, in __call__
+    response = self.process_request(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 54, in process_request
+    path = self.get_full_path_with_slash(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/middleware/common.py", line 94, in get_full_path_with_slash
+    'url': request.get_host() + new_path,
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api/v1/interface_case/run/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+2020-06-15 16:40:34,874,11209,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run HTTP/1.1" 500 64518
+2020-06-15 16:51:30,196,11209,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 116, in post
+    id_list = json.loads(datas["id_list"])
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not list
+2020-06-15 16:51:30,200,11209,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 16286
+2020-06-15 17:01:47,844,11535,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 123, in post
+    print(json.loads(interface_id_list))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not QuerySet
+2020-06-15 17:01:47,856,11535,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 16360
+2020-06-15 20:08:39,945,13106,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 119, in post
+    id_list = json.loads(datas["id_list"])
+KeyError: 'id_list'
+2020-06-15 20:08:39,963,13106,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 16291
+2020-06-15 20:09:50,275,13106,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/utils/datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'id_list'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 119, in post
+    id_list = json.loads(datas["id_list"])
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/utils/datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'id_list'
+2020-06-15 20:09:50,277,13106,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 16787
+2020-06-15 20:11:15,179,13106,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1865, in add_fields
+    join_info = self.setup_joins(name.split(LOOKUP_SEP), opts, alias, allow_many=allow_m2m)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1567, in setup_joins
+    names[:pivot], opts, allow_many, fail_on_missing=True,
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1483, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'tcpparams' into field. Choices are: belong_module, belong_module_id, body, depend_id, depend_key, duration, headers, id, interface_name, interfacecasedata, ip, method, params, preprocessor, replace_key, replace_position, result, tcp, url
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 125, in post
+    "replace_key", "replace_position")
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 809, in values
+    clone = self._values(*fields, **expressions)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/query.py", line 804, in _values
+    clone.query.set_values(fields)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 2132, in set_values
+    self.add_fields(field_names, True)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1888, in add_fields
+    "Choices are: %s" % (name, ", ".join(names)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'tcpparams' into field. Choices are: belong_module, belong_module_id, body, depend_id, depend_key, duration, headers, id, interface_name, interfacecasedata, ip, method, params, preprocessor, replace_key, replace_position, result, tcp, url
+2020-06-15 20:11:15,183,13106,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 18480
+2020-06-15 20:12:16,948,13153,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 151, in post
+    response = InterfaceRun().run_main(method, url, headers, params, body)
+  File "/Users/zhuzhanhao/Easytest/easy/common/interfaceRun.py", line 66, in run_main
+    headers = json.loads(headers) if any(headers) else None
+TypeError: 'NoneType' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 158, in post
+    print("异常的id为:" + str(id) + "," + e)
+TypeError: can only concatenate str (not "TypeError") to str
+2020-06-15 20:12:16,950,13153,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 16838
+2020-06-15 20:21:19,837,13240,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 151, in post
+    response = InterfaceRun().run_main(method, url, headers, params, body)
+  File "/Users/zhuzhanhao/Easytest/easy/common/interfaceRun.py", line 71, in run_main
+    res = self.get(url, headers, params)
+  File "/Users/zhuzhanhao/Easytest/easy/common/interfaceRun.py", line 9, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/requests/api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/requests/sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/requests/sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/urllib3/connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/urllib3/connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/http/client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/http/client.py", line 1293, in _send_request
+    self.putheader(hdr, value)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/http/client.py", line 1220, in putheader
+    raise ValueError('Invalid header name %r' % (header,))
+ValueError: Invalid header name b'Content-Type:'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 158, in post
+    print("异常的id为:" + str(id) + "," + e)
+TypeError: can only concatenate str (not "ValueError") to str
+2020-06-15 20:21:19,849,13240,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 18578

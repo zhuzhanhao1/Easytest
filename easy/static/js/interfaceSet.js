@@ -658,9 +658,10 @@ layui.use(['table', "soulTable"], function (data) {
             var a = layer.open({
                 type: 1,
                 title: "编辑接口",
-                area: ['35%',],
+                area: ['40%',"100%"],
                 skin: "layui-layer-molv",
                 shada: 0.6,
+                offset:"rb",
                 content: $("#add_update_case").html(),
                 success: function () {
                     layui.use(['form', "jquery"], function () {
@@ -673,13 +674,14 @@ layui.use(['table', "soulTable"], function (data) {
                             "ip": data.ip,
                             "url": data.url,
                             "method": data.method,
+                            "headers": data.headers,
                             "params": data.query,
                             "body": data.body,
                             "preprocessor": data.preprocessor,
                             "depend_id": data.depend_id,
                             "depend_key": data.depend_key,
                             "replace_key": data.replace_key,
-                            //"replaceposition": data.replace_position,
+                            "replace_position": data.replace_position,
                         });
                         //监听编辑用户信息，
                         form.on('radio(preprocessor)', function (data) {
@@ -694,27 +696,26 @@ layui.use(['table', "soulTable"], function (data) {
                         });
                         form.render('radio', 'preprocessor'); //更新 lay-filter="preprocessor" 所在容器内的全部 radio 状态
                         form.on('submit(add_update_case)', function (data) {
-                            console.log(data.field);
-                            let position_arr = ["params", "body"];
-                            let par = [];
-                            position_arr.map(function (data) {
-                                //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
-                                if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
-                                    par.push(data);
-                                }
-                            });
-                            console.log(par);
-                            let num = "";
-                            if (par.length == 2) {
-                                num = 2
-                            } else if (par.length == 1 && par.indexOf("params") == 0) {
-                                num = 0
-                            } else if (par.length == 1 && par.indexOf("body") == 0) {
-                                num = 1
-                            }
-                            console.log("请求的replace_position为：" + String(num));
+                            // console.log(data.field);
+                            // let position_arr = ["params", "body"];
+                            // let par = [];
+                            // position_arr.map(function (data) {
+                            //     //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
+                            //     if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
+                            //         par.push(data);
+                            //     }
+                            // });
+                            // console.log(par);
+                            // let num = "";
+                            // if (par.length == 2) {
+                            //     num = 2
+                            // } else if (par.length == 1 && par.indexOf("params") == 0) {
+                            //     num = 0
+                            // } else if (par.length == 1 && par.indexOf("body") == 0) {
+                            //     num = 1
+                            // }
+                            // console.log("请求的replace_position为：" + String(num));
                             $.ajax({
-                                cache: false,
                                 url: "/api/v1/interface_set/update_interface/" + id + "/",
                                 type: 'PUT',
                                 data: {
@@ -724,13 +725,14 @@ layui.use(['table', "soulTable"], function (data) {
                                     "url": data.field.url,
                                     "method": data.field.method,
                                     "belong_module": parentId,
+                                    "headers": data.field.headers,
                                     "params": data.field.query,
                                     "preprocessor": data.field.preprocessor,
                                     "body": data.field.body,
                                     "depend_id": data.field.depend_id,
                                     "depend_key": data.field.depend_key,
                                     "replace_key": data.field.replace_key,
-                                    "replace_position": num,
+                                    "replace_position": data.field.replace_position,
                                 },
                                 beforeSend: function () {
                                     l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
@@ -1078,6 +1080,9 @@ function add_case() {
                         data: {
                             "interface_name": data.field.interface_name,
                             "url": data.field.url,
+                            "tcp": data.field.tcp,
+                            "ip": data.field.ip,
+                            "headers": data.field.headers,
                             "method": data.field.method,
                             "belong_module": parentId,
                             "params": data.field.query,

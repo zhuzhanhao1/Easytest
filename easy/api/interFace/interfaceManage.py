@@ -298,10 +298,7 @@ class RunInterfaceDebugTest(APIView):
             return Response(right_code)
         return Response(right_code)
 
-    def get(self,request,*args, **kwargs):
-        obj = InterFaceSet.objects.filter(id__in=[1,2,3,4]).values("url","method","header",
-              "params","body","depend_id","depend_key","replace_key","replace_position")
-        return Response(obj)
+
 
 
 class InterfaceSetSearchList(APIView):
@@ -310,13 +307,13 @@ class InterfaceSetSearchList(APIView):
         '''
             接口集列表
         '''
-        interface_name = request.GET.get("interfaceName","")
-        url = request.GET.get("url","")
-        belongModule = request.GET.get("belongModule","")
-        systemClassification = request.GET.get("systemClassification", "")
-        obj = InterFaceSet.objects.filter()
-        if belongModule:
-            obj = InterFaceSet.objects.filter(belong_module__puisne_module__contains=belongModule)
+        search_dic = request.GET.get("search_dic","")
+        if search_dic:
+            kwargs = json.loads(search_dic)
+            #处理多字段搜索
+            obj = InterFaceSet.objects.filter(**kwargs)
+        else:
+            obj = InterFaceSet.objects.filter()
         serializer = InterfaceSetSearchSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量

@@ -109,23 +109,32 @@ class IPSer(serializers.ModelSerializer):
         fields = ("ip",)
 class TcpSer(serializers.ModelSerializer):
     '''
-        请求ip
+        请求tcp
     '''
     class Meta:
         model = InterFaceSet
         fields = ("tcp",)
 
-class InterfaceAllSer(serializers.ModelSerializer):
+class ResultTimeSer(serializers.ModelSerializer):
     '''
-        请求路径
+        请求tcp
     '''
     class Meta:
         model = InterFaceSet
-        fields = ("interface_name","tcp","ip","url","method","belong_module","params","preprocessor","body","depend_id","depend_key","replace_key","replace_position",)
+        fields = ("result","duration")
+
+class InterfaceAllSer(serializers.ModelSerializer):
+    '''
+        接口集字段
+    '''
+    class Meta:
+        model = InterFaceSet
+        fields = ("interface_name","tcp","ip","url","method","belong_module","params","preprocessor",
+                  "body","depend_id","depend_key","replace_key","replace_position","headers")
 
 class InterfaceSetSearchSer(serializers.ModelSerializer):
     '''
-        请求路径
+        搜索内的字段
     '''
 
     belong_module = serializers.CharField(source="belong_module.puisne_module")
