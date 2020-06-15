@@ -475,7 +475,7 @@ layui.use(['table', "soulTable"], function (data) {
                             "params": data.params,
                             "body": data.body,
                             "method": data.method,
-                            "headers": data.header
+                            "headers": data.headers
                         });
                         form.on('submit(interface_debug)', function (data) {
                             console.log(typeof (data.field.headers));

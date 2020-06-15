@@ -3305,3 +3305,101 @@ Traceback (most recent call last):
     print("å¼‚å¸¸çš„idä¸º:" + str(id) + "," + e)
 TypeError: can only concatenate str (not "ValueError") to str
 2020-06-15 20:21:19,849,13240,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 18578
+2020-06-15 20:54:08,894,9036,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 151, in post
+    response = InterfaceRun().run_main(method, url, headers, params, body)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 71, in run_main
+    res = self.get(url, headers, params)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 9, in get
+    res = requests.get(url, params=params, headers=headers)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 672, in urlopen
+    chunked=chunked,
+  File "D:\Anaconda3\envs\test\lib\site-packages\urllib3\connectionpool.py", line 387, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1252, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1293, in _send_request
+    self.putheader(hdr, value)
+  File "D:\Anaconda3\envs\test\lib\http\client.py", line 1220, in putheader
+    raise ValueError('Invalid header name %r' % (header,))
+ValueError: Invalid header name b'Content-Type:'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 158, in post
+    print("Òì³£µÄidÎª:" + str(id) + "," + e)
+TypeError: can only concatenate str (not "ValueError") to str
+2020-06-15 20:54:08,898,9036,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 18998
+2020-06-15 21:09:01,585,4968,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/run/
+Traceback (most recent call last):
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 155, in post
+    djson = json.dumps(response,ensure_ascii=False, sort_keys=True, indent=2)
+  File "D:\Anaconda3\envs\test\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\Anaconda3\envs\test\lib\json\encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "D:\Anaconda3\envs\test\lib\json\encoder.py", line 429, in _iterencode
+    yield from _iterencode_list(o, _current_indent_level)
+  File "D:\Anaconda3\envs\test\lib\json\encoder.py", line 325, in _iterencode_list
+    yield from chunks
+  File "D:\Anaconda3\envs\test\lib\json\encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "D:\Anaconda3\envs\test\lib\json\encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type CaseInsensitiveDict is not JSON serializable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 158, in post
+    print("Òì³£µÄidÎª:" + str(id) + "," + e)
+TypeError: can only concatenate str (not "TypeError") to str
+2020-06-15 21:09:01,586,4968,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/run/ HTTP/1.1" 500 18100

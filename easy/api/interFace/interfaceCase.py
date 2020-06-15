@@ -9,6 +9,7 @@ from rest_framework import status
 from easy.config.Status import *
 from easy.common.interfaceRun import InterfaceRun
 import json
+import jsonpath
 
 
 class InterfaceCase(APIView):
@@ -117,16 +118,15 @@ class InterfaceCaseRun(APIView):
         '''
         datas = request.data
         id_list = json.loads(datas["id_list"])
+        interface_id_list = []
         for id in id_list:
             interface_id_list = InterFaceCaseData.objects.filter(parent=id).values_list("interface_id",flat=True)
         print("关联的id_list"+str(interface_id_list))
+        #获取用例依赖的关联结果集
         QuerySet = InterFaceSet.objects.filter(id__in=interface_id_list).values("id","url", "method", "headers","ip","tcp",
                                                                           "params", "body", "depend_id", "depend_key",
-                                                                          "replace_key", "replace_position")
-        print(QuerySet)
-        # depend_key = [{'$..id': 1}, {'$..schemeName': 1}]
-        # replace_key = {"$.metadataSchemeId": 1, "$.metadataSchemeName": 1}
-
+                                                                          "replace_key")
+        #遍历用例关联的接口集
         for obj in QuerySet:
             id = obj.get("id","")
             url = obj.get("url","")
@@ -139,30 +139,86 @@ class InterfaceCaseRun(APIView):
             depend_id = obj.get("depend_id", "")
             depend_key = obj.get("depend_key", "")
             replace_key = obj.get("replace_key", "")
-            replace_position = obj.get("replace_position", "")
             #拼接请求的URL
             url = tcp + "://" + ip + "/" + url
             if depend_id:
-                pass
-            else:
+                #依赖的id列表
+                depend_id = depend_id.split(",")
+                #替换的{jsonpath：0}的字典，和只包换[jsonpath]语法键的列表
+                replace_jsonpath_dict = json.loads(replace_key)
+                replace_jsonpath_list = [key for key in replace_jsonpath_dict]
+                #依赖的{jsonpath：0}的字典或[{jsonpath：0},{jsonpath：0}]的列表，
+                depend_jsonpath= json.loads(depend_key)
+                #定义三个（替换结果，依赖结果，替换区域）列表
+                depend_values = []
+                replace_values = []
+                replace_areas = []
                 try:
-                    starttime = time()
+                    for num in range(len(depend_id)):
+                        print("依赖取值开开始。。。。")
+                        dependId = InterFaceSet.objects.get(id=depend_id[num])
+                        depend_result = json.loads(dependId.result)
+                        # 获取需要替换的jsonpath[key]的结果，转为字典，字典的键放入一个列表存储。
+                        if isinstance(depend_jsonpath,list):
+                            depend_jsonpath_key_dict = depend_jsonpath[num]
+                            depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
+                        else:
+                            depend_jsonpath_key_dict = depend_jsonpath
+                            depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
+                        # 通过jsonpath将依赖的值从依赖的接口返回结果中替换出来
+                        depend_value = jsonpath.jsonpath(depend_result, depend_jsonpath_key_list[0])[depend_jsonpath_key_dict[depend_jsonpath_key_list[0]]]
+                        # 如果替换后的内容仍为列表则再次索引第一个位子
+                        if type(depend_value) is list:
+                            depend_value = depend_value[0]
+                        depend_values.append(depend_value)
+                        print("所有依赖值的列表集" + str(depend_values))
 
-                    response = InterfaceRun().run_main(method, url, headers, params, body)
-                    endtime = time()
-                    runtime = int(round(endtime - starttime, 3)*1000)  # 接口执行的消耗时间
-                    print("接口执行的消耗时间:" + str(runtime))
-                    djson = json.dumps(response,ensure_ascii=False, sort_keys=True, indent=2)
-                    print(djson)
+                        # 替换区域的值，0是Query，1是body
+                        replace_area = replace_jsonpath_dict[replace_jsonpath_list[num]]
+                        replace_value = []
+                        if replace_area == 0:
+                            # 说明需要替换的位置在Query内,默认索引是0
+                            replace_value = jsonpath.jsonpath(params, replace_jsonpath_list[num])[0]
+                        elif replace_area == 1:
+                            replace_value = jsonpath.jsonpath(body, replace_jsonpath_list[num])[0]
+                        if isinstance(replace_value, list):
+                            replace_value = replace_value[0]
+                        replace_values.append(replace_value)
+                        replace_areas.append(replace_area)
+                        print("所有替换值的列表集" + str(replace_value))
+                        print("所有替换值的区域列表集" + str(replace_areas))
                 except Exception as e:
-                    print("异常的id为:" + str(id) + "," + e)
-                    # response = "异常的id为:" + str(id) + "," + e
-                id = InterFaceSet.objects.get(id=id)
-                data = {"result": djson, "duration": runtime}
-                serializer = ResultTimeSer(id, data=data)
-                # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
-                if serializer.is_valid():
-                    serializer.save()
-                else:
-                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                    print("获取依赖结果值或获取请求中需要替换的值失败")
+                    print(e)
+
+
+                #字符串替换replace（需要替换的内容，新的内容）
+                try:
+                    params = json.dumps(params, ensure_ascii=False, sort_keys=True, indent=2)
+                    body = json.dumps(body, ensure_ascii=False, sort_keys=True, indent=2)
+                    for index in range(len(replace_areas)):
+                        if replace_areas[index] == 0:
+                            params = params.replace(replace_values[index], depend_values[index])
+                        elif replace_areas[index] == 1:
+                            body = body.replace(replace_values[index], depend_values[index])
+                except Exception as e:
+                    print("字符串替换异常")
+                    print(e)
+
+            #如果没有依赖的话，直接运行接口执行方法
+            try:
+                response_headers, response_body, duration, status_code = InterfaceRun().run_main(method=method, url=url, headers=headers, params=params, data=body)
+            except Exception as e:
+                print("request请求接口异常")
+                print(e)
+                # response = "异常的id为:" + str(id) + "," + e
+            djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+            ResultTimeObj = InterFaceSet.objects.get(id=id)
+            data = {"result": djson, "duration": duration}
+            serializer = ResultTimeSer(ResultTimeObj, data=data)
+            # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(right_code)

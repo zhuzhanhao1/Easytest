@@ -64,6 +64,7 @@ class InterfaceRun():
     def run_main(self, method, url, headers, params, data):
         params = json.loads(params) if any(params) else None
         headers = json.loads(headers) if any(headers) else None
+        print(headers)
         data = json.loads(data) if any(data) else None
 
         strat_time = time()
@@ -84,6 +85,7 @@ class InterfaceRun():
 
         end_time = time()
         duration = int(round(end_time - strat_time, 3) * 1000)
+        print("接口耗时："+str(duration))
         response_headers = res.headers
         status_code = res.status_code
         try:
