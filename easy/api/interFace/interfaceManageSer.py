@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 class InterFaceManageClassificationSer(serializers.ModelSerializer):
     '''
-        主菜单
+        主菜单分类
     '''
     class Meta:
         model = InterFaceManageClassification
@@ -12,7 +12,7 @@ class InterFaceManageClassificationSer(serializers.ModelSerializer):
 
 class InterFaceManageModuleSer(serializers.ModelSerializer):
     '''
-        主菜单
+        主菜单模块
     '''
     class Meta:
         model = InterFaceManageModule
@@ -20,20 +20,11 @@ class InterFaceManageModuleSer(serializers.ModelSerializer):
 
 class UpdateInterFaceManageModuleSer(serializers.ModelSerializer):
     '''
-        主菜单
+        主菜单更新模块
     '''
     class Meta:
         model = InterFaceManageModule
         fields = ("url","puisne_module","puisne_key")
-
-
-class InterFaceSetSer(serializers.ModelSerializer):
-    '''
-        主菜单
-    '''
-    class Meta:
-        model = InterFaceSet
-        fields = "__all__"
 
 
 class DependIdSer(serializers.ModelSerializer):
@@ -107,6 +98,8 @@ class IPSer(serializers.ModelSerializer):
     class Meta:
         model = InterFaceSet
         fields = ("ip",)
+
+
 class TcpSer(serializers.ModelSerializer):
     '''
         请求tcp
@@ -115,13 +108,16 @@ class TcpSer(serializers.ModelSerializer):
         model = InterFaceSet
         fields = ("tcp",)
 
+
 class ResultTimeSer(serializers.ModelSerializer):
     '''
-        请求tcp
+        结果，响应时间
     '''
     class Meta:
         model = InterFaceSet
         fields = ("result","duration")
+
+
 
 class InterfaceAllSer(serializers.ModelSerializer):
     '''
@@ -133,13 +129,22 @@ class InterfaceAllSer(serializers.ModelSerializer):
         #           "body","depend_id","depend_key","replace_key","replace_position","headers")
         exclude = ("result",)
 
+
 class InterfaceSetSearchSer(serializers.ModelSerializer):
     '''
         搜索内的字段
     '''
-
     belong_module = serializers.CharField(source="belong_module.puisne_module")
     classification = serializers.CharField(source="belong_module.parent.classification")
     class Meta:
         model = InterFaceSet
         fields = ("id","interface_name","url","method","belong_module","classification")
+
+
+class HeadersSer(serializers.ModelSerializer):
+    '''
+        请求头
+    '''
+    class Meta:
+        model = InterFaceSet
+        fields = ("headers",)

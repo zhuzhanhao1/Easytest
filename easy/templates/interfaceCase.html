@@ -65,17 +65,46 @@
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="bacth_update">
 
-
                 <div class="layui-form-item" style="margin-top: 30px;">
                     <label class="layui-form-label">替换字段</label>
                     <div class="layui-input-block">
-                        <select name="key">
-                                <option>Headers</option>
+                        <select name="key" lay-filter="key">
+                            <option>headers</option>
+                            <option>ip</option>
                         </select>
                     </div>
                 </div>
 
+                <div class="layui-form-item my_token">
+                    <label class="layui-form-label">admin路径</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="admin_url"
+                               placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text my_token">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input  name="username" placeholder="" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text my_token">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input  name="password" placeholder="" class="layui-input">
+                    </div>
+                </div>
+
                 <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="button" id="get_token" class="layui-btn my_token" lay-submit lay-filter="get_token">获取Token</button>
+                    </div>
+                </div>
+
+                <div class="layui-form-item my_value">
                     <label class="layui-form-label">替换内容</label>
                     <div class="layui-input-block">
                         <textarea  name="value" class="layui-textarea" style="min-height:220px;"></textarea>
@@ -101,12 +130,6 @@
     <div style="padding: 15px;">
         <!--  lay-separator="-"-->
         <div class="demoTable">
-{#            <div class="my_crumb">#}
-{#                <span class="layui-breadcrumb" lay-separator="—">#}
-{#                    <a href="/interface_case" style="color: #5FB878!important;">接口管理</a>#}
-{#                    <a>{{ puisne_module }}</a>#}
-{#                </span>#}
-{#            </div>#}
             <div id="sousuo">
                 <div class="layui-inline" style="margin-top: -7px;">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入接口名称"

@@ -2,7 +2,7 @@ from time import time
 from django.core.paginator import Paginator
 from easy.models import InterFaceCase, InterFaceCaseData, InterFaceSet
 from .interfaceCaseSer import InterFaceCaseSer, DescriptionSer
-from .interfaceManageSer import ResultTimeSer
+from .interfaceManageSer import ResultTimeSer,HeadersSer,IPSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -125,22 +125,24 @@ class InterfaceCaseRun(APIView):
         #获取用例依赖的关联结果集
         QuerySet = InterFaceSet.objects.filter(id__in=interface_id_list).values("id","url", "method", "headers","ip","tcp",
                                                                           "params", "body", "depend_id", "depend_key",
-                                                                          "replace_key")
+                                                                          "replace_key","interface_name")
         pass_num = 0
         success_id_list = []
-        #遍历用例关联的接口集
-        for obj in QuerySet:
-            id = obj.get("id","")
-            url = obj.get("url","")
-            method = obj.get("method", "")
-            ip = obj.get("ip", "")
-            tcp = obj.get("tcp","")
-            headers = obj.get("headers", "")
-            params = obj.get("params", "")
-            body = obj.get("body", "")
-            depend_id = obj.get("depend_id", "")
-            depend_key = obj.get("depend_key", "")
-            replace_key = obj.get("replace_key", "")
+        # 遍历用例关联的接口集
+        for id in interface_id_list:
+            QuerySet = InterFaceSet.objects.get(id=id)
+            id = QuerySet.id
+            url = QuerySet.url
+            method = QuerySet.method
+            ip = QuerySet.ip
+            tcp = QuerySet.tcp
+            headers = QuerySet.headers
+            params = QuerySet.params
+            body = QuerySet.body
+            depend_id = QuerySet.depend_id
+            depend_key = QuerySet.depend_key
+            replace_key = QuerySet.replace_key
+            print(QuerySet.interface_name)
             #拼接请求的URL
             url = tcp + "://" + ip + "/" + url
             if depend_id:
@@ -229,11 +231,77 @@ class InterfaceCaseRun(APIView):
                 if serializer.is_valid():
                     serializer.save()
                     #保存成功后，将成功的id存入列表
-                    success_id_list.append(id)
+                    if int(status_code) == 200:
+                        print(type(id))
+                        success_id_list.append(id)
+                    print(success_id_list)
                 else:
                     print("这里不能直接返回")
             except:
                 pass
         right_code["msg"] = "接口用例运行结束"
+        return Response(right_code)
+
+
+class InterfaceBacthUpdate(APIView):
+
+    def get(self, request, *args, **kwargs):
+        '''
+            获取token并返回页面重载
+        '''
+        url = request.GET.get("admin_url","")
+        username = request.GET.get("username", "")
+        password = request.GET.get("password", "")
+        method = "POST"
+        headers = '{"content-type":"application/json"}'
+        data = {
+            "loginName": username,
+            "password": password
+        }
+        data = json.dumps(data)
+        try:
+            response_headers, response_body, duration, status_code = InterfaceRun().run_main(method,url,headers,'',data)
+            right_code["msg"] = "获取AccessToken成功"
+            res = {"content-type":"application/json","accessToken":response_body["accessToken"]}
+            right_code["data"] = json.dumps(res,ensure_ascii=False, sort_keys=True, indent=2)
+            return Response(right_code)
+        except Exception as e:
+            error_code["error"] = str(e)
+            return Response(error_code)
+
+    def post(self,request,*args,**kwargs):
+        '''
+            批量修改IP或headers
+        '''
+        data = request.data
+        key = data.get("key","")
+        value = data.get("value","")
+        id_list = json.loads(data["id_list"])
+        #如果勾选了多选框修改
+        if not id_list:
+            id_list = InterFaceCase.objects.filter().values_list("id", flat=True)
+        interface_id_list = InterFaceCaseData.objects.filter(parent__in=id_list).values_list("interface_id", flat=True).distinct()
+        print(interface_id_list)
+        #如果未勾选多选框修改
+
+        for pk in interface_id_list:
+            obj = InterFaceSet.objects.filter(id=pk).first()
+            try:
+                if key == "headers":
+                    data_ser = {"headers":value}
+                    serializer = HeadersSer(obj, data=data_ser)
+                elif key == "ip":
+                    data_ser = {"ip": value}
+                    serializer = IPSer(obj, data=data_ser)
+                if serializer.is_valid():
+                    serializer.save()
+                else:
+                    error_code['error'] = '保存数据到数据库失败'
+                    return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                print(e)
+                error_code["error"] = str(e)
+                return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+        right_code["msg"] = "批量修改成功"
         return Response(right_code)
 

@@ -72,13 +72,8 @@ book_store = {
 
 def GetValueByJsonpath(value,key):
     result = jsonpath.jsonpath(json.loads(value), key)
-    print(result)
     return result
 
 
-GetValueByJsonpath('{"id":"5529aa67-d20f-4859-9532-13fe256fdb3b","description":"",'
-                   '"schemeName":"接收登记表(件)","code":null,"aggregationLevel":"件",'
-                   '"creator":"admin","modifier":null,"creationDate":"2020-06-05",'
-                   '"modifyDate":null,"newVersionNo":null}','$.id')
 
     

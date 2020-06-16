@@ -228,7 +228,7 @@ layui.use(['table', "soulTable"], function (data) {
                     });
                 } else {
                     let l = [];
-                    for (i = 0; i < data.length; i++) {
+                    for (i = 0; i < len; i++) {
                         l.push(data[i]["id"]);
                     }
                     console.log(l);
@@ -268,6 +268,16 @@ layui.use(['table', "soulTable"], function (data) {
                 break
             //
             case "bacth_update":
+                var data = checkStatus.data;
+                var id_list = [];
+                if (data.length > 0) {
+                    for(var i = 0; i < data.length ; i++){
+                        id_list.push(data[i]["id"]);
+                        layer.msg('只对选中多选框用例进行修改哦！', {icon: 6, offset: "t"});
+                    }
+                }else{
+                    layer.msg('没选择多选框将对所有用例关联的接口做修改操作哦！', {icon: 0, offset: "t"});
+                }
                 var jsonpath = layer.open({
                     //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                     type: 1,
@@ -279,20 +289,91 @@ layui.use(['table', "soulTable"], function (data) {
                         layui.use(['form', "jquery"], function () {
                             var form = layui.form,
                                 $ = layui.$;
-                            form.val("bacth_update", {});
+
+                            form.val("bacth_update", {
+                                "admin_url":"http://app.amberdata.cn/adminapi/user/login",
+                                "password":"Y+zilsR88g9SZI8WOeHJlA=="
+                            });
+                            form.on('select(key)', function(data){
+                                console.log(data.value); //得到被选中的值
+
+                                if(data.value == "请求头Headers") {
+                                    $(".my_token").css("display","block");
+                                    form.render('select');
+                                } else{
+                                    $(".my_token").css("display","none");
+                                    $(".my_value").css("margin-top","-30px")
+                                    form.render('select');
+                                }
+                            });
+                            // form.render();
+                            form.on('submit(get_token)', function (data) {
+                                $.ajax({
+                                    url: "/api/v1/interface_case/get_token/",
+                                    type: 'GET',
+                                    data: {
+                                        "admin_url": data.field.admin_url,
+                                        "username": data.field.username,
+                                        "password": data.field.password,
+                                    },
+                                    beforeSend: function () {
+                                        l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                    },
+                                    success: function (data) {
+                                        form.val("bacth_update", {
+                                            "value":data.data
+                                        });
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    },
+                                    error: function (data) {
+                                        try {
+                                            if (data.responseJSON.code === 1001) {
+                                                layer.msg(data.responseJSON.error, {
+                                                    icon: 5,
+                                                    offset: 't'
+                                                });
+                                            } else {
+                                                layer.msg("回调失败", {
+                                                    icon: 5,
+                                                    offset: 't'
+                                                });
+                                            }
+                                        } catch (e) {
+                                            console.log('捕获到异常：', e);
+                                            layer.msg('捕获到异常,查看控制台', {icon: 5, offset: "t"})
+                                        }
+
+                                    },
+                                    complete: function () {
+                                        layer.close(l_index);
+                                    }
+
+                                });
+                                return false;//阻止表单跳转
+                            });
                             form.on('submit(bacth_update)', function (data) {
                                 $.ajax({
-                                    url: "/api/v1/interface_set/bacth_update/",
+                                    url: "/api/v1/interface_case/bacth_update/",
                                     type: 'POST',
                                     data: {
                                         "key": data.field.key,
                                         "value": data.field.value,
+                                        "id_list":JSON.stringify(id_list)
                                     },
                                     beforeSend: function () {
                                         l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
                                     },
                                     success: function (data) {
                                         if (data.code === 1000) {
+                                            layer.close(jsonpath);
                                             layer.msg(data.msg, {
                                                 icon: 6, offset: "t"
                                             })
@@ -342,7 +423,7 @@ layui.use(['table', "soulTable"], function (data) {
         var id = data['id'];
         console.log(obj);
         //删除接口用例
-       if (obj.event === 'del_case') {
+        if (obj.event === 'del_case') {
             layer.confirm('你确定要删除吗' + '？', {
                     btn: ['取消', '确定'] //按钮
                 },
@@ -381,12 +462,12 @@ layui.use(['table', "soulTable"], function (data) {
                     });
                 });
         }
-       else if(obj.event === "join"){
-           var href = "/relevance_interface?parentId=" + id;
-           console.log(href);
+        else if(obj.event === "join"){
+            var href = "/relevance_interface?parentId=" + id;
+            console.log(href);
             //$(window).attr('location',href);
             $(location).attr('href', href);
-       }
+        }
     });
     table.on('edit(test)', function (obj) {
         var value = obj.value //得到修改后的值

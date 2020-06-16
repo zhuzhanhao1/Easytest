@@ -3529,3 +3529,90 @@ Traceback (most recent call last):
     obj, end = self.scan_once(s, idx)
 json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 63 (char 62)
 2020-06-16 18:12:58,151,6082,django.server,ERROR,basehttp.py:157,"POST /api/v1/public/jsonpath/ HTTP/1.1" 500 17225
+2020-06-16 22:48:44,012,10912,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/get_token/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\datastructures.py", line 76, in __getitem__
+    list_ = super().__getitem__(key)
+KeyError: 'id_list'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 120, in post
+    id_list = json.loads(datas["id_list"])
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\datastructures.py", line 78, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'id_list'
+2020-06-16 22:48:44,013,10912,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_case/get_token/ HTTP/1.1" 500 17466
+2020-06-16 22:50:51,154,6588,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/get_token/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 254, in get
+    response_headers, response_body, duration, status_code = InterfaceRun().run_main(method,url,headers,None,data)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 65, in run_main
+    params = json.loads(params) if any(params) else None
+TypeError: 'NoneType' object is not iterable
+2020-06-16 22:50:51,155,6588,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/get_token/?admin_url=http%3A%2F%2Fapp.amberdata.cn%2Fadminapi%2Fuser%2Flogin&username=admin&password=Y%2BzilsR88g9SZI8WOeHJlA%3D%3D HTTP/1.1" 500 17495
+2020-06-16 22:51:46,172,9472,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_case/get_token/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\interfaceCase.py", line 254, in get
+    response_headers, response_body, duration, status_code = InterfaceRun().run_main(method,url,headers,'',data)
+  File "D:\python\project\Easytest\easy\common\interfaceRun.py", line 66, in run_main
+    headers = json.loads(headers) if any(headers) else None
+  File "D:\Anaconda3\envs\test\lib\json\__init__.py", line 341, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not dict
+2020-06-16 22:51:46,174,9472,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case/get_token/?admin_url=http%3A%2F%2Fapp.amberdata.cn%2Fadminapi%2Fuser%2Flogin&username=admin&password=Y%2BzilsR88g9SZI8WOeHJlA%3D%3D HTTP/1.1" 500 17690
