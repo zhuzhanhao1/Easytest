@@ -129,8 +129,9 @@ class InterfaceAllSer(serializers.ModelSerializer):
     '''
     class Meta:
         model = InterFaceSet
-        fields = ("interface_name","tcp","ip","url","method","belong_module","params","preprocessor",
-                  "body","depend_id","depend_key","replace_key","replace_position","headers")
+        # fields = ("interface_name","tcp","ip","url","method","belong_module","params","preprocessor",
+        #           "body","depend_id","depend_key","replace_key","replace_position","headers")
+        exclude = ("result",)
 
 class InterfaceSetSearchSer(serializers.ModelSerializer):
     '''

@@ -70,8 +70,8 @@ book_store = {
 '''
 
 
-def GetValueByJsonpath(valye,key):
-    result = jsonpath.jsonpath(json.loads(valye), key)
+def GetValueByJsonpath(value,key):
+    result = jsonpath.jsonpath(json.loads(value), key)
     print(result)
     return result
 

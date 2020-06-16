@@ -297,8 +297,77 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 });
                 break;
+            //
+            case "jsonpath":
+                var jsonpath = layer.open({
+                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                    type: 1,
+                    title: "JSONPATH",
+                    skin: "layui-layer-molv",
+                    area: ['40%', '100%'],
+                    offset: 'rb',
+                    content: $("#jsonpath").html(),
+                    success: function () {
+                        layui.use(['form', "jquery"], function () {
+                            var form = layui.form,
+                                $ = layui.$;
+                            form.val("jsonpath", {});
+                            form.on('submit(jsonpath)', function (data) {
+                                $.ajax({
+                                    url: "/api/v1/public/jsonpath/",
+                                    type: 'POST',
+                                    data: {
+                                        "key": data.field.key,
+                                        "value": data.field.value,
+                                    },
+                                    beforeSend: function () {
+                                        l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                    },
+                                    success: function (data) {
+                                        console.log(data.data);
+                                        form.val("jsonpath", {"json_result":data.data});
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                        //form.render();
 
+                                    },
+                                    error: function (data) {
+                                        try {
+                                            if (data.responseJSON.code === 1001) {
+                                                layer.msg(data.responseJSON.error, {
+                                                    icon: 5,
+                                                    offset: 't'
+                                                });
+                                            } else {
+                                                layer.msg("回调失败", {
+                                                    icon: 5,
+                                                    offset: 't'
+                                                });
+                                            }
+                                        } catch (e) {
+                                            console.log('捕获到异常：', e);
+                                            layer.msg('捕获到异常,查看控制台', {icon: 5, offset: "t"})
+                                        }
 
+                                    },
+                                    complete: function () {
+                                        layer.close(l_index);
+                                    }
+
+                                });
+                                return false;//阻止表单跳转
+                            });
+                        });
+                    }
+                });
+                break
         }
 
     });

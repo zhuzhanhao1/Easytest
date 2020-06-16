@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
+from easy.common.jsonPath import GetValueByJsonpath
 
 
 class InterfaceCaseData(APIView):
@@ -86,3 +87,7 @@ class InterfaceCaseData(APIView):
                 print(e)
                 error_code["error"] = str(e)
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+

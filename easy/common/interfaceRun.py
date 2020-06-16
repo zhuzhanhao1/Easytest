@@ -64,7 +64,6 @@ class InterfaceRun():
     def run_main(self, method, url, headers, params, data):
         params = json.loads(params) if any(params) else None
         headers = json.loads(headers) if any(headers) else None
-        print(headers)
         data = json.loads(data) if any(data) else None
 
         strat_time = time()

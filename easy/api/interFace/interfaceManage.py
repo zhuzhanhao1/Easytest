@@ -147,7 +147,7 @@ class InterfaceSetList(APIView):
 
         if now_id:
             obj = InterFaceSet.objects.filter(Q(belong_module=parentId) & Q(id=now_id))
-        serializer = InterFaceSetSer(obj, many=True)
+        serializer = InterfaceAllSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量
         pageInator = Paginator(serializer.data, pagesize)
@@ -247,7 +247,7 @@ class InterfaceSetList(APIView):
 
 class RunInterfaceDebugTest(APIView):
 
-    def parameter_check(self, tcp,ip,url, method):
+    def parameter_check(self, tcp, ip, url, method):
         """
         验证必传参数 method, url, headers
         """
@@ -289,14 +289,11 @@ class RunInterfaceDebugTest(APIView):
             right_code["response_body"] = response_body
             right_code["duration"] = duration
             right_code["status_code"] = status_code
-            print(right_code)
+            return Response(right_code)
         except TypeError as e:
-            error_code["error"] = "操作或函数应用于不适当类型的对象"
-            return Response(right_code)
-        except json.decoder.JSONDecodeError as e:
-            error_code["error"] = "json.loads()读取字符串报错"
-            return Response(right_code)
-        return Response(right_code)
+            error_code["error"] = str(e)
+            return Response(error_code)
+
 
 
 

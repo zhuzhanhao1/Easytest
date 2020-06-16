@@ -60,6 +60,39 @@
         </div>
     </div>
 
+    <!--批量修改-->
+    <div class="layui-row" id="bacth_update">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="bacth_update">
+
+
+                <div class="layui-form-item" style="margin-top: 30px;">
+                    <label class="layui-form-label">替换字段</label>
+                    <div class="layui-input-block">
+                        <select name="key">
+                                <option>Headers</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">替换内容</label>
+                    <div class="layui-input-block">
+                        <textarea  name="value" class="layui-textarea" style="min-height:220px;"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="bacth_update">确定</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
 
 </div>
 <!--主题内容-table-->
@@ -98,6 +131,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="export_interface">导出接口用例</button>
         <button class="layui-btn layui-btn-sm" lay-event="interface_case_run">执行接口用例</button>
         <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="bacth_update">批量修改</button>
     </div>
 </script>
 <!--行内按钮-->

@@ -126,6 +126,8 @@ class InterfaceCaseRun(APIView):
         QuerySet = InterFaceSet.objects.filter(id__in=interface_id_list).values("id","url", "method", "headers","ip","tcp",
                                                                           "params", "body", "depend_id", "depend_key",
                                                                           "replace_key")
+        pass_num = 0
+        success_id_list = []
         #遍历用例关联的接口集
         for obj in QuerySet:
             id = obj.get("id","")
@@ -155,6 +157,11 @@ class InterfaceCaseRun(APIView):
                 replace_areas = []
                 try:
                     for num in range(len(depend_id)):
+                        if int(depend_id[num]) not in success_id_list or depend_id[num] not in success_id_list:
+                            print("流程依赖的接口" + str(depend_id[num]) + "出错了")
+                            error_code["error"] = "sorry我所依赖的序号为" + depend_id[num] + "的接口出错了哦"
+                            continue
+
                         print("依赖取值开开始。。。。")
                         dependId = InterFaceSet.objects.get(id=depend_id[num])
                         depend_result = json.loads(dependId.result)
@@ -208,17 +215,25 @@ class InterfaceCaseRun(APIView):
             #如果没有依赖的话，直接运行接口执行方法
             try:
                 response_headers, response_body, duration, status_code = InterfaceRun().run_main(method=method, url=url, headers=headers, params=params, data=body)
+                if int(status_code) == 200:
+                    pass_num += 1
             except Exception as e:
                 print("request请求接口异常")
                 print(e)
-                # response = "异常的id为:" + str(id) + "," + e
-            djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
-            ResultTimeObj = InterFaceSet.objects.get(id=id)
-            data = {"result": djson, "duration": duration}
-            serializer = ResultTimeSer(ResultTimeObj, data=data)
-            # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
-            if serializer.is_valid():
-                serializer.save()
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+                ResultTimeObj = InterFaceSet.objects.get(id=id)
+                data = {"result": djson, "duration": duration}
+                serializer = ResultTimeSer(ResultTimeObj, data=data)
+                # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
+                if serializer.is_valid():
+                    serializer.save()
+                    #保存成功后，将成功的id存入列表
+                    success_id_list.append(id)
+                else:
+                    print("这里不能直接返回")
+            except:
+                pass
+        right_code["msg"] = "接口用例运行结束"
         return Response(right_code)
+

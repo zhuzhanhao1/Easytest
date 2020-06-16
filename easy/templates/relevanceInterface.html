@@ -130,6 +130,11 @@
                 <textarea id="response_body" class="layui-textarea my_textarea_body"></textarea>
             </div>
         </fieldset>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" id = "update_resuslt" class="layui-btn layui-btn-fluid my_submit" lay-submit lay-filter="jsonpath">是否更新响应体结果</button>
+            </div>
+        </div>
     </div>
 
     <!--创建+编辑-接口-->
@@ -289,6 +294,44 @@
         </div>
     </div>
 
+    <!--JSONPATH-->
+    <div class="layui-row" id="jsonpath">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="jsonpath">
+
+
+                <fieldset class="layui-elem-field" style="margin-top: 30px;">
+                    <legend>JSONPATH</legend>
+                    <div class="layui-field-box">
+                        <textarea  name="key" class="layui-textarea"></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset class="layui-elem-field">
+                    <legend>JSON数据</legend>
+                    <div class="layui-field-box">
+                        <textarea  name="value" class="layui-textarea" style="min-height:220px;"></textarea>
+                    </div>
+                </fieldset>
+
+
+                <fieldset class="layui-elem-field">
+                    <legend>提取结果</legend>
+                    <div class="layui-field-box">
+                        <textarea  id = "json_result" name = "json_result" class="layui-textarea"></textarea>
+                    </div>
+                </fieldset>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn layui-btn-fluid my_submit" lay-submit lay-filter="jsonpath">取值开始</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
 </div>
 <!--主题内容-table-->
 <div id="layuibody" class="layui-body mybg" style="margin-bottom: -70px;">
@@ -335,6 +378,7 @@
         <button type="button" onclick="add_relevance_interface()" class="layui-btn layui-btn-sm">添加接口</button>
         <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>
         <button class="layui-btn layui-btn-sm" lay-event="export_interface">导出接口</button>
+        <button class="layui-btn layui-btn-sm" lay-event="jsonpath">JSONPATH</button>
     </div>
 </script>
 <!--行内按钮-->

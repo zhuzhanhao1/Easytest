@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 # 导入api相关模块
 from easy.api.Menu import Menu
-from easy.api.interFace import interfaceManage, interfaceCase, relevanceInterface
+from easy.api.interFace import interfaceManage, interfaceCase, relevanceInterface,public
 
 
 urlpatterns = [
@@ -36,5 +36,8 @@ urlpatterns = [
     url(r'relevance_interface/add_interface/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/update_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/del_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
+
+    #公共方法
+    url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
 
 ]
