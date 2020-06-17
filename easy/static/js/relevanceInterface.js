@@ -107,8 +107,13 @@ layui.use(['table', "soulTable"], function (data) {
                 edit: "text"
             }
             , {field: 'description', title: '描述', align: "left", edit: "text"}
-            , {field: 'interface_id', title: '关联的接口id', align: "left"}
-            , {field: 'duration', title: '响应时长', align: "left"}
+            //, {field: 'interface_id', title: '关联的接口id', align: "left"}
+            , {
+                field: 'duration', title: '响应时长', align: "left",
+                templet: function (res) {
+                    return '<span>' + String(res.duration)+"ms" + '</span>'
+                }
+            }
             , {field: 'result', title: '响应结果', align: "left"}
             , {field: 'head', title: '负责人', align: "left",edit: "text"}
         ]]
@@ -299,6 +304,8 @@ layui.use(['table', "soulTable"], function (data) {
                 break;
             //
             case "jsonpath":
+                var data = checkStatus.data;
+                console.log(data);
                 var jsonpath = layer.open({
                     //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                     type: 1,
@@ -311,7 +318,9 @@ layui.use(['table', "soulTable"], function (data) {
                         layui.use(['form', "jquery"], function () {
                             var form = layui.form,
                                 $ = layui.$;
-                            form.val("jsonpath", {});
+                            form.val("jsonpath", {
+                                "value":data[0]["result"]
+                            });
                             form.on('submit(jsonpath)', function (data) {
                                 $.ajax({
                                     url: "/api/v1/public/jsonpath/",

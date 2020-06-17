@@ -106,7 +106,19 @@ layui.use(['table', "soulTable"], function (data) {
                 excel: {color: '0040ff', bgColor: 'f3fef3'},
                 edit: "text"
             }
-            , {field: 'description', title: '描述', align: "left",edit: "text"}
+            , {field: 'description', title: '描述', align: "left", edit: "text"}
+            , {
+                field: 'pass_rate', title: '接口通过率', align: "left",
+                templet: function (res) {
+                    if (res.pass_rate == 100) {
+                        let a = String(res.pass_rate) + "%";
+                        return '<span style="color: chartreuse;">' + a + '</span>'
+                    } else {
+                        let b = String(res.pass_rate) + "%";
+                        return '<span style="color: red;">' + b + '</span>'
+                    }
+                }
+            }
             , {field: 'create_data', title: '创建时间', align: "left"}
         ]]
         , filter: {
@@ -238,6 +250,9 @@ layui.use(['table', "soulTable"], function (data) {
                         data:{
                             id_list:JSON.stringify(l)
                         },
+                        beforeSend: function () {
+                            l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                        },
                         success: function (data) {
                             if (data.code === 1000) {
                                 layer.msg(data.msg, {
@@ -263,6 +278,9 @@ layui.use(['table', "soulTable"], function (data) {
                                 });
                             }
                         },
+                        complete: function () {
+                            layer.close(l_index);
+                        }
                     });
                 }
                 break
@@ -296,7 +314,6 @@ layui.use(['table', "soulTable"], function (data) {
                             });
                             form.on('select(key)', function(data){
                                 console.log(data.value); //得到被选中的值
-
                                 if(data.value == "请求头Headers") {
                                     $(".my_token").css("display","block");
                                     form.render('select');

@@ -129,6 +129,7 @@ class InterFaceCase(models.Model):
     '''
     interface_case_name = models.CharField(max_length=50, verbose_name="接口用例名称")
     description = models.CharField(max_length=255,verbose_name="描述",null=True,blank=True)
+    pass_rate = models.CharField(max_length=8, verbose_name="通过率", null=True, blank=True,default="100")
     create_data = models.DateField(auto_now=True,null=True,blank=True,verbose_name="创建时间")
 
     def __str__(self):
