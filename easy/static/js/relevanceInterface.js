@@ -232,7 +232,8 @@ layui.use(['table', "soulTable"], function (data) {
                         icon: 2,
                         offset: "t"
                     });
-                } else {
+                }
+                else {
                     var l = [];
                     for (i = 0; i < data.length; i++) {
                         var dic = {};
@@ -306,7 +307,17 @@ layui.use(['table', "soulTable"], function (data) {
             case "jsonpath":
                 var data = checkStatus.data;
                 console.log(data);
-                var jsonpath = layer.open({
+                let value = "";
+                if (data.length == 0) {
+                    layer.msg("勾选接口对应的CheckBox的话给value赋值", {
+                        icon: 0,
+                        offset: "t"
+                    });
+                }
+                else {
+                    value = data[0]["result"];
+                }
+                layer.open({
                     //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                     type: 1,
                     title: "JSONPATH",
@@ -319,7 +330,7 @@ layui.use(['table', "soulTable"], function (data) {
                             var form = layui.form,
                                 $ = layui.$;
                             form.val("jsonpath", {
-                                "value":data[0]["result"]
+                                "value":value
                             });
                             form.on('submit(jsonpath)', function (data) {
                                 $.ajax({

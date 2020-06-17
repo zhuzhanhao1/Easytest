@@ -19,4 +19,9 @@ class Migration(migrations.Migration):
             name='head',
             field=models.CharField(blank=True, max_length=20, null=True, verbose_name='负责人'),
         ),
+        migrations.AddField(
+            model_name='interfacecase',
+            name='pass_rate',
+            field=models.CharField(blank=True, default='100', max_length=8, null=True, verbose_name='通过率'),
+        ),
     ]

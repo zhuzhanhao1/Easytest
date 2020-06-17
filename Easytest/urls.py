@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^home/', renderHtml.home_views),
     url(r'^interface_manager/', renderHtml.interface_manager_views),
     url(r'^interface_set/', renderHtml.interface_set_views),
-    url(r'^interface_case/', renderHtml.interface_case_views),
+    url(r'^interface_case_manage/', renderHtml.interface_case_views),
     url(r'^relevance_interface/', renderHtml.relevance_interface_views),
     url(r'^interface_search/', renderHtml.interface_search_views),
+    url(r'^interface_case_set_manage/', renderHtml.interface_case_set_manage_views),
 ]

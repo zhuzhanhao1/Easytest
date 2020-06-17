@@ -14,7 +14,7 @@ layui.use(['table', "soulTable"], function (data) {
     var index = layer.load(0); //添加laoding,0-2两种方式
     var myTable = table.render({
         elem: '#test'
-        , url: '/api/v1/interface_case/list/' //数据接口"exports"
+        , url: '/api/v1/interface_case_manage/list/' //数据接口"exports"
         , toolbar: '#toolbarDemo'
         , defaultToolbar: ['filter',  {title: '导入数据', layEvent: 'import_case', icon: 'layui-icon-upload-circle'}, 'print']
         , title: '接口用例'
@@ -245,7 +245,7 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                     console.log(l);
                     $.ajax({
-                        url: "/api/v1/interface_case/run/",
+                        url: "/api/v1/interface_case_manage/run/",
                         type: 'POST',
                         data:{
                             id_list:JSON.stringify(l)
@@ -326,7 +326,7 @@ layui.use(['table', "soulTable"], function (data) {
                             // form.render();
                             form.on('submit(get_token)', function (data) {
                                 $.ajax({
-                                    url: "/api/v1/interface_case/get_token/",
+                                    url: "/api/v1/interface_case_manage/get_token/",
                                     type: 'GET',
                                     data: {
                                         "admin_url": data.field.admin_url,
@@ -378,7 +378,7 @@ layui.use(['table', "soulTable"], function (data) {
                             });
                             form.on('submit(bacth_update)', function (data) {
                                 $.ajax({
-                                    url: "/api/v1/interface_case/bacth_update/",
+                                    url: "/api/v1/interface_case_manage/bacth_update/",
                                     type: 'POST',
                                     data: {
                                         "key": data.field.key,
@@ -449,7 +449,7 @@ layui.use(['table', "soulTable"], function (data) {
                 },
                 function () {
                     $.ajax({
-                        url: "/api/v1/interface_case/del_case/" + id + "/",
+                        url: "/api/v1/interface_case_manage/del_case/" + id + "/",
                         type: 'DELETE',
                         success: function (data) {
                             if (data.code === 1000) {
@@ -493,7 +493,7 @@ layui.use(['table', "soulTable"], function (data) {
         //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
         if (field == "interface_case_name") {
             $.ajax({
-                url: "/api/v1/interface_case/update_case/" + data.id + '/',
+                url: "/api/v1/interface_case_manage/update_case/" + data.id + '/',
                 type: 'PUT',
                 data: {
                     "interface_case_name": value
@@ -526,7 +526,7 @@ layui.use(['table', "soulTable"], function (data) {
         }
         else if (field == "description") {
             $.ajax({
-                url: "/api/v1/interface_case/update_case/" + data.id + '/',
+                url: "/api/v1/interface_case_manage/update_case/" + data.id + '/',
                 type: 'PUT',
                 data: {
                     "description": value
@@ -581,7 +581,7 @@ function add_case() {
                     console.log(data.field);
                     $.ajax({
                         cache: false,
-                        url: "/api/v1/interface_case/add_case/",
+                        url: "/api/v1/interface_case_manage/add_case/",
                         type: 'POST',
                         data: {
                             "interface_case_name": data.field.interface_case_name,

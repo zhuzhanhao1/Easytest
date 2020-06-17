@@ -113,7 +113,7 @@ def interface_case_views(request):
     '''
         接口用例
     '''
-    return render(request, 'interfaceCase.html')
+    return render(request, 'interfaceCaseManage.html')
 
 
 def relevance_interface_views(request):
@@ -129,7 +129,14 @@ def relevance_interface_views(request):
 
 def interface_search_views(request):
     '''
-        接口管理
+        接口检索
     '''
     parentId = request.GET.get("parentId", "")
     return render(request, 'interfaceSearch.html', {"parentId": parentId})
+
+
+def interface_case_set_manage_views(request):
+    '''
+        接口用例集管理
+    '''
+    return render(request, 'interfaceCaseSetManage.html')

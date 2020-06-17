@@ -97,7 +97,7 @@ class InterFaceSet(models.Model):
     depend_key = models.CharField(max_length=500,verbose_name="依赖的key",null=True,blank=True)
     replace_key = models.CharField(max_length=500,verbose_name="替换的key",null=True,blank=True)
     replace_position = models.CharField(max_length=50,verbose_name="替换的内容区域",null=True,blank=True)
-    duration = models.FloatField(blank=True, null=True, verbose_name='响应时长')
+    duration = models.IntegerField(blank=True, null=True, verbose_name='响应时长')
     result = models.TextField(blank=True, null=True, verbose_name='执行结果')
 
     def __str__(self):
@@ -105,22 +105,6 @@ class InterFaceSet(models.Model):
 
     class Meta:
         verbose_name_plural = '接口集管理'
-
-
-class InterfaceCaseSet(models.Model):
-    '''
-        接口用例集
-    '''
-    interface_case_set_name = models.CharField(max_length=50, verbose_name="接口用例集名称")
-    description = models.CharField(max_length=255,verbose_name="描述",null=True,blank=True)
-    relevance_ids = models.CharField(max_length=255,null=True,blank=True,verbose_name="关联用例id集合")
-    create_data = models.DateField(auto_now=True,null=True,blank=True,verbose_name="创建时间")
-
-    def __str__(self):
-        return self.interface_case_set_name
-
-    class Meta:
-        verbose_name_plural = '接口用例集'
 
 
 class InterFaceCase(models.Model):
@@ -156,3 +140,32 @@ class InterFaceCaseData(models.Model):
     class Meta:
         verbose_name = '接口用例数据'
         verbose_name_plural = '接口用例数据'
+
+
+class InterfaceCaseSet(models.Model):
+    '''
+        接口用例集
+    '''
+    interface_case_set_name = models.CharField(max_length=50, verbose_name="接口用例集名称")
+
+    def __str__(self):
+        return self.interface_case_set_name
+
+    class Meta:
+        verbose_name_plural = '接口用例集'
+
+
+class RelevanceCaseSet(models.Model):
+    '''
+        接口用例集
+    '''
+    parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='接口集用例id')
+    interface_case_name = models.CharField(max_length=50, verbose_name="关联用例名称")
+    description = models.CharField(max_length=255,verbose_name="关联用例描述",null=True,blank=True)
+    relevance_id = models.CharField(max_length=255,verbose_name="关联用例id")
+
+    def __str__(self):
+        return self.interface_case_name
+
+    class Meta:
+        verbose_name_plural = '关联用例名称'
