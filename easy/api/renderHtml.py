@@ -140,3 +140,11 @@ def interface_case_set_manage_views(request):
         接口用例集管理
     '''
     return render(request, 'interfaceCaseSetManage.html')
+
+
+def interface_case_search_views(request):
+    '''
+        接口检索
+    '''
+    parentId = request.GET.get("parentId", "")
+    return render(request, 'interfaceCaseSearch.html', {"parentId": parentId})

@@ -296,8 +296,6 @@ class RunInterfaceDebugTest(APIView):
 
 
 
-
-
 class InterfaceSetSearchList(APIView):
 
     def get(self, request, *args, **kwargs):

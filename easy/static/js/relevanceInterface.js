@@ -780,6 +780,7 @@ function add_relevance_interface() {
         btn: ['关闭'],
         yes: function () {
             layer.close(search_interface);
+            $(".layui-laypage-btn").click();
         }
 
     });

@@ -303,3 +303,28 @@ class InterfaceBacthUpdate(APIView):
         right_code["msg"] = "批量修改成功"
         return Response(right_code)
 
+class InterfaceSetSearchList(APIView):
+
+    def get(self, request, *args, **kwargs):
+        '''
+            接口集列表
+        '''
+        search_dic = request.GET.get("search_dic","")
+        if search_dic:
+            kwargs = json.loads(search_dic)
+            #处理多字段搜索
+            obj = InterFaceCase.objects.filter(**kwargs)
+        else:
+            obj = InterFaceCase.objects.filter()
+        serializer = InterFaceCaseSer(obj, many=True)
+        pageindex = request.GET.get('page', 1)  # 页数
+        pagesize = request.GET.get("limit", 10)  # 每页显示数量
+        pageInator = Paginator(serializer.data, pagesize)
+        # 分页
+        contacts = pageInator.page(pageindex)
+        res = []
+        for contact in contacts:
+            res.append(contact)
+        return Response(data={"code": 0, "msg": "", "count": len(serializer.data), "data": res})
+
+

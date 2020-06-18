@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^relevance_interface/', renderHtml.relevance_interface_views),
     url(r'^interface_search/', renderHtml.interface_search_views),
     url(r'^interface_case_set_manage/', renderHtml.interface_case_set_manage_views),
+    url(r'^interface_case_search/', renderHtml.interface_case_search_views),
 ]

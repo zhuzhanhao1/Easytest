@@ -126,7 +126,7 @@ class InterFaceCase(models.Model):
 
 class InterFaceCaseData(models.Model):
     '''
-        接口用例数据
+        接口用例里的数据
     '''
     parent = models.ForeignKey(InterFaceCase,on_delete=models.CASCADE,verbose_name='接口用例id')
     interface_id = models.ForeignKey(InterFaceSet,on_delete=models.CASCADE,verbose_name="关联接口id")
@@ -157,7 +157,7 @@ class InterfaceCaseSet(models.Model):
 
 class RelevanceCaseSet(models.Model):
     '''
-        接口用例集
+        接口用例集关联的用例
     '''
     parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='接口集用例id')
     interface_case_name = models.CharField(max_length=50, verbose_name="关联用例名称")
@@ -169,3 +169,17 @@ class RelevanceCaseSet(models.Model):
 
     class Meta:
         verbose_name_plural = '关联用例名称'
+
+
+# class ExecutePlan(models.Model):
+#     '''
+#         执行计划
+#     '''
+#     plan_name = models.CharField(max_length=50, verbose_name="计划名称")
+#     description = models.CharField(max_length=255, verbose_name="计划描述", null=True, blank=True)
+#     ploy = models.CharField(max_length=50, verbose_name="计划名称")
+#     notification = models.BooleanField(verbose_name="消息通知")
+#     status = models.BooleanField(verbose_name="消息通知")
+#     create_data = models.DateField(auto_now=True, null=True, blank=True, verbose_name="创建时间")
+#     start_time = models.DateTimeField(verbose_name="开始时间",null=True,blank=True)
+#     end_time = models.DateTimeField(verbose_name="开始时间", null=True, blank=True)

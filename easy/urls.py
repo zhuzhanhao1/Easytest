@@ -33,17 +33,20 @@ urlpatterns = [
     url(r'interface_case_manage/run/$', interfaceCase.InterfaceCaseRun.as_view()),
     url(r'interface_case_manage/get_token/$', interfaceCase.InterfaceBacthUpdate.as_view()),
     url(r'interface_case_manage/bacth_update/$', interfaceCase.InterfaceBacthUpdate.as_view()),
+    url(r'interface_case_manage/search/$', interfaceCase.InterfaceSetSearchList.as_view()),
     #接口用例关联接口
     url(r'relevance_interface/list/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/add_interface/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/update_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/del_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
     #用例集
-    url(r'interface_case_set_manage/list/$',interfaceCaseSetMange.InterfaceCaseSetClassification.as_view()),
-    url(r'interface_case_set_manage/add_case_set/$',interfaceCaseSetMange.InterfaceCaseSetClassification.as_view()),
-    url(r'interface_case_set_manage/del_case_set/$',interfaceCaseSetMange.InterfaceCaseSetClassification.as_view()),
+    url(r'interface_case_set_manage/list/$',interfaceCaseSetMange.InterfaceCaseSetList.as_view()),
+    url(r'interface_case_set_manage/add_case_set/$',interfaceCaseSetMange.InterfaceCaseSetList.as_view()),
+    url(r'interface_case_set_manage/del_case_set/$',interfaceCaseSetMange.InterfaceCaseSetList.as_view()),
     #用例集关联用例
-    url(r'relevance_case_set/list/$',interfaceCaseSetMange.InterfaceCaseSetClassification.as_view()),
+    url(r'relevance_case_set/list/$',interfaceCaseSetMange.RelevanceCaseSetList.as_view()),
+    url(r'relevance_case_set/add_case/$',interfaceCaseSetMange.RelevanceCaseSetList.as_view()),
+    url(r'relevance_case_set/del_case/(?P<pk>[0-9]+)/$',interfaceCaseSetMange.RelevanceCaseSetList.as_view()),
 
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
