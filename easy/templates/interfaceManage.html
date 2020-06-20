@@ -32,29 +32,21 @@
             <form class="layui-form" lay-filter="add_update_module">
 
                 <div class="layui-form-item" style="margin-top: 20px;">
-                    <label class="layui-form-label">模块的键</label>
+                    <label class="layui-form-label">模块标题</label>
                     <div class="layui-input-block">
-                        <input type="text" name="puisne_key" required lay-verify="required"
+                        <input type="text" name="puisne_module" required lay-verify="required"
                                placeholder="请输入标题的键" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">模块标题</label>
+                    <label class="layui-form-label">描述</label>
                     <div class="layui-input-block">
-                        <input type="text" name="puisne_module" required lay-verify="required"
-                               placeholder="请输入标题名称" autocomplete="off" class="layui-input">
+                        <textarea name="description" placeholder=""
+                                  class="layui-textarea"></textarea>
                     </div>
                 </div>
 
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">接口连接</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="url" required lay-verify="required"
-                               placeholder="请输入链接" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
 
 
                 <div class="layui-form-item" style="margin-top: 30px;">

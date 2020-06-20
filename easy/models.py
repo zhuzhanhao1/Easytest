@@ -63,9 +63,9 @@ class InterFaceManageModule(models.Model):
         InterFaceManageClassification,
         on_delete=models.CASCADE,
         verbose_name='下属模块')
-    url = models.CharField(max_length=100, verbose_name="链接")
     puisne_module = models.CharField(max_length=50, verbose_name="下属模块标题")
-    puisne_key = models.CharField(max_length=50, verbose_name="下属模块的键")
+    description = models.CharField(max_length=255,verbose_name="描述",null=True,blank=True)
+    create_data = models.DateField(auto_now=True,null=True,blank=True,verbose_name="创建时间")
 
     def __str__(self):
         return self.puisne_module

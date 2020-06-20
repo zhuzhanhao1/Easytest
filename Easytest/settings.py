@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'easy.apps.EasyConfig',
+    'django_apscheduler',
+    'dwebsocket'
 ]
 
 # REST全局配置

@@ -3719,3 +3719,498 @@ Traceback (most recent call last):
     raise errorclass(errno, errval)
 django.db.utils.InternalError: (1054, "Unknown column 'easy_interfacecase.pass_rate' in 'field list'")
 2020-06-17 17:44:57,844,4680,django.server,ERROR,basehttp.py:157,"GET /relevance_interface/?parentId=1 HTTP/1.1" 500 198784
+2020-06-19 21:32:06,554,10560,django.request,ERROR,log.py:228,Internal Server Error: /interface_set/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1772, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\python\project\Easytest\easy\api\renderHtml.py", line 106, in interface_set_views
+    puisne_module = InterFaceManageModule.objects.get(id=parentId)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 404, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 904, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\query.py", line 923, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1350, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1381, in _add_q
+    check_filterable=check_filterable,
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1311, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\sql\query.py", line 1165, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 22, in __init__
+    self.rhs = self.get_prep_lookup()
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\lookups.py", line 72, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\db\models\fields\__init__.py", line 1776, in get_prep_value
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+2020-06-19 21:32:06,557,10560,django.server,ERROR,basehttp.py:157,"GET /interface_set/?parentId= HTTP/1.1" 500 126123
+2020-06-19 23:25:04,864,10652,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+TypeError: get() got an unexpected keyword argument 'version'
+2020-06-19 23:25:04,867,10652,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17361
+2020-06-19 23:26:19,210,1896,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 38, in get
+    request.websocket.send(123456)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:03:31,553,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:04:47,493,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:04:47,494,4340,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17888
+2020-06-20 00:04:50,001,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:04:50,002,4340,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17888
+2020-06-20 00:05:04,695,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:05:04,696,4340,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17888
+2020-06-20 00:07:26,951,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:07:26,956,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:07:26,963,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:07:26,975,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:07:55,743,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:07:55,744,4340,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17888
+2020-06-20 00:07:58,106,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:07:58,107,4340,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17888
+2020-06-20 00:08:01,171,4340,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/websocket/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 43, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\decorators.py", line 130, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\decorators.py", line 16, in new_func
+    response = func(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 41, in get
+    request.websocket.send(a)#str.encode("")
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\websocket.py", line 42, in send
+    self.protocol.write(message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 239, in write
+    self._write_frame(True, opcode, message)
+  File "D:\Anaconda3\envs\test\lib\site-packages\dwebsocket\backends\default\protocols.py", line 211, in _write_frame
+    l = len(data)
+TypeError: object of type 'int' has no len()
+2020-06-20 00:08:01,171,4340,django.server,ERROR,basehttp.py:157,"GET /api/v1/websocket/ HTTP/1.1" 500 17888

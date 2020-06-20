@@ -164,7 +164,7 @@ function del_classification() {
             },
             function(){
                 $.ajax({
-                    url: "/api/v1/interface_case_set_manage/add_case_set/",
+                    url: "/api/v1/interface_case_set_manage/del_case_set/",
                     type: 'DELETE',
                     async: false,
                     data: {
@@ -191,6 +191,7 @@ function del_classification() {
                     },
                 });
             });
+        return false;
     });
 }
 //添加用例集

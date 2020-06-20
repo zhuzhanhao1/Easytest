@@ -148,3 +148,9 @@ def interface_case_search_views(request):
     '''
     parentId = request.GET.get("parentId", "")
     return render(request, 'interfaceCaseSearch.html', {"parentId": parentId})
+
+def execute_plan_views(request):
+    '''
+        接口用例集管理
+    '''
+    return render(request, 'executePlan.html')

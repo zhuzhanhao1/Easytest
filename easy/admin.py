@@ -22,7 +22,7 @@ class InterFaceManageClassificationAdmin(admin.ModelAdmin):
 
 @admin.register(InterFaceManageModule)
 class InterFaceManageModuleAdmin(admin.ModelAdmin):
-    list_display = ("parent", "url", "puisne_module", "puisne_key")
+    list_display = ("parent", "description", "puisne_module", "create_data")
 
 
 @admin.register(InterFaceSet)

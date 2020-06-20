@@ -51,4 +51,6 @@ urlpatterns = [
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
 
+    url(r'websocket/$',public.JsonPathGetValue.as_view()),
+
 ]

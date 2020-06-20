@@ -30,13 +30,11 @@ function get_table_by_title() {
                     cols: [[
                         {type: 'checkbox'},
                         {title: '操作', toolbar: '#barDemo', width: 100, align: "left"},
-                        {field: 'puisne_module', title: '模块标题'},
-                        {field: 'puisne_key', title: '模块的键'},
-                        {
-                            field: 'url', title: '接口列表连接', templet: function (d) {
-                                return '<a class="layui-blue" href="' + d.url +"?parentId="+ d.id + '">' + d.url + '</a>';
-                            }
-                        }
+                        {field: 'puisne_module', title: '模块标题', templet: function (d) {
+                            return '<a class="layui-blue" href="/interface_set?parentId=' + d.id +'">' + d.puisne_module + '</a>';
+                        }},
+                        {field: 'description', title: '描述'},
+                        {field: 'create_data', title: '创建时间'},
                     ]]
                 });
                     table.on('tool(treetable)', function (obj) {
@@ -59,8 +57,7 @@ function get_table_by_title() {
                                             $ = layui.$;
                                         form.val("add_update_module", {
                                             "puisne_module": data.puisne_module,
-                                            "puisne_key": data.puisne_key,
-                                            "url": data.url,
+                                            "description": data.description,
                                         });
                                         form.on('submit(add_update_module)', function (data) {
                                             $.ajax({
@@ -68,8 +65,7 @@ function get_table_by_title() {
                                                 type: 'PUT',
                                                 data: {
                                                     "puisne_module": data.field.puisne_module,
-                                                    "puisne_key": data.field.puisne_key,
-                                                    "url": data.field.url
+                                                    "description": data.field.description
                                                 },
                                                 success: function (data) {
                                                     if (data.code === 1000) {
@@ -164,9 +160,8 @@ function get_table_by_title() {
                                                     type: 'POST',
                                                     data: {
                                                         "parent": title,
-                                                        "url": data.field.url,
                                                         "puisne_module": data.field.puisne_module,
-                                                        "puisne_key": data.field.puisne_key,
+                                                        "description": data.field.description,
                                                     },
                                                     success: function (data) {
                                                         if (data.code === 1000) {
@@ -267,13 +262,11 @@ $(document).ready(function(){
             cols: [[
                 {type: 'checkbox'},
                 {title: '操作', toolbar: '#barDemo', width: 100, align: "left"},
-                {field: 'puisne_module', title: '模块标题'},
-                {field: 'puisne_key', title: '模块的键'},
-               {
-                    field: 'url', title: '接口列表连接', templet: function (d) {
-                        return '<a class="layui-blue" href="' + d.url +"?parentId="+ d.id + '">' + d.url + '</a>';
-                    }
-                }
+                {field: 'puisne_module', title: '模块标题', templet: function (d) {
+                    return '<a class="layui-blue" href="/interface_set?parentId=' + d.id +'">' + d.puisne_module + '</a>';
+                }},
+                {field: 'description', title: '描述'},
+                {field: 'create_data', title: '创建时间'},
             ]]
         });
         table.on('tool(treetable)', function (obj) {
@@ -296,8 +289,7 @@ $(document).ready(function(){
                                 $ = layui.$;
                             form.val("add_update_module", {
                                 "puisne_module": data.puisne_module,
-                                "puisne_key": data.puisne_key,
-                                "url": data.url,
+                                "description": data.description,
                             });
                             form.on('submit(add_update_module)', function (data) {
                                 $.ajax({
@@ -305,8 +297,7 @@ $(document).ready(function(){
                                     type: 'PUT',
                                     data: {
                                         "puisne_module": data.field.puisne_module,
-                                        "puisne_key": data.field.puisne_key,
-                                        "url": data.field.url
+                                        "description": data.field.description,
                                     },
                                     success: function (data) {
                                         if (data.code === 1000) {
@@ -402,9 +393,8 @@ $(document).ready(function(){
                                         type: 'POST',
                                         data: {
                                             "parent": res,
-                                            "url": data.field.url,
                                             "puisne_module": data.field.puisne_module,
-                                            "puisne_key": data.field.puisne_key,
+                                            "description": data.field.description,
                                         },
                                         success: function (data) {
                                             if (data.code === 1000) {
@@ -483,6 +473,8 @@ function del_classification() {
                 },
             });
         });
+        //阻止事件冒泡
+        return false;
     });
 }
 //添加分类

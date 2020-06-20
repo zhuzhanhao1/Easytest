@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'^interface_search/', renderHtml.interface_search_views),
     url(r'^interface_case_set_manage/', renderHtml.interface_case_set_manage_views),
     url(r'^interface_case_search/', renderHtml.interface_case_search_views),
+    url(r'^execute_plan/', renderHtml.execute_plan_views),
 ]

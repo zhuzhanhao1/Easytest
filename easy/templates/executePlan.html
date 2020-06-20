@@ -13,10 +13,7 @@
 
     <script src="{% static 'jquery-3.4.1/jquery-3.4.1.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'layui2.5.5/layui.js' %}"></script>
-    <script>
-        var parentId = '{{ parentId }}';
-    </script>
-    <script src="{% static 'js/interfaceCase.js' %}"></script>
+    {#    <script src="{% static 'js/interfaceCase.js' %}"></script>#}
 
 
 </head>
@@ -60,90 +57,13 @@
         </div>
     </div>
 
-    <!--批量修改-->
-    <div class="layui-row" id="bacth_update">
-        <div class="layui-col-md11">
-            <form class="layui-form" lay-filter="bacth_update">
-
-                <div class="layui-form-item" style="margin-top: 30px;">
-                    <label class="layui-form-label">替换字段</label>
-                    <div class="layui-input-block">
-                        <select name="key" lay-filter="key">
-                            <option>headers</option>
-                            <option>ip</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="layui-form-item my_token">
-                    <label class="layui-form-label">admin路径</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="admin_url"
-                               placeholder=""
-                               autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text my_token">
-                    <label class="layui-form-label">账号</label>
-                    <div class="layui-input-block">
-                        <input  name="username" placeholder="" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text my_token">
-                    <label class="layui-form-label">密码</label>
-                    <div class="layui-input-block">
-                        <input  name="password" placeholder="" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button type="button" id="get_token" class="layui-btn my_token" lay-submit lay-filter="get_token">获取Token</button>
-                    </div>
-                </div>
-
-                <div class="layui-form-item my_value">
-                    <label class="layui-form-label">替换内容</label>
-                    <div class="layui-input-block">
-                        <textarea  name="value" class="layui-textarea" style="min-height:220px;"></textarea>
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="bacth_update">确定</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </div>
-    <!--进度条-->
     <div class="layui-row" id="jindutiao" style="display: none;">
         <div class="layui-col-md11">
-
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-                <legend>
-                    <span>正在执行的接口：</span>
-                    <span id="interface_execute_now"></span>
-                </legend>
-            </fieldset>
-
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-                <legend>用例执行进度：</legend>
-            </fieldset>
             <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
                 <div class="layui-progress-bar" lay-percent="0%"></div>
             </div>
-
-
-
         </div>
     </div>
-
 </div>
 <!--主题内容-table-->
 
@@ -151,6 +71,7 @@
     <div style="padding: 15px;">
         <!--  lay-separator="-"-->
         <div class="demoTable">
+            <button onclick="WebSocketTest()">test</button>
             <div id="sousuo">
                 <div class="layui-inline" style="margin-top: -7px;">
                     <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入接口名称"
@@ -161,13 +82,71 @@
                 </button>
             </div>
             <a id="interface_case_data" href="" style="display: none;"></a>
-            <table class="layui-hide" id="test" lay-filter="test"></table>
+            {#            <table class="layui-hide" id="test" lay-filter="test"></table>#}
         </div>
 
     </div>
 </div>
 
 
+<script>
+
+    function WebSocketTest() {
+        layui.use(["table"], function () {
+            var table = layui.table, layer = layui.layer;
+            var process = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: false,
+                area: ['50%', ''],
+                skin: "layui-layer-rim",
+                offset: "b",
+                content: $("#jindutiao").html(),
+                success: function () {
+                    layui.use('element', function () {
+                        var $ = layui.jquery
+                            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+                        console.log("come in ");
+                        // 打开一个 web socket
+                        ws = new WebSocket("ws://127.0.0.1:8000/api/v1/websocket/");
+
+                        ws.onopen = function () {
+                            // Web Socket 已连接上，使用 send() 方法发送数据
+                            var sitv = setInterval(function () {ws.send("发送数据");}, 1000);// 每10毫秒查询一次后台进度
+                        };
+
+                        ws.onmessage = function (evt) {
+                            var num_progress = evt.data;
+                            console.log(num_progress);
+                            num_progress = parseInt(num_progress);
+                            element.progress('demo', num_progress + '%');
+                            if (num_progress == "100") {
+                                ws.close()
+                                layer.close(process);
+                            }
+                        };
+                        ws.onclose = function () {
+                            // 关闭 websocket
+                            alert("连接已关闭...");
+                        };
+
+                    });
+                }
+            });
+        })
+    }
+    function keepalive(ws) {
+        var time = new Date();
+        if ((time.getTime() - last_health > 35000)) {
+            ws.close();
+            clearInterval(window.heartbeat_timer)
+        } else {
+            if (ws.bufferedAmount == 0 && ws.readyState == 1) {
+                ws.send('ping')
+            }
+        }
+    }
+</script>
 <!--表头按钮-->
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">

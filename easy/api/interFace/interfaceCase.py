@@ -10,7 +10,8 @@ from easy.config.Status import *
 from easy.common.interfaceRun import InterfaceRun
 import json
 import jsonpath
-
+from django.utils.decorators import method_decorator
+from dwebsocket import accept_websocket
 
 class InterfaceCase(APIView):
 
@@ -88,29 +89,35 @@ class InterfaceCase(APIView):
 
 class InterfaceCaseRun(APIView):
     num_progress = 0
+    interface_execute_now = ''
     failed_num = 0
     failed_ids = []
 
-    def clear_num_progress(self):
-        InterfaceCaseRun.num_progress = 0
-        return
 
-    def get(self, request, *args, **kwargs):
-
-        '''
-        流程进度
-        '''
+    #method_decorator,这个可以忽略,因为我这个是视通函数,不是的话直接用@accept_websocket就行
+    @method_decorator(accept_websocket)
+    def get(self ,request, *args, **kwargs):
+        #如果是个websocket请求返回True，如果是个普通的http请求返回False,可以用这个方法区分它们。
         try:
-            print('show_api----------' + str(InterfaceCaseRun.num_progress))
-            # 当进度百分百的时候，需要吧全局变量初始化，以便下次请求的时候进度条是重0开始，否则默认都是百分之百了
-            if InterfaceCaseRun.num_progress == 100:
-                InterfaceCaseRun.num_progress = 0
-                return Response(100)
-            # 当进度不是百分之百的时候，返回当前进度
-            else:
-                return Response(InterfaceCaseRun.num_progress)
+            if request.is_websocket():
+                print("websocket连接已建立")
+                # 接受客户端发出的消息
+                for message in request.websocket:
+                    print(message)
+                    print('show_api----------' + str(InterfaceCaseRun.num_progress))
+                    if InterfaceCaseRun.num_progress == 100:
+                        InterfaceCaseRun.num_progress = 0
+                        dict = {"num_progress":100,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
+                        request.websocket.send(str.encode(json.dumps(dict)))  # str.encode(json.dumps(dict))
+                    else:
+                        dict = {"num_progress":InterfaceCaseRun.num_progress,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
+                        request.websocket.send(str.encode(json.dumps(dict)))
         except Exception as e:
-            return Response(100)
+            print(e)
+            right_code["msg"] = "websocket连接在客户端已经关闭"
+            print("websocket连接在客户端已经关闭")
+        return Response(right_code)
+
 
     def post(self, request, *args, **kwargs):
         '''
@@ -118,8 +125,8 @@ class InterfaceCaseRun(APIView):
         '''
         datas = request.data
         id_list = json.loads(datas["id_list"])
-        interface_id_list = []
         #勾选的用例id列表
+        process_num = 0
         for id in id_list:
             # 获取用例依赖的关联结果集
             interface_id_list = InterFaceCaseData.objects.filter(parent=id).values_list("interface_id",flat=True)
@@ -139,6 +146,8 @@ class InterfaceCaseRun(APIView):
                 depend_id = QuerySet.depend_id
                 depend_key = QuerySet.depend_key
                 replace_key = QuerySet.replace_key
+                #为websocket获取正在执行的接口名称
+                InterfaceCaseRun.interface_execute_now = QuerySet.interface_name
                 print(QuerySet.interface_name)
                 #拼接请求的URL
                 url = tcp + "://" + ip + "/" + url
@@ -237,6 +246,9 @@ class InterfaceCaseRun(APIView):
                         print("这里不能直接返回")
                 except:
                     pass
+                process_num += 1
+                InterfaceCaseRun.num_progress = int(process_num / (len(id_list)*len(interface_id_list)) * 100)
+                print(InterfaceCaseRun.num_progress)
             right_code["msg"] = "接口用例运行结束"
             return Response(right_code)
 
