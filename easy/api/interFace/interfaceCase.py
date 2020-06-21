@@ -94,163 +94,181 @@ class InterfaceCaseRun(APIView):
     failed_ids = []
 
 
-    #method_decorator,这个可以忽略,因为我这个是视通函数,不是的话直接用@accept_websocket就行
+    # method_decorator,这个可以忽略,因为我这个是视通函数,不是的话直接用@accept_websocket就行
+    # @method_decorator(accept_websocket)
+    # def get(self ,request, *args, **kwargs):
+    #     #如果是个websocket请求返回True，如果是个普通的http请求返回False,可以用这个方法区分它们。
+    #     try:
+    #         if request.is_websocket():
+    #             print("websocket连接已建立")
+    #             # 接受客户端发出的消息
+    #             for message in request.websocket:
+    #                 print(message)
+    #                 print('show_api----------' + str(InterfaceCaseRun.num_progress))
+    #                 if InterfaceCaseRun.num_progress == 100:
+    #                     InterfaceCaseRun.num_progress = 0
+    #                     dict = {"num_progress":100,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
+    #                     request.websocket.send(str.encode(json.dumps(dict)))  # str.encode(json.dumps(dict))
+    #                 else:
+    #                     dict = {"num_progress":InterfaceCaseRun.num_progress,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
+    #                     request.websocket.send(str.encode(json.dumps(dict)))
+    #     except Exception as e:
+    #         print(e)
+    #         right_code["msg"] = "websocket连接在客户端已经关闭"
+    #         print("websocket连接在客户端已经关闭")
+    #     return Response(right_code)
+
+
     @method_decorator(accept_websocket)
-    def get(self ,request, *args, **kwargs):
-        #如果是个websocket请求返回True，如果是个普通的http请求返回False,可以用这个方法区分它们。
-        try:
-            if request.is_websocket():
-                print("websocket连接已建立")
-                # 接受客户端发出的消息
-                for message in request.websocket:
-                    print(message)
-                    print('show_api----------' + str(InterfaceCaseRun.num_progress))
-                    if InterfaceCaseRun.num_progress == 100:
-                        InterfaceCaseRun.num_progress = 0
-                        dict = {"num_progress":100,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
-                        request.websocket.send(str.encode(json.dumps(dict)))  # str.encode(json.dumps(dict))
-                    else:
-                        dict = {"num_progress":InterfaceCaseRun.num_progress,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
-                        request.websocket.send(str.encode(json.dumps(dict)))
-        except Exception as e:
-            print(e)
-            right_code["msg"] = "websocket连接在客户端已经关闭"
-            print("websocket连接在客户端已经关闭")
-        return Response(right_code)
-
-
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         '''
         执行流程接口
         '''
-        datas = request.data
-        id_list = json.loads(datas["id_list"])
-        #勾选的用例id列表
-        process_num = 0
-        for id in id_list:
-            # 获取用例依赖的关联结果集
-            interface_id_list = InterFaceCaseData.objects.filter(parent=id).values_list("interface_id",flat=True)
-            print("关联的id_list"+str(interface_id_list))
-            success_id_list = []
-            # 遍历用例关联的接口集
-            for id in interface_id_list:
-                QuerySet = InterFaceSet.objects.get(id=id)
-                id = QuerySet.id
-                url = QuerySet.url
-                method = QuerySet.method
-                ip = QuerySet.ip
-                tcp = QuerySet.tcp
-                headers = QuerySet.headers
-                params = QuerySet.params
-                body = QuerySet.body
-                depend_id = QuerySet.depend_id
-                depend_key = QuerySet.depend_key
-                replace_key = QuerySet.replace_key
-                #为websocket获取正在执行的接口名称
-                InterfaceCaseRun.interface_execute_now = QuerySet.interface_name
-                print(QuerySet.interface_name)
-                #拼接请求的URL
-                url = tcp + "://" + ip + "/" + url
-                if depend_id:
-                    params = json.loads(params) if any(params) else ""
-                    body = json.loads(body) if any(body) else ""
-                    #依赖的id列表
-                    depend_id = depend_id.split(",")
-                    #替换的{jsonpath：0}的字典，和只包换[jsonpath]语法键的列表
-                    replace_jsonpath_dict = json.loads(replace_key)
-                    replace_jsonpath_list = [key for key in replace_jsonpath_dict]
-                    #依赖的{jsonpath：0}的字典或[{jsonpath：0},{jsonpath：0}]的列表，
-                    depend_jsonpath= json.loads(depend_key)
-                    #定义三个（替换结果，依赖结果，替换区域）列表
-                    depend_values = []
-                    replace_values = []
-                    replace_areas = []
-                    try:
-                        for num in range(len(depend_id)):
-                            if int(depend_id[num]) not in success_id_list:
-                                print("流程依赖的接口" + str(depend_id[num]) + "出错了")
-                                error_code["error"] = "sorry我所依赖的序号为" + depend_id[num] + "的接口出错了哦"
-                                continue
+        if request.is_websocket():
+            print("websocket连接已建立")
+            for message in request.websocket:
+                id_list = json.loads(message.decode())
+                print(id_list)
+                # 勾选的用例id列表
+                process_num = 0
+                for id in id_list:
+                    # 获取用例依赖的关联结果集
+                    interface_id_list = InterFaceCaseData.objects.filter(parent=id).values_list("interface_id", flat=True)
+                    print("关联的id_list" + str(interface_id_list))
+                    success_id_list = []
+                    # 遍历用例关联的接口集
+                    for id in interface_id_list:
+                        QuerySet = InterFaceSet.objects.get(id=id)
+                        id = QuerySet.id
+                        url = QuerySet.url
+                        method = QuerySet.method
+                        ip = QuerySet.ip
+                        tcp = QuerySet.tcp
+                        headers = QuerySet.headers
+                        params = QuerySet.params
+                        body = QuerySet.body
+                        depend_id = QuerySet.depend_id
+                        depend_key = QuerySet.depend_key
+                        replace_key = QuerySet.replace_key
+                        # 为websocket获取正在执行的接口名称
+                        print(QuerySet.interface_name)
+                        #发送消息
+                        process_num += 1
+                        num_progress = int(process_num / (len(id_list) * len(interface_id_list)) * 100)
+                        process_dict = {"num_progress": num_progress, "interface_execute_now": QuerySet.interface_name}
+                        print(process_dict)
 
-                            print("依赖取值开开始。。。。")
-                            dependId = InterFaceSet.objects.get(id=depend_id[num])
-                            depend_result = json.loads(dependId.result)
-                            # 获取需要替换的jsonpath[key]的结果，转为字典，字典的键放入一个列表存储。
-                            if isinstance(depend_jsonpath,list):
-                                depend_jsonpath_key_dict = depend_jsonpath[num]
-                                depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
+                        # 拼接请求的URL
+                        url = tcp + "://" + ip + "/" + url
+                        if depend_id:
+                            params = json.loads(params) if any(params) else ""
+                            body = json.loads(body) if any(body) else ""
+                            # 依赖的id列表
+                            depend_id = depend_id.split(",")
+                            # 替换的{jsonpath：0}的字典，和只包换[jsonpath]语法键的列表
+                            replace_jsonpath_dict = json.loads(replace_key)
+                            replace_jsonpath_list = [key for key in replace_jsonpath_dict]
+                            # 依赖的{jsonpath：0}的字典或[{jsonpath：0},{jsonpath：0}]的列表，
+                            depend_jsonpath = json.loads(depend_key)
+                            # 定义三个（替换结果，依赖结果，替换区域）列表
+                            depend_values = []
+                            replace_values = []
+                            replace_areas = []
+                            try:
+                                for num in range(len(depend_id)):
+                                    if int(depend_id[num]) not in success_id_list:
+                                        print("流程依赖的接口" + str(depend_id[num]) + "出错了")
+                                        error_code["error"] = "sorry我所依赖的序号为" + depend_id[num] + "的接口出错了哦"
+                                        continue
+
+                                    print("依赖取值开开始。。。。")
+                                    dependId = InterFaceSet.objects.get(id=depend_id[num])
+                                    depend_result = json.loads(dependId.result)
+                                    # 获取需要替换的jsonpath[key]的结果，转为字典，字典的键放入一个列表存储。
+                                    if isinstance(depend_jsonpath, list):
+                                        depend_jsonpath_key_dict = depend_jsonpath[num]
+                                        depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
+                                    else:
+                                        depend_jsonpath_key_dict = depend_jsonpath
+                                        depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
+                                    # 通过jsonpath将依赖的值从依赖的接口返回结果中替换出来
+                                    depend_value = jsonpath.jsonpath(depend_result, depend_jsonpath_key_list[0])[
+                                        depend_jsonpath_key_dict[depend_jsonpath_key_list[0]]]
+                                    # 如果替换后的内容仍为列表则再次索引第一个位子
+                                    if type(depend_value) is list:
+                                        depend_value = depend_value[0]
+                                    depend_values.append(depend_value)
+                                    print("所有依赖值的列表集" + str(depend_values))
+
+                                    # 替换区域的值，0是Query，1是body
+                                    replace_area = replace_jsonpath_dict[replace_jsonpath_list[num]]
+                                    replace_value = []
+                                    if replace_area == 0:
+                                        # 说明需要替换的位置在Query内,默认索引是0
+                                        replace_value = jsonpath.jsonpath(params, replace_jsonpath_list[num])[0]
+                                    elif replace_area == 1:
+                                        replace_value = jsonpath.jsonpath(body, replace_jsonpath_list[num])[0]
+                                    if isinstance(replace_value, list):
+                                        replace_value = replace_value[0]
+                                    replace_values.append(replace_value)
+                                    replace_areas.append(replace_area)
+                                    print("所有替换值的列表集" + str(replace_value))
+                                    print("所有替换值的区域列表集" + str(replace_areas))
+                            except Exception as e:
+                                print("获取依赖结果值或获取请求中需要替换的值失败")
+                                print(e)
+
+                            # 字符串替换replace（需要替换的内容，新的内容）
+                            try:
+                                params = json.dumps(params, ensure_ascii=False, sort_keys=True, indent=2)
+                                body = json.dumps(body, ensure_ascii=False, sort_keys=True, indent=2)
+                                for index in range(len(replace_areas)):
+                                    if replace_areas[index] == 0:
+                                        params = params.replace(replace_values[index], depend_values[index])
+                                    elif replace_areas[index] == 1:
+                                        body = body.replace(replace_values[index], depend_values[index])
+                            except Exception as e:
+                                print("字符串替换异常")
+                                print(e)
+
+                        # 如果没有依赖的话，直接运行接口执行方法
+                        try:
+                            response_headers, response_body, duration, status_code = InterfaceRun().run_main(method=method,
+                                                                                                             url=url,
+                                                                                                             headers=headers,
+                                                                                                             params=params,
+                                                                                                             data=body)
+                            print(status_code)
+                        except Exception as e:
+                            print("request请求接口异常")
+                            print(e)
+                        try:
+                            djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+                            ResultTimeObj = InterFaceSet.objects.get(id=id)
+                            data = {"result": djson, "duration": duration}
+                            serializer = ResultTimeSer(ResultTimeObj, data=data)
+                            # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
+                            if serializer.is_valid():
+                                serializer.save()
+                                # 保存成功后，将成功的id存入列表
+                                if int(status_code) == 200:
+                                    success_id_list.append(id)
+                                print(success_id_list)
+                                print("*" * 100)
                             else:
-                                depend_jsonpath_key_dict = depend_jsonpath
-                                depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
-                            # 通过jsonpath将依赖的值从依赖的接口返回结果中替换出来
-                            depend_value = jsonpath.jsonpath(depend_result, depend_jsonpath_key_list[0])[depend_jsonpath_key_dict[depend_jsonpath_key_list[0]]]
-                            # 如果替换后的内容仍为列表则再次索引第一个位子
-                            if type(depend_value) is list:
-                                depend_value = depend_value[0]
-                            depend_values.append(depend_value)
-                            print("所有依赖值的列表集" + str(depend_values))
+                                print("保存数据库失败，这里之后用日志替换打印")
+                        except Exception as e:
+                            pass
+                        #将状态码一并返回
+                        process_dict["status_code"] = status_code
+                        request.websocket.send(str.encode(json.dumps(process_dict)))
 
-                            # 替换区域的值，0是Query，1是body
-                            replace_area = replace_jsonpath_dict[replace_jsonpath_list[num]]
-                            replace_value = []
-                            if replace_area == 0:
-                                # 说明需要替换的位置在Query内,默认索引是0
-                                replace_value = jsonpath.jsonpath(params, replace_jsonpath_list[num])[0]
-                            elif replace_area == 1:
-                                replace_value = jsonpath.jsonpath(body, replace_jsonpath_list[num])[0]
-                            if isinstance(replace_value, list):
-                                replace_value = replace_value[0]
-                            replace_values.append(replace_value)
-                            replace_areas.append(replace_area)
-                            print("所有替换值的列表集" + str(replace_value))
-                            print("所有替换值的区域列表集" + str(replace_areas))
-                    except Exception as e:
-                        print("获取依赖结果值或获取请求中需要替换的值失败")
-                        print(e)
+                right_code["msg"] = "接口用例运行结束"
+                return Response(right_code)
 
 
-                    #字符串替换replace（需要替换的内容，新的内容）
-                    try:
-                        params = json.dumps(params, ensure_ascii=False, sort_keys=True, indent=2)
-                        body = json.dumps(body, ensure_ascii=False, sort_keys=True, indent=2)
-                        for index in range(len(replace_areas)):
-                            if replace_areas[index] == 0:
-                                params = params.replace(replace_values[index], depend_values[index])
-                            elif replace_areas[index] == 1:
-                                body = body.replace(replace_values[index], depend_values[index])
-                    except Exception as e:
-                        print("字符串替换异常")
-                        print(e)
 
-                #如果没有依赖的话，直接运行接口执行方法
-                try:
-                    response_headers, response_body, duration, status_code = InterfaceRun().run_main(method=method, url=url, headers=headers, params=params, data=body)
-                    print(status_code)
-                except Exception as e:
-                    print("request请求接口异常")
-                    print(e)
-                try:
-                    djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
-                    ResultTimeObj = InterFaceSet.objects.get(id=id)
-                    data = {"result": djson, "duration": duration}
-                    serializer = ResultTimeSer(ResultTimeObj, data=data)
-                    # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
-                    if serializer.is_valid():
-                        serializer.save()
-                        #保存成功后，将成功的id存入列表
-                        if int(status_code) == 200:
-                            success_id_list.append(id)
-                        print(success_id_list)
-                        print("*"*100)
-                    else:
-                        print("这里不能直接返回")
-                except:
-                    pass
-                process_num += 1
-                InterfaceCaseRun.num_progress = int(process_num / (len(id_list)*len(interface_id_list)) * 100)
-                print(InterfaceCaseRun.num_progress)
-            right_code["msg"] = "接口用例运行结束"
-            return Response(right_code)
+
 
 
 class InterfaceBacthUpdate(APIView):

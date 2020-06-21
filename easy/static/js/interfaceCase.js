@@ -244,118 +244,85 @@ layui.use(['table', "soulTable"], function (data) {
                         l.push(data[i]["id"]);
                     }
                     console.log(l);
-                    $.ajax({
-                        url: "/api/v1/interface_case_manage/run/",
-                        type: 'POST',
-                        data:{
-                            id_list:JSON.stringify(l)
-                        },
-                        beforeSend: function () {
-                            //l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
-                            layui.use('element', function () {
-                                        var $ = layui.jquery
-                                            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-                                        console.log("come in ");
 
-                                        /*创建socket连接*/
-                                        ws = new WebSocket("ws://127.0.0.1:8000/api/v1/interface_case_manage/run/");
-                                        ws.onopen = function () {
-                                            // Web Socket 已连接上，使用 send() 方法发送数据
-                                            // if (ws.readyState === WebSocket.OPEN){
-                                            //             ws.send("查询运行进度");
-                                            //         }
-                                            try{
-                                                var sitv = setInterval(function () {
-                                                    //readyState报告websocket的连接状态
-                                                    if (ws.readyState === WebSocket.OPEN){
-                                                        ws.send("查询运行进度");
-                                                    }
-                                                    else {
-                                                        clearInterval(sitv);
-                                                    }
-                                                },
-                                                1500);// 每500毫秒查询一次后台进度
-                                            }catch (e) {
-                                                console.log(e);
-                                                clearInterval(sitv);
-                                            }
+                    //创建socket连接,首先判断是否 支持 WebSocket
+                    if('WebSocket' in window) {
+                        ws = new WebSocket("ws://127.0.0.1:8000/api/v1/interface_case_manage/run/");
+                    }
 
-                                        };
-                                        ws.onmessage = function (evt) {
-                                            let data = JSON.parse(evt.data);
-                                            let num_progress = data.num_progress;
-                                            // console.log(data);
-                                            // console.log(typeof (data));
-                                            let interface_execute_now = data.interface_execute_now;
-                                            var process = layer.open({
-                                                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                                                type: 1,
-                                                title: false,
-                                                area: ['40%', '30%'],
-                                                skin: "layui-layer-rim",
-                                                offset: "rb",
-                                                shade:false,
-                                                content: $("#jindutiao").html(),
-                                                success: function () {
-                                                    $("#interface_execute_now").html(interface_execute_now);
-                                                }
-                                            });
+                    //
+                    ws.onopen = function () {
+                        // Web Socket 已连接上，使用 send() 方法发送数据
+                        if (ws.readyState === WebSocket.OPEN){
+                            ws.send(JSON.stringify(l));
+                        }
+                        // try{
+                        //     var sitv = setInterval(function () {
+                        //         //readyState报告websocket的连接状态
+                        //         if (ws.readyState === WebSocket.OPEN){
+                        //             ws.send("查询运行进度");
+                        //         }
+                        //         else {
+                        //             clearInterval(sitv);
+                        //         }
+                        //     },
+                        //     1500);// 每500毫秒查询一次后台进度
+                        // }catch (e) {
+                        //     console.log(e);
+                        //     clearInterval(sitv);
+                        // }
+                    };
+                    //接收数据
+                    var process = layer.open({
+                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                        type: 1,
+                        title: false,
+                        area: ['30%', '20%'],
+                        skin: "layui-layer-rim",
+                        offset: "rb",
+                        //shade:false,
+                        content: $("#jindutiao").html(),
+                        success: function () {
+                            ws.onmessage = function (evt) {
+                                let data = JSON.parse(evt.data);
+                                let num_progress = data.num_progress;
+                                console.log(data);
+                                console.log(typeof (data));
 
-                                            console.log(interface_execute_now);
-                                            //渲染进度条
-                                            element.progress('demo', num_progress + '%');
-                                            //根据不同阶段，对进度条颜色进行渲染
-                                            if (num_progress > 33 && num_progress < 66) {
-                                                $(".layui-progress-bar").addClass("layui-bg-orange");
-                                            } else if (num_progress >= 66 && num_progress < 100) {
-                                                $(".layui-progress-bar").removeClass("layui-bg-orange");
-                                                $(".layui-progress-bar").addClass("layui-bg-red");
-                                            } else if (num_progress == 100) {
-                                                $(".layui-progress-bar").removeClass("layui-bg-red");
-                                                layer.close(process);
-                                                ws.close()
-                                            };
-                                            //layer.close(process);
+                                let interface_execute_now = data.interface_execute_now;
+                                let status_code = data.status_code;
+                                $('.interface_name').empty();
+                                $('.interface_name').append('<span>'+interface_execute_now+"："+status_code+'</span>');
 
-                                        }
-
-
-                                        ws.onclose = function () {
-                                            // 关闭 websocket
-                                            layer.msg('websocket连接已关闭！', {icon: 6, offset: "t"});
-                                        };
-                                    });
-
-                        },
-                        success: function (data) {
-                            if (data.code === 1000) {
-                                layer.msg(data.msg, {
-                                    icon: 6, offset: "t"
-                                })
-                            } else {
-                                layer.msg(data.error, {
-                                    icon: 5, offset: "t"
+                                // $("#interface_execute_now").html(interface_execute_now);
+                                //渲染进度条
+                                layui.use('element', function(){
+                                  var $ = layui.jquery
+                                  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+                                    element.progress('demo', num_progress + '%');
+                                    //根据不同阶段，对进度条颜色进行渲染
+                                    if (num_progress > 33 && num_progress < 66) {
+                                        $(".layui-progress-bar").addClass("layui-bg-orange");
+                                    } else if (num_progress >= 66 && num_progress < 100) {
+                                        $(".layui-progress-bar").removeClass("layui-bg-orange");
+                                        $(".layui-progress-bar").addClass("layui-bg-red");
+                                    } else if (num_progress == 100) {
+                                        $(".layui-progress-bar").removeClass("layui-bg-red");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            layer.close(process);
+                                        ws.close()
+                                    };
                                 })
                             }
-                            $(".layui-laypage-btn").click();
-                        },
-                        error: function (data) {
-                            if (data.responseJSON.code === 1001) {
-                                layer.msg(data.responseJSON.error, {
-                                    icon: 5,
-                                    offset: 't'
-                                });
-                            } else {
-                                layer.msg("回调失败", {
-                                    icon: 5,
-                                    offset: 't'
-                                });
-                            }
-                        },
-                        complete: function () {
-                            //layer.close(l_index);
+
                         }
                     });
+
+
+                    ws.onclose = function () {
+                        // 关闭 websocket
+                        layer.msg('用例执行完成，websocket连接即将关闭！', {icon: 6, offset: "t"});
+                    };
+
                 }
                 break
             //
