@@ -2828,10 +2828,11 @@ a cite {
     color: #737383
 }
 
+/*zzh--update*/
 .layui-table {
     width: 100%;
     background-color: #fff;
-    color: #666
+    color: #555555
 }
 
 .layui-table tr {

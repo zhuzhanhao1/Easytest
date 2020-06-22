@@ -206,3 +206,7 @@ LOGGING = {
         },
     }
 }
+
+
+
+#pip install -i https://pypi.doubanio.com/simple/

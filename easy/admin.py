@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import MainMenu, ChildMenu, InterFaceManageClassification,\
-    InterFaceManageModule, InterFaceSet, InterFaceCase, InterfaceCaseSet, InterFaceCaseData,RelevanceCaseSet
+    InterFaceManageModule, InterFaceSet, InterFaceCase, InterfaceCaseSet, \
+    InterFaceCaseData,RelevanceCaseSet,ExecutePlan
 
 
 @admin.register(MainMenu)
@@ -58,3 +59,7 @@ class InterFaceCaseDataAdmin(admin.ModelAdmin):
 class RelevanceCaseSetAdmin(admin.ModelAdmin):
     list_display = ("parent", "relevance_id", "interface_case_name", "description")
 
+
+@admin.register(ExecutePlan)
+class ExecutePlanAdmin(admin.ModelAdmin):
+    list_display = ("plan_name", "description", "ploy", "notification", "status", "start_time", "end_time")

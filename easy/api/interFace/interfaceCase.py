@@ -88,36 +88,6 @@ class InterfaceCase(APIView):
 
 
 class InterfaceCaseRun(APIView):
-    num_progress = 0
-    interface_execute_now = ''
-    failed_num = 0
-    failed_ids = []
-
-
-    # method_decorator,这个可以忽略,因为我这个是视通函数,不是的话直接用@accept_websocket就行
-    # @method_decorator(accept_websocket)
-    # def get(self ,request, *args, **kwargs):
-    #     #如果是个websocket请求返回True，如果是个普通的http请求返回False,可以用这个方法区分它们。
-    #     try:
-    #         if request.is_websocket():
-    #             print("websocket连接已建立")
-    #             # 接受客户端发出的消息
-    #             for message in request.websocket:
-    #                 print(message)
-    #                 print('show_api----------' + str(InterfaceCaseRun.num_progress))
-    #                 if InterfaceCaseRun.num_progress == 100:
-    #                     InterfaceCaseRun.num_progress = 0
-    #                     dict = {"num_progress":100,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
-    #                     request.websocket.send(str.encode(json.dumps(dict)))  # str.encode(json.dumps(dict))
-    #                 else:
-    #                     dict = {"num_progress":InterfaceCaseRun.num_progress,"interface_execute_now":InterfaceCaseRun.interface_execute_now}
-    #                     request.websocket.send(str.encode(json.dumps(dict)))
-    #     except Exception as e:
-    #         print(e)
-    #         right_code["msg"] = "websocket连接在客户端已经关闭"
-    #         print("websocket连接在客户端已经关闭")
-    #     return Response(right_code)
-
 
     @method_decorator(accept_websocket)
     def get(self, request, *args, **kwargs):
