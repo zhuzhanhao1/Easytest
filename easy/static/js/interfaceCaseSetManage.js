@@ -1,17 +1,26 @@
+layui.config({
+    base: './../static/layui2.5.5/lay/modules/',   // 模块目录
+    version: 'v1.3.28'
+}).extend({             // 模块别名
+    soulTable: 'soulTable'
+});
+
 //获取用例集下用例表格
 function get_table_by_title() {
-    layui.use(["table"], function () {
+    layui.use(["table", "soulTable"], function () {
         var table = layui.table,
             layer = layui.layer;
+        soulTable = layui.soulTable;
         //获取li标签对应的文本内容
         $("li").unbind('click').click(function(){
-            var title = $(this).children("span").text();
+            var title = jQuery(this).children("span").text();
             //改变list样式
-            $("li").css("background-color","");
-            $("li").css("color","#212529");
-            $(this).css("background-color","#5FB878");
-            $(this).css("color","#ffffff");
+            jQuery("li").css("background-color","");
+            jQuery("li").css("color","#212529");
+            jQuery(this).css("background-color","#5FB878");
+            jQuery(this).css("color","#ffffff");
             //打开数据表格
+            var index = layer.load(0); //添加laoding,0-2两种方式
             var tableIns = table.render({
                 elem: '#treetable',
                 url: '/api/v1/relevance_case_set/list/',
@@ -20,9 +29,21 @@ function get_table_by_title() {
                 // cellMinWidth : 95,
                 height: "full-104",
                 limit: 10,
+                loading: false,
                 limits: [10, 15, 20, 25],
-                id: "linkListTab",
                 size: 'lg',
+                contextmenu: {
+            // 表头右键菜单配置
+            header: [
+                {
+                    name: '重载表格',
+                    icon: 'layui-icon layui-icon-refresh-1',
+                    click: function () {
+                        table.reload(this.id)
+                    }
+                }
+            ]
+        },
                 where: {
                     "title": title
                 },
@@ -31,7 +52,38 @@ function get_table_by_title() {
                     , {field: 'interface_case_name', title: '接口用例名称', align: "left"}
                     , {field: 'description', title: '描述', align: "left"}
                 ]]
+                ,id: 'testReload'
+                , rowEvent: function (obj) {
+                    obj.tr.css({'background': '#ECEFFC'}).siblings().removeAttr('style')
+                }
+                , done: function (res) {   //返回数据执行回调函数
+                    layer.close(index);    //返回数据关闭loading
+                    soulTable.render(this);
+                }
             });
+             //搜索
+            var $ = layui.$, active = {
+                reload: function(){
+                  var demoReload = $('#demoReload');
+
+                  //执行重载
+                  table.reload('testReload', {
+                    page: {
+                      curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                      key: {
+                        interface_case_name: demoReload.val()
+                      }
+                    }
+                  }, 'data');
+                }
+              };
+
+              $('.demoTable .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+              });
             table.on('tool(treetable)', function (obj) {
                 //编辑整个用例
                 if (obj.event === 'del_module') {

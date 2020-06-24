@@ -65,7 +65,10 @@ class RelevanceCaseSetList(APIView):
             获取用例集关联用例列表
         '''
         title = request.GET.get("title", "")
+        interface_case_name = request.GET.get("interface_case_name", "")
         obj = RelevanceCaseSet.objects.filter(parent__interface_case_set_name=title)
+        if interface_case_name:
+            obj = RelevanceCaseSet.objects.filter(Q(parent__interface_case_set_name=title) & Q(interface_case_name__contains=interface_case_name))
         serializer = RelevanceCaseSetSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量

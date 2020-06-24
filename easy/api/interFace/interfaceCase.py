@@ -86,7 +86,6 @@ class InterfaceCase(APIView):
             error_code["error"] = "删除用例失败"
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
-
 class InterfaceCaseRun(APIView):
 
     @method_decorator(accept_websocket)
@@ -235,11 +234,6 @@ class InterfaceCaseRun(APIView):
 
                 right_code["msg"] = "接口用例运行结束"
                 return Response(right_code)
-
-
-
-
-
 
 class InterfaceBacthUpdate(APIView):
 

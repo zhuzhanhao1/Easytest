@@ -20,7 +20,7 @@ layui.use(['table', "soulTable"], function (data) {
         , title: '执行任务列表'
         , page: {groups: 5} //开启分页
         , loading: false
-        , height: 'full-60'
+        , height: 'full-80'
         , drag: {toolbar: true}//实现固定列与非固定列之间的转换
         , rowDrag: {
             trigger: 'row', done: function (obj) {
@@ -309,8 +309,20 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 ]
             }
-            , {field: 'start_time', title: '开始时间', align: "left"}
-            , {field: 'end_time', title: '结束时间', align: "left"}
+            , {
+                field: 'start_time', title: '开始时间', align: "left", templet: function (res) {
+                    let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    console.log(date);
+                    console.log(typeof (date));
+                    return '<span>'+date+'</span>'
+                }
+            }
+            , {field: 'end_time', title: '结束时间', align: "left", templet: function (res) {
+                    let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    console.log(date);
+                    console.log(typeof (date));
+                    return '<span>'+date+'</span>'
+                }}
         ]]
         , filter: {
             items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
@@ -335,7 +347,7 @@ layui.use(['table', "soulTable"], function (data) {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }
-                , where: {interface_name: demoReload.val()}
+                , where: {plan_name: demoReload.val()}
             }, 'data');
         }
     };
@@ -506,7 +518,7 @@ layui.use(['table', "soulTable"], function (data) {
         var id = data['id'];
         console.log(obj);
         //删除接口用例
-       if (obj.event === 'del_interface') {
+       if (obj.event === 'del_plan') {
             layer.confirm('你确定要删除吗' + '？', {
                     btn: ['取消', '确定'] //按钮
                 },
@@ -515,7 +527,7 @@ layui.use(['table', "soulTable"], function (data) {
                 },
                 function () {
                     $.ajax({
-                        url: "/api/v1/interface_set/del_interface/" + id + "/",
+                        url: "/api/v1/excute_plan/del_plan/" + id + "/",
                         type: 'DELETE',
                         success: function (data) {
                             if (data.code === 1000) {
@@ -545,190 +557,51 @@ layui.use(['table', "soulTable"], function (data) {
                     });
                 });
         }
-        //编辑请求Query
-        else if (obj.event === 'params') {
-            layer.prompt({
-                formType: 2
-                , value: data.params
-                , title: ["编辑Query parmas"]
-                , shade: false
-                , area: ['600px', '400px'] //自定义文本域宽高
-
-            }, function (value, index) {
-                console.log(value);
-                console.log(index);
-                $.ajax({
-                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                    type: 'PUT',
-                    data: {
-                        "params": value
-                    },
-                    success: function (data) {
-                        if (data.code === 1000) {
-                            layer.msg(data.msg, {
-                                icon: 6, offset: "t"
-                            })
-                        } else {
-                            layer.msg(data.error, {
-                                icon: 5, offset: "t"
-                            })
-                        }
-                    },
-                    error: function (data) {
-                        if (data.responseJSON.code === 1001) {
-                            layer.msg(data.responseJSON.error, {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        } else {
-                            layer.msg("回调失败", {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        }
-                    },
-                });
-                //同步更新缓存对应的值
-                obj.update({
-                    params: value
-                });
-                layer.close(index);
-            });
-        }
-        //编辑请求体
-        else if (obj.event === 'body') {
-            layer.prompt({
-                formType: 2
-                , value: data.body
-                , title: ["编辑data forms"]
-                , shade: 0.6
-                , area: ['600px', '400px'] //自定义文本域宽高
-                , maxlength: 500000
-
-            }, function (value, index) {
-                console.log(value);
-                console.log(index);
-                $.ajax({
-                    cache: false,
-                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                    type: 'PUT',
-                    async: false,
-                    data: {
-                        "body": value
-                    },
-                    success: function (data) {
-                        if (data.code === 1000) {
-                            layer.msg(data.msg, {
-                                icon: 6, offset: "t"
-                            })
-                        } else {
-                            layer.msg(data.error, {
-                                icon: 5, offset: "t"
-                            })
-                        }
-                    },
-                    error: function (data) {
-                        if (data.responseJSON.code === 1001) {
-                            layer.msg(data.responseJSON.error, {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        } else {
-                            layer.msg("回调失败", {
-                                icon: 5,
-                                offset: 't'
-                            });
-                        }
-                    },
-                });
-                //同步更新缓存对应的值
-                obj.update({
-                    body: value
-                });
-                layer.close(index);
-
-            });
-        }
         //编辑接口整体
-        else if (obj.event === 'update_interface') {
+        else if (obj.event === 'update_plan') {
             var a = layer.open({
                 type: 1,
-                title: "编辑接口",
-                area: ['40%',"100%"],
+                title: "编辑计划任务",
+                area: ['35%',""],
                 skin: "layui-layer-molv",
                 shada: 0.6,
-                offset:"rb",
                 content: $("#add_update_case").html(),
                 success: function () {
-                    layui.use(['form', "jquery"], function () {
-                        var form = layui.form;
-                        var id = data.id;
-                        console.log(data);
+                    layui.use(['form', "jquery",'laydate'], function () {
+                        var form = layui.form,
+                            $ = layui.$;
+                        var laydate = layui.laydate;
+                        let id = data.id;
                         form.val("add_update_case", {
-                            "interface_name": data.interface_name,
-                            "tcp": data.tcp,
-                            "ip": data.ip,
-                            "url": data.url,
-                            "method": data.method,
-                            "headers": data.headers,
-                            "params": data.query,
-                            "body": data.body,
-                            "preprocessor": data.preprocessor,
-                            "depend_id": data.depend_id,
-                            "depend_key": data.depend_key,
-                            "replace_key": data.replace_key,
-                            "replace_position": data.replace_position,
+                            "plan_name": data.plan_name,
+                            "description": data.description,
+                            "ploy": data.ploy,
+                            "notification": data.notification,
+                            "status": data.status,
+                            "start_time": data.start_time,
+                            "end_time": data.end_time,
                         });
-                        //监听编辑用户信息，
-                        form.on('radio(preprocessor)', function (data) {
-                            console.log(data.elem); //得到radio原始DOM对象
-                            console.log(data.value); //被点击的radio的value值
-                            if (data.value == "True") {
-                                $(".mydepend").css("display", "block");
-                                console.log("我应该展现依赖相关内容")
-                            } else {
-                                $(".mydepend").css("display", "none")
-                            }
-                        });
-                        form.render('radio', 'preprocessor'); //更新 lay-filter="preprocessor" 所在容器内的全部 radio 状态
+                        lay('.test-item').each(function(){
+                            laydate.render({
+                              elem: this
+                              ,trigger: 'click'
+                              ,type: 'datetime'
+                            });
+                          });
+
+                        console.log(data);
                         form.on('submit(add_update_case)', function (data) {
-                            // console.log(data.field);
-                            // let position_arr = ["params", "body"];
-                            // let par = [];
-                            // position_arr.map(function (data) {
-                            //     //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
-                            //     if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
-                            //         par.push(data);
-                            //     }
-                            // });
-                            // console.log(par);
-                            // let num = "";
-                            // if (par.length == 2) {
-                            //     num = 2
-                            // } else if (par.length == 1 && par.indexOf("params") == 0) {
-                            //     num = 0
-                            // } else if (par.length == 1 && par.indexOf("body") == 0) {
-                            //     num = 1
-                            // }
-                            // console.log("请求的replace_position为：" + String(num));
                             $.ajax({
-                                url: "/api/v1/interface_set/update_interface/" + id + "/",
+                                url: "/api/v1/excute_plan/update_plan/" + id + "/",
                                 type: 'PUT',
                                 data: {
-                                    "interface_name": data.field.interface_name,
-                                    "tcp": data.field.tcp,
-                                    "ip": data.field.ip,
-                                    "url": data.field.url,
-                                    "method": data.field.method,
-                                    "belong_module": parentId,
-                                    "headers": data.field.headers,
-                                    "params": data.field.query,
-                                    "preprocessor": data.field.preprocessor,
-                                    "body": data.field.body,
-                                    "depend_id": data.field.depend_id,
-                                    "depend_key": data.field.depend_key,
-                                    "replace_key": data.field.replace_key,
-                                    "replace_position": data.field.replace_position,
+                                    "plan_name": data.field.plan_name,
+                                    "description": data.field.description,
+                                    "ploy": data.field.ploy,
+                                    "notification": data.field.notification,
+                                    "status": data.field.status,
+                                    "start_time": data.field.start_time,
+                                    "end_time": data.field.end_time,
                                 },
                                 beforeSend: function () {
                                     l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
@@ -771,126 +644,18 @@ layui.use(['table', "soulTable"], function (data) {
             });
 
         }
-        //接口调试
-        else if (obj.event === "interface_debug") {
-            console.log(data);
-            var debug = layer.open({
-                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                type: 1,
-                title: "接口调试",
-                skin: "layui-layer-molv",
-                area: ['40%', '100%'],
-                offset: 'lb',
-                content: $("#interface_debug").html(),
-                success: function () {
-                    layui.use(['form', "jquery"], function () {
-                        var form = layui.form,
-                            $ = layui.$;
-                        form.val("interface_debug", {
-                            "url": data.url,
-                            "tcp": data.tcp,
-                            "ip": data.ip,
-                            "params": data.params,
-                            "body": data.body,
-                            "method": data.method,
-                            "headers": data.headers
-                        });
-                        form.on('submit(interface_debug)', function (data) {
-                            console.log(typeof (data.field.headers));
-                            console.log(data.field.headers);
-                            $.ajax({
-                                cache: false,
-                                url: "/api/v1/interface_set/debug_test/",
-                                type: 'POST',
-                                data: {
-                                    "url": data.field.url,
-                                    "tcp": data.field.tcp,
-                                    "ip": data.field.ip,
-                                    "method": data.field.method,
-                                    "headers": data.field.headers,
-                                    "params": data.field.params,
-                                    "body": data.field.body,
-                                },
-                                beforeSend: function () {
-                                    l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
-                                },
-                                success: function (data) {
-                                    let duration = data.duration;
-                                    $("#duration").html(duration);
-                                    let status_code = data.status_code;
-                                    $("#status_code").html(status_code);
-                                    let response_headers = JSON.stringify(data.response_headers, null, 4);
-                                    $("#response_headers").html(response_headers);
-                                    let response_body = JSON.stringify(data.response_body, null, 4);
-                                    $("#response_body").html(response_body);
-                                    if (data.code === 1000) {
-                                        layer.msg(data.msg, {
-                                            icon: 6, offset: "t"
-                                        })
-                                    } else {
-                                        layer.msg(data.error, {
-                                            icon: 5, offset: "t"
-                                        })
-                                    }
-                                    layer.open({
-                                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                                        type: 1,
-                                        title: "响应体",
-                                        skin: "layui-layer-molv",
-                                        area: ['40%', '100%'],
-                                        offset: 'rb',
-                                        content: $("#response_info").html(),
-                                        success: function () {
-                                            //console.log(res);
-                                        }
-                                    })
-
-                                },
-                                error: function (data) {
-                                    try {
-                                        if (data.responseJSON.code === 1001) {
-                                            layer.msg(data.responseJSON.error, {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                        else {
-                                            layer.msg("回调失败", {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                    } catch(e) {
-                                        console.log('捕获到异常：',e);
-                                        layer.msg('捕获到异常,查看控制台', {icon: 5, offset: "t"})
-                                    }
-
-                                },
-                                complete: function () {
-
-                                    layer.close(l_index);
-                                    //layer.close(debug);
-                                }
-
-                            });
-                            return false;//阻止表单跳转
-                        });
-                    });
-                }
-            });
-        }
     });
     table.on('edit(test)', function (obj) {
         var value = obj.value //得到修改后的值
             , data = obj.data //得到所在行所有键值
             , field = obj.field; //得到字段
         //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-        if (field == "interface_name") {
+        if (field == "plan_name") {
             $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                url: "/api/v1/excute_plan/update_plan/" + data.id + '/',
                 type: 'PUT',
                 data: {
-                    "interface_name": value
+                    "plan_name": value
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -918,78 +683,12 @@ layui.use(['table', "soulTable"], function (data) {
                 }
             });
         }
-        else if (field == "url") {
+        else if (field == "description") {
             $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
+                url: "/api/v1/excute_plan/update_plan/" + data.id + '/',
                 type: 'PUT',
                 data: {
-                    "url": value
-                },
-                success: function (data) {
-                    if (data.code === 1000) {
-                        layer.msg(data.msg, {
-                            icon: 6, offset: "t"
-                        })
-                    } else {
-                        layer.msg(data.error, {
-                            icon: 5, offset: "t"
-                        })
-                    }
-                },
-                error: function (data) {
-                    if (data.responseJSON.code === 1001) {
-                        layer.msg(data.responseJSON.error, {
-                            icon: 5,
-                            offset: 't'
-                        });
-                    } else {
-                        layer.msg("回调失败", {
-                            icon: 5,
-                            offset: 't'
-                        });
-                    }
-                }
-            });
-        }
-        else if (field == "tcp") {
-            $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
-                type: 'PUT',
-                data: {
-                    "tcp": value
-                },
-                success: function (data) {
-                    if (data.code === 1000) {
-                        layer.msg(data.msg, {
-                            icon: 6, offset: "t"
-                        })
-                    } else {
-                        layer.msg(data.error, {
-                            icon: 5, offset: "t"
-                        })
-                    }
-                },
-                error: function (data) {
-                    if (data.responseJSON.code === 1001) {
-                        layer.msg(data.responseJSON.error, {
-                            icon: 5,
-                            offset: 't'
-                        });
-                    } else {
-                        layer.msg("回调失败", {
-                            icon: 5,
-                            offset: 't'
-                        });
-                    }
-                }
-            });
-        }
-        else if (field == "ip") {
-            $.ajax({
-                url: "/api/v1/interface_set/update_interface/" + data.id + '/',
-                type: 'PUT',
-                data: {
-                    "ip": value
+                    "description": value
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -1021,73 +720,43 @@ layui.use(['table', "soulTable"], function (data) {
 });
 
 //新建用例
-function add_case() {
+function add_plan() {
     var add_interface = layer.open({
         //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
         type: 1,
-        title: "新建用例",
+        title: "添加计划任务",
         skin: "layui-layer-molv",
         shade: 0.6,
         area: ['35%',],
         //offset: 't',
         content: $("#add_update_case").html(),
         success: function () {
-            layui.use(['form', "jquery"], function () {
+            layui.use(['form', "jquery", "laydate"], function () {
                 var form = layui.form,
                     $ = layui.$;
-                form.val("add_update_case", {
-                    "preprocessor": "False"
-                });
-                form.on('radio(preprocessor)', function (data) {
-                    console.log(data.elem); //得到radio原始DOM对象
-                    console.log(data.value); //被点击的radio的value值
-                    if (data.value == "True") {
-                        $(".mydepend").css("display", "block")
-                        console.log("我应该展现依赖相关内容")
-                    } else {
-                        $(".mydepend").css("display", "none")
-                    }
-                });
-                form.render('radio', 'preprocessor'); //更新 lay-filter="depend" 所在容器内的全部 radio 状态
+                var laydate = layui.laydate;
+                form.val("add_update_case", {});
+                lay('.test-item').each(function(){
+                    laydate.render({
+                      elem: this
+                      ,trigger: 'click'
+                      ,type: 'datetime'
+                      ,isInitValue: false
+                    });
+                  });
                 form.on('submit(add_update_case)', function (data) {
                     console.log(data.field);
-                    let position_arr = ["params", "body"];
-                    let par = [];
-                    position_arr.map(function (data) {
-                        //console.log($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked"));
-                        if ($("input[name^=" + data + "]").next("div").hasClass("layui-form-checked")) {
-                            par.push(data);
-                        }
-                    });
-                    console.log(par);
-                    let num = "";
-                    if (par.length == 2) {
-                        num = 2
-                    } else if (par.length == 1 && par.indexOf("params") == 0) {
-                        num = 0
-                    } else if (par.length == 1 && par.indexOf("body") == 0) {
-                        num = 1
-                    }
-                    console.log("请求的replace_position为：" + String(num));
                     $.ajax({
-                        cache: false,
-                        url: "/api/v1/interface_set/add_interface/",
+                        url: "/api/v1/excute_plan/add_plan/",
                         type: 'POST',
                         data: {
-                            "interface_name": data.field.interface_name,
-                            "url": data.field.url,
-                            "tcp": data.field.tcp,
-                            "ip": data.field.ip,
-                            "headers": data.field.headers,
-                            "method": data.field.method,
-                            "belong_module": parentId,
-                            "params": data.field.query,
-                            "preprocessor": data.field.preprocessor,
-                            "body": data.field.body,
-                            "depend_id": data.field.depend_id,
-                            "depend_key": data.field.depend_key,
-                            "replace_key": data.field.replace_key,
-                            "replace_position": num,
+                            "plan_name": data.field.plan_name,
+                            "description": data.field.description,
+                            "ploy": data.field.ploy,
+                            "notification": data.field.notification,
+                            "status": data.field.status,
+                            "start_time": data.field.start_time,
+                            "end_time": data.field.end_time,
                         },
                         beforeSend: function () {
                             l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});

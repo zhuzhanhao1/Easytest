@@ -58,6 +58,9 @@ urlpatterns = [
 
     #执行任务
     url(r'excute_plan/list/$',executePlan.ExecutePlanList.as_view()),
+    url(r'excute_plan/add_plan/$',executePlan.ExecutePlanList.as_view()),
+    url(r'excute_plan/update_plan/(?P<pk>[0-9]+)/$',executePlan.ExecutePlanList.as_view()),
+    url(r'excute_plan/del_plan/(?P<pk>[0-9]+)/$',executePlan.ExecutePlanList.as_view()),
 
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
