@@ -162,7 +162,8 @@ class RelevanceCaseSet(models.Model):
     parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='接口集用例id')
     interface_case_name = models.CharField(max_length=50, verbose_name="关联用例名称")
     description = models.CharField(max_length=255,verbose_name="关联用例描述",null=True,blank=True)
-    relevance_id = models.CharField(max_length=255,verbose_name="关联用例id")
+    relevance_id = models.ForeignKey(InterFaceCase, on_delete=models.CASCADE, verbose_name='关联用例id')
+
 
     def __str__(self):
         return self.interface_case_name
@@ -197,7 +198,7 @@ class ExecutePlanCases(models.Model):
     parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='执行计划id')
     interface_case_set_name = models.CharField(max_length=50, verbose_name="关联用例集名称")
     description = models.CharField(max_length=255,verbose_name="关联用例集描述",null=True,blank=True)
-    relevance_id = models.CharField(max_length=255,verbose_name="关联用例集id")
+    relevance_id = models.ForeignKey(InterFaceCase, on_delete=models.CASCADE, verbose_name='关联用例集id')
 
     def __str__(self):
         return self.interface_case_set_name

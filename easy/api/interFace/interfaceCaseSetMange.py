@@ -18,7 +18,7 @@ class InterfaceCaseSetList(APIView):
         '''
             用例集列表
         '''
-        classification_list = InterfaceCaseSet.objects.filter().values_list('interface_case_set_name', flat=True)
+        classification_list = InterfaceCaseSet.objects.filter().values()#.values_list('interface_case_set_name', flat=True)
         return Response(classification_list)
 
     def delete(self, request, *args, **kwargs):

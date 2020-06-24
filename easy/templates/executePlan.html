@@ -97,6 +97,36 @@
             </div>
         </div>
     </div>
+
+    <div class="layui-row" id="add_update_parameter">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="add_update_parameter">
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <label class="layui-form-label">计划名称</label>
+                    <div class="layui-input-block">
+                        <select id = 'caseSet' name="interface_case_set_name" lay-filter="caseSet" required lay-verify="required">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">计划描述</label>
+                    <div class="layui-input-block">
+                        <textarea  name="description" placeholder="请输入用例描述" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="add_update_parameter"
+                                style="float: right;">立即提交
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!--主题内容-table-->
 
@@ -136,7 +166,7 @@
     <a class="fa fa-pencil-square-o" lay-event="update_plan"
        style="color:#797979;font-size: 20px;padding:0 2px;margin-top:1px;vertical-align:middle;font-weight: lighter;">
     </a>
-    <a class="fa fa-sign-in" lay-event="join"
+    <a class="fa fa-play-circle-o" lay-event="join"
        style="color: #5FB878;font-size: 20px;padding:0 2px;margin-top:1px;vertical-align:middle;font-weight: lighter;">
     </a>
 </script>

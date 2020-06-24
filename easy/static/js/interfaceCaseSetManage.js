@@ -171,8 +171,9 @@ function get_classification(id) {
             var str = '';
             //data是数组时，index是当前元素的位置，value是值
             $.each(data, function (index, value) {
+                console.log(value);
                 str +=  '<li class="list-group-item d-flex justify-content-between align-items-center">'+
-                    '<span type="button" onclick="get_table_by_title()">'+value+'</span>'+
+                    '<span type="button" onclick="get_table_by_title()">'+value.interface_case_set_name+'</span>'+
                     '<a type="button" onclick="del_classification()" class="fa fa-trash-o my_del_btn"></a>'+
                     '</li>';
                 if(index === 0){
@@ -190,7 +191,7 @@ function get_classification(id) {
             });
         },
     });
-    //console.log(res);
+    console.log(res);
     return res
 }
 

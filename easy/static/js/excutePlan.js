@@ -98,52 +98,36 @@ layui.use(['table', "soulTable"], function (data) {
                 title: '操作', toolbar: '#barDemo', width: 120, align: "left"
 
             }
-            , {field: 'id', title: '序号', width: 60, align: "left"}
-            //, {field: 'identity', title: '角色', width: 170, align: "left"}
             , {
-                field: 'plan_name',
-                title: '计划名称',
-                align: "left",
-                excel: {color: '0040ff', bgColor: 'f3fef3'},
-                edit: "text"
-                //templet: "#casenameTpl"
-            }
-            , {field: 'description', title: '描述', width: 200, align: "left", edit: "text"}
-            , {field: 'ploy', title: '策略', width: 200, align: "left", edit: "text"}
-            , {
-                field: 'notification', title: '是否通知', align: "left"
-            }
-            , {field: 'status', title: '当前状态', width: 90, align: "left", templet: "#methodTpl"}
-            , {
-                field: '', title: '前置处理', width: 90, align: "left"
-                , isChild: function (row) {
-                    return row.preprocessor == 'True'
-                }
+                field: '', title: '关联用例集', width: 120, align: "left"
                 , collapse: true
                 , icon: ['layui-icon layui-icon-star', 'layui-icon layui-icon-star-fill']
                 , childTitle: false
                 , children: [
                     {
                         elem: '#templateTable'
-                        , url: "/api/v1/interface_set/list/"
+                        , url: "/api/v1/excute_plan_cases/list/"
                         , where: function (row) {
                             console.log(row);
                             return {parentId: row.belong_module, id: row.id}
                         }
-                        , title: "前置控制器"
                         , skin: 'line'
                         , size: "lg"
+                        , toolbar:
+                            '<div>' +
+                                ' <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add_parameter">添加参数</a>' +
+                            '</div>'
                         //, height: 'full-10'
                         , cols: [[
-                            {field: 'depend_id', title: '前置的id', align: "left", edit: 'text'},
-                            {field: 'depend_key', title: '前置结果jsonpath', align: "left", edit: 'text'},
-                            {field: 'replace_key', title: '替换区域jsonpath', align: "left", edit: 'text'},
                             {
-                                field: 'replace_position',
-                                title: '替换区域(params:0,body:1,all:2)',
-                                align: "left",
-                                edit: 'text'
-                            }
+                                title: '操作', width: 120, templet: function (row) {
+                                    return'<a class="fa fa-trash-o" lay-event="childDel"\n' +
+                                        'style="color: #797979;font-size: 20px;padding:0 2px;vertical-align:middle;font-weight: lighter;"></a>'
+                                }
+                            },
+                            // {field: 'depend_id', title: '前置的id', align: "left", edit: 'text'},
+                            {field: 'interface_case_set_name', title: '关联用例集名称', align: "left"},
+                            {field: 'description', title: '关联用例集描述', align: "left", edit: 'text'},
                         ]]
                         , rowEvent: function (obj, pobj) {
                             // 单击行事件
@@ -154,16 +138,51 @@ layui.use(['table', "soulTable"], function (data) {
                             console.log(obj.data) //得到当前行数据
                             console.log(pobj) //得到当前行数据
                         }
+
+                        , toolEvent: function (obj, pobj) {
+                            // obj 子表当前行对象
+                            // pobj 父表当前行对象
+                            var childId = this.id; // 通过 this 对象获取当前子表的id
+                            if (obj.event === 'childDel') {
+                                layer.confirm('真的要删除此行么', {icon: 2, title: "删除提示"}, function (index) {
+                                    var id = obj.data.id;
+                                    console.log(id);
+                                    $.ajax({
+                                        url: "/api/v1/excute_plan_cases/del_case/" + id + "/",
+                                        type: 'DELETE',
+                                        success: function (data) {
+                                            if (data.code === 1000) {
+                                                layer.msg(data.msg, {
+                                                    icon: 6, offset: "t"
+                                                })
+                                            } else {
+                                                layer.msg(data.error, {
+                                                    icon: 5, offset: "t"
+                                                })
+                                            }
+                                            table.reload(childId);
+                                        },
+                                        error: function () {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        },
+                                    });
+                                });
+
+                            }
+                        }
                         , editEvent: function (obj, pobj) {
                             // obj 子表当前行对象
                             // pobj 父表当前行对象
-                            let id = pobj.data.id;
-                            if (obj.field == "depend_id") {
+                            let id = obj.data.id;
+                            if (obj.field == "description") {
                                 $.ajax({
-                                    url: "/api/v1/interface_set/update_interface/" + id + '/',
+                                    url: "/api/v1/excute_plan_cases/update_case/" + id + '/',
                                     type: 'PUT',
                                     data: {
-                                        "depend_id": obj.value
+                                        "description": obj.value
                                     },
                                     success: function (data) {
                                         if (data.code === 1000) {
@@ -188,112 +207,6 @@ layui.use(['table', "soulTable"], function (data) {
                                                 offset: 't'
                                             });
                                         }
-                                    },
-                                    complete: function () {
-                                        table.reload(this.id);
-                                    }
-                                });
-                            } else if (obj.field == "depend_key") {
-                                $.ajax({
-                                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                                    type: 'PUT',
-                                    data: {
-                                        "depend_key": obj.value
-                                    },
-                                    success: function (data) {
-                                        if (data.code === 1000) {
-                                            layer.msg(data.msg, {
-                                                icon: 6, offset: "t"
-                                            })
-                                        } else {
-                                            layer.msg(data.error, {
-                                                icon: 5, offset: "t"
-                                            })
-                                        }
-                                    },
-                                    error: function (data) {
-                                        if (data.responseJSON.code === 1001) {
-                                            layer.msg(data.responseJSON.error, {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        } else {
-                                            layer.msg("回调失败", {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                    },
-                                    complete: function () {
-                                        table.reload(this.id);
-                                    }
-                                });
-                            } else if (obj.field == "replace_key") {
-                                $.ajax({
-                                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                                    type: 'PUT',
-                                    data: {
-                                        "replace_key": obj.value
-                                    },
-                                    success: function (data) {
-                                        if (data.code === 1000) {
-                                            layer.msg(data.msg, {
-                                                icon: 6, offset: "t"
-                                            })
-                                        } else {
-                                            layer.msg(data.error, {
-                                                icon: 5, offset: "t"
-                                            })
-                                        }
-                                    },
-                                    error: function (data) {
-                                        if (data.responseJSON.code === 1001) {
-                                            layer.msg(data.responseJSON.error, {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        } else {
-                                            layer.msg("回调失败", {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-                                    },
-                                    complete: function () {
-                                        table.reload(this.id);
-                                    }
-                                });
-                            } else if (obj.field == "replace_position") {
-                                $.ajax({
-                                    url: "/api/v1/interface_set/update_interface/" + id + '/',
-                                    type: 'PUT',
-                                    data: {
-                                        "replace_position": obj.value
-                                    },
-                                    success: function (data) {
-                                        if (data.code === 1000) {
-                                            layer.msg(data.msg, {
-                                                icon: 6, offset: "t"
-                                            })
-                                        } else {
-                                            layer.msg(data.error, {
-                                                icon: 5, offset: "t"
-                                            })
-                                        }
-                                    },
-                                    error: function (data) {
-                                        if (data.responseJSON.code === 1001) {
-                                            layer.msg(data.responseJSON.error, {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        } else {
-                                            layer.msg("回调失败", {
-                                                icon: 5,
-                                                offset: 't'
-                                            });
-                                        }
-
                                     },
                                     complete: function () {
                                         table.reload(this.id);
@@ -301,6 +214,86 @@ layui.use(['table', "soulTable"], function (data) {
                                 });
                             }
                         }
+
+                        , toolbarEvent: function (obj, pobj) {
+                                var childId = this.id;
+                                // obj 子表当前行对象
+                                // pobj 父表当前行对象
+                            console.log(pobj.data);
+                            if (obj.event === "add_parameter") {
+                                    var parent_id = pobj.data.id;
+                                    let res = get_case_set("caseSet");
+                                    var Create_apicase = layer.open({
+                                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                                        type: 1,
+                                        title: "添加用例集",
+                                        skin: "layui-layer-molv",
+                                        shade: 0.6,
+                                        area: ['30%', ''],
+                                        content: $("#add_update_parameter").html(),
+                                        success: function () {
+                                            layui.use(['form', 'jquery'], function () {
+                                                var form = layui.form,
+                                                    $ = layui.$;
+                                                //监听编辑用户信息，
+                                                form.val("add_update_parameter", {});
+                                                let relevance_id = '';
+                                                form.on('select(caseSet)', function(data){
+                                                    console.log(data.value); //得到被选中的值
+                                                    $.each(res,function (index,value) {
+                                                        if(value.interface_case_set_name == data.value){
+                                                            relevance_id = res[index].id;
+                                                            console.log(relevance_id);
+                                                        }
+                                                    })
+                                                });
+                                                form.render('select');
+                                                form.on('submit(add_update_parameter)', function (data) {
+                                                    $.ajax({
+                                                        url: "/api/v1/excute_plan_cases/add_case/",
+                                                        type: 'POST',
+                                                        data: {
+                                                            "parent": parent_id,
+                                                            "interface_case_set_name": data.field.interface_case_set_name,
+                                                            "description": data.field.description,
+                                                            "relevance_id": relevance_id,
+                                                        },
+                                                        beforeSend: function () {
+                                                            l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                                        },
+                                                        success: function (data) {
+                                                            if (data.code === 1000) {
+                                                                layer.msg(data.msg, {
+                                                                    icon: 6, offset: "t"
+                                                                });
+                                                                //table.reload(this.id);
+                                                            } else {
+                                                                layer.msg(data.error, {
+                                                                    icon: 5, offset: "t"
+                                                                })
+                                                            }
+                                                            table.reload(childId);
+                                                        },
+                                                        error: function () {
+                                                            layer.msg("回调失败", {
+                                                                icon: 5,
+                                                                offset: 't'
+                                                            });
+                                                        },
+                                                        complete: function () {
+                                                            layer.close(l_index);
+                                                            layer.close(Create_apicase);
+                                                        }
+
+                                                    });
+                                                    return false;//阻止表单跳转
+                                                });
+
+                                            });
+                                        }
+                                    });
+                                }
+                            }
                         , done: function (data) {
                             //console.log(data);
                             soulTable.render(this);
@@ -309,18 +302,37 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 ]
             }
+            , {field: 'plan_name', title: '计划名称', align: "left", excel: {color: '0040ff', bgColor: 'f3fef3'}, edit: "text"}
+            , {field: 'description', title: '描述', width: 200, align: "left"}
+            , {field: 'ploy', title: '策略', width: 200, align: "left", edit: "text"}
+            , {
+                field: 'notification', title: '是否通知', align: "left", templet: function(res){
+                    if(res.status == false){
+                        return '<span  class="fa fa-ban" style="color: red;font-size: 20px;padding:0 2px;' +
+                            'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
+                    }else if(res.status == true){
+                        return '<span class ="fa fa-paper-plane-o" style="color: #5FB878;font-size: 20px;padding:0 2px;' +
+                            'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
+                    }
+                }
+            }
+            , {field: 'status', title: '当前状态', width: 90, align: "left", templet: function(res){
+                    if(res.status == false){
+                        return '<span  class="fa fa-toggle-off" style="color: red;font-size: 20px;padding:0 2px;' +
+                            'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
+                    }else if(res.status == true){
+                        return '<span class ="fa fa-toggle-on" style="color: #5FB878;font-size: 20px;padding:0 2px;' +
+                            'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
+                    }
+                }}
             , {
                 field: 'start_time', title: '开始时间', align: "left", templet: function (res) {
                     let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                    console.log(date);
-                    console.log(typeof (date));
                     return '<span>'+date+'</span>'
                 }
             }
             , {field: 'end_time', title: '结束时间', align: "left", templet: function (res) {
                     let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                    console.log(date);
-                    console.log(typeof (date));
                     return '<span>'+date+'</span>'
                 }}
         ]]
@@ -683,39 +695,6 @@ layui.use(['table', "soulTable"], function (data) {
                 }
             });
         }
-        else if (field == "description") {
-            $.ajax({
-                url: "/api/v1/excute_plan/update_plan/" + data.id + '/',
-                type: 'PUT',
-                data: {
-                    "description": value
-                },
-                success: function (data) {
-                    if (data.code === 1000) {
-                        layer.msg(data.msg, {
-                            icon: 6, offset: "t"
-                        })
-                    } else {
-                        layer.msg(data.error, {
-                            icon: 5, offset: "t"
-                        })
-                    }
-                },
-                error: function (data) {
-                    if (data.responseJSON.code === 1001) {
-                        layer.msg(data.responseJSON.error, {
-                            icon: 5,
-                            offset: 't'
-                        });
-                    } else {
-                        layer.msg("回调失败", {
-                            icon: 5,
-                            offset: 't'
-                        });
-                    }
-                }
-            });
-        }
     });
 });
 
@@ -800,3 +779,34 @@ function add_plan() {
     });
 }
 
+//获取责任者
+function get_case_set(id) {
+    var res = [];
+    $.ajax({
+        url: "/api/v1/interface_case_set_manage/list/",
+        type: 'GET',
+        async: false,
+        success: function (data) {
+            var str = '';
+
+            //data是数组时，index是当前元素的位置，value是值
+            $.each(data, function (index, value) {
+                str += "<option value='" + value.interface_case_set_name + "'>" + value.interface_case_set_name + "</option>";
+                res.push(value)
+            });
+            console.log(str);
+            // console.log(res);
+            $('#'+id).empty();
+            $('#'+id).append('<option value="">' + '请选择' + '</option>');
+            $('#'+id).append(str);
+        },
+        error: function () {
+            layer.msg("回调失败", {
+                icon: 5,
+                offset: 't'
+            });
+        },
+
+    });
+    return res
+}
