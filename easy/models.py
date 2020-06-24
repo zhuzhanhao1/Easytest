@@ -188,3 +188,13 @@ class ExecutePlan(models.Model):
 
     class Meta:
         verbose_name_plural = '执行计划'
+
+
+class ExecutePlanCases(models.Model):
+    '''
+        管理计划的用例集
+    '''
+    parent = models.ForeignKey(InterfaceCaseSet, on_delete=models.CASCADE, verbose_name='执行计划id')
+    interface_case_set_name = models.CharField(max_length=50, verbose_name="关联用例集名称")
+    description = models.CharField(max_length=255,verbose_name="关联用例集描述",null=True,blank=True)
+    relevance_id = models.CharField(max_length=255,verbose_name="关联用例集id")
