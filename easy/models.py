@@ -198,3 +198,9 @@ class ExecutePlanCases(models.Model):
     interface_case_set_name = models.CharField(max_length=50, verbose_name="关联用例集名称")
     description = models.CharField(max_length=255,verbose_name="关联用例集描述",null=True,blank=True)
     relevance_id = models.CharField(max_length=255,verbose_name="关联用例集id")
+
+    def __str__(self):
+        return self.interface_case_set_name
+
+    class Meta:
+        verbose_name_plural = '关联用例集名称'
