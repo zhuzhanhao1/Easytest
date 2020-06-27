@@ -30,6 +30,8 @@ class MenuAppendSer(serializers.ModelSerializer):
     class Meta:
         model = MainMenu
         fields = ('title', 'icon', 'href', 'spread', 'children')
+        # 表示联表的深度
+        # depth = 1
 
     def get_children(self, obj):
         queryset = obj.childmenu_set.all()

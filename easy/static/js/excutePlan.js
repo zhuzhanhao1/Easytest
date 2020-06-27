@@ -115,7 +115,7 @@ layui.use(['table', "soulTable"], function (data) {
                         , size: "lg"
                         , toolbar:
                             '<div>' +
-                                ' <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add_parameter">添加参数</a>' +
+                            ' <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add_parameter">添加参数</a>' +
                             '</div>'
                         //, height: 'full-10'
                         , cols: [[
@@ -138,7 +138,6 @@ layui.use(['table', "soulTable"], function (data) {
                             console.log(obj.data) //得到当前行数据
                             console.log(pobj) //得到当前行数据
                         }
-
                         , toolEvent: function (obj, pobj) {
                             // obj 子表当前行对象
                             // pobj 父表当前行对象
@@ -214,86 +213,85 @@ layui.use(['table', "soulTable"], function (data) {
                                 });
                             }
                         }
-
                         , toolbarEvent: function (obj, pobj) {
-                                var childId = this.id;
-                                // obj 子表当前行对象
-                                // pobj 父表当前行对象
+                            var childId = this.id;
+                            // obj 子表当前行对象
+                            // pobj 父表当前行对象
                             console.log(pobj.data);
                             if (obj.event === "add_parameter") {
-                                    var parent_id = pobj.data.id;
-                                    let res = get_case_set("caseSet");
-                                    var Create_apicase = layer.open({
-                                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                                        type: 1,
-                                        title: "添加用例集",
-                                        skin: "layui-layer-molv",
-                                        shade: 0.6,
-                                        area: ['30%', ''],
-                                        content: $("#add_update_parameter").html(),
-                                        success: function () {
-                                            layui.use(['form', 'jquery'], function () {
-                                                var form = layui.form,
-                                                    $ = layui.$;
-                                                //监听编辑用户信息，
-                                                form.val("add_update_parameter", {});
-                                                let relevance_id = '';
-                                                form.on('select(caseSet)', function(data){
-                                                    console.log(data.value); //得到被选中的值
-                                                    $.each(res,function (index,value) {
-                                                        if(value.interface_case_set_name == data.value){
-                                                            relevance_id = res[index].id;
-                                                            console.log(relevance_id);
-                                                        }
-                                                    })
-                                                });
-                                                form.render('select');
-                                                form.on('submit(add_update_parameter)', function (data) {
-                                                    $.ajax({
-                                                        url: "/api/v1/excute_plan_cases/add_case/",
-                                                        type: 'POST',
-                                                        data: {
-                                                            "parent": parent_id,
-                                                            "interface_case_set_name": data.field.interface_case_set_name,
-                                                            "description": data.field.description,
-                                                            "relevance_id": relevance_id,
-                                                        },
-                                                        beforeSend: function () {
-                                                            l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
-                                                        },
-                                                        success: function (data) {
-                                                            if (data.code === 1000) {
-                                                                layer.msg(data.msg, {
-                                                                    icon: 6, offset: "t"
-                                                                });
-                                                                //table.reload(this.id);
-                                                            } else {
-                                                                layer.msg(data.error, {
-                                                                    icon: 5, offset: "t"
-                                                                })
-                                                            }
-                                                            table.reload(childId);
-                                                        },
-                                                        error: function () {
-                                                            layer.msg("回调失败", {
-                                                                icon: 5,
-                                                                offset: 't'
-                                                            });
-                                                        },
-                                                        complete: function () {
-                                                            layer.close(l_index);
-                                                            layer.close(Create_apicase);
-                                                        }
-
-                                                    });
-                                                    return false;//阻止表单跳转
-                                                });
-
+                                var parent_id = pobj.data.id;
+                                let res = get_case_set("caseSet");
+                                var Create_apicase = layer.open({
+                                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                                    type: 1,
+                                    title: "添加用例集",
+                                    skin: "layui-layer-molv",
+                                    shade: 0.6,
+                                    area: ['30%', ''],
+                                    content: $("#add_update_parameter").html(),
+                                    success: function () {
+                                        layui.use(['form', 'jquery'], function () {
+                                            var form = layui.form,
+                                                $ = layui.$;
+                                            //监听编辑用户信息，
+                                            form.val("add_update_parameter", {});
+                                            let relevance_id = '';
+                                            form.on('select(caseSet)', function(data){
+                                                console.log(data.value); //得到被选中的值
+                                                $.each(res,function (index,value) {
+                                                    if(value.interface_case_set_name == data.value){
+                                                        relevance_id = res[index].id;
+                                                        console.log(relevance_id);
+                                                    }
+                                                })
                                             });
-                                        }
-                                    });
-                                }
+                                            form.render('select');
+                                            form.on('submit(add_update_parameter)', function (data) {
+                                                $.ajax({
+                                                    url: "/api/v1/excute_plan_cases/add_case/",
+                                                    type: 'POST',
+                                                    data: {
+                                                        "parent": parent_id,
+                                                        "interface_case_set_name": data.field.interface_case_set_name,
+                                                        "description": data.field.description,
+                                                        "relevance_id": relevance_id,
+                                                    },
+                                                    beforeSend: function () {
+                                                        l_index = layer.load(0, {shade: [0.5, '#DBDBDB']});
+                                                    },
+                                                    success: function (data) {
+                                                        if (data.code === 1000) {
+                                                            layer.msg(data.msg, {
+                                                                icon: 6, offset: "t"
+                                                            });
+                                                            //table.reload(this.id);
+                                                        } else {
+                                                            layer.msg(data.error, {
+                                                                icon: 5, offset: "t"
+                                                            })
+                                                        }
+                                                        table.reload(childId);
+                                                    },
+                                                    error: function () {
+                                                        layer.msg("回调失败", {
+                                                            icon: 5,
+                                                            offset: 't'
+                                                        });
+                                                    },
+                                                    complete: function () {
+                                                        layer.close(l_index);
+                                                        layer.close(Create_apicase);
+                                                    }
+
+                                                });
+                                                return false;//阻止表单跳转
+                                            });
+
+                                        });
+                                    }
+                                });
                             }
+                        }
                         , done: function (data) {
                             //console.log(data);
                             soulTable.render(this);
@@ -530,7 +528,7 @@ layui.use(['table', "soulTable"], function (data) {
         var id = data['id'];
         console.log(obj);
         //删除接口用例
-       if (obj.event === 'del_plan') {
+        if (obj.event === 'del_plan') {
             layer.confirm('你确定要删除吗' + '？', {
                     btn: ['取消', '确定'] //按钮
                 },
@@ -595,11 +593,11 @@ layui.use(['table', "soulTable"], function (data) {
                         });
                         lay('.test-item').each(function(){
                             laydate.render({
-                              elem: this
-                              ,trigger: 'click'
-                              ,type: 'datetime'
+                                elem: this
+                                ,trigger: 'click'
+                                ,type: 'datetime'
                             });
-                          });
+                        });
 
                         console.log(data);
                         form.on('submit(add_update_case)', function (data) {
@@ -653,6 +651,41 @@ layui.use(['table', "soulTable"], function (data) {
                         });
                     });
                 }
+            });
+
+        }
+        //执行任务
+        else if (obj.event === 'run') {
+            $.ajax({
+                url: "/api/v1/excute_plan/run/",
+                type: 'GET',
+                data:{
+                    "id":id
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        layer.msg(data.msg, {
+                            icon: 6, offset: "t"
+                        })
+                    } else {
+                        layer.msg(data.error, {
+                            icon: 5, offset: "t"
+                        })
+                    }
+                },
+                error: function (data) {
+                    if (data.responseJSON.code === 1001) {
+                        layer.msg(data.responseJSON.error, {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    } else {
+                        layer.msg("回调失败", {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    }
+                },
             });
 
         }
@@ -718,12 +751,12 @@ function add_plan() {
                 form.val("add_update_case", {});
                 lay('.test-item').each(function(){
                     laydate.render({
-                      elem: this
-                      ,trigger: 'click'
-                      ,type: 'datetime'
-                      ,isInitValue: false
+                        elem: this
+                        ,trigger: 'click'
+                        ,type: 'datetime'
+                        ,isInitValue: false
                     });
-                  });
+                });
                 form.on('submit(add_update_case)', function (data) {
                     console.log(data.field);
                     $.ajax({

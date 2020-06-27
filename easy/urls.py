@@ -63,12 +63,14 @@ urlpatterns = [
     url(r'excute_plan/add_plan/$',executePlan.ExecutePlanList.as_view()),
     url(r'excute_plan/update_plan/(?P<pk>[0-9]+)/$',executePlan.ExecutePlanList.as_view()),
     url(r'excute_plan/del_plan/(?P<pk>[0-9]+)/$',executePlan.ExecutePlanList.as_view()),
+    url(r'excute_plan/run/$', executePlan.ExecutePlanRun.as_view()),
 
     #执行任务管理接口集
     url(r'excute_plan_cases/list/$', executePlan.ExecutePlanCasesList.as_view()),
     url(r'excute_plan_cases/add_case/$', executePlan.ExecutePlanCasesList.as_view()),
     url(r'excute_plan_cases/update_case/(?P<pk>[0-9]+)/$', executePlan.ExecutePlanCasesList.as_view()),
     url(r'excute_plan_cases/del_case/(?P<pk>[0-9]+)/$', executePlan.ExecutePlanCasesList.as_view()),
+
 
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),

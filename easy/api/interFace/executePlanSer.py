@@ -45,3 +45,14 @@ class DescriptionCaseSer(serializers.ModelSerializer):
     class Meta:
         model = ExecutePlanCases
         fields = ("description",)
+
+
+class ExecutePlanAllIDSer(serializers.ModelSerializer):
+    '''
+        执行计划列表
+    '''
+    class Meta:
+        model = ExecutePlanCases
+        depth = 2
+        # exclude = ("",)
+        fields = "__all__"

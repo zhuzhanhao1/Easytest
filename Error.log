@@ -4694,3 +4694,104 @@ Traceback (most recent call last):
     raise TypeError(f'Object of type {o.__class__.__name__} '
 TypeError: Object of type InterfaceCaseSet is not JSON serializable
 2020-06-24 22:10:43,250,10020,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_case_set_manage/list/ HTTP/1.1" 500 17314
+2020-06-27 22:45:51,002,11632,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 507, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 422, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'dict'>`
+2020-06-27 22:45:51,003,11632,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1 HTTP/1.1" 500 16743
+2020-06-27 22:47:34,042,9740,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 507, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 422, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'dict'>`
+2020-06-27 22:47:34,045,9740,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1 HTTP/1.1" 500 16743
+2020-06-27 22:47:52,408,9740,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 507, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 422, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'dict'>`
+2020-06-27 22:47:52,409,9740,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1 HTTP/1.1" 500 16743
+2020-06-27 23:32:30,843,10868,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 454, in get_attribute
+    return get_attribute(instance, self.source_attrs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 94, in get_attribute
+    instance = getattr(instance, attr)
+AttributeError: 'ExecutePlanCases' object has no attribute 'plan_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\executePlan.py", line 198, in get
+    menu_data = ExecutePlanAllIDSer(obj, many=True).data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 516, in to_representation
+    attribute = field.get_attribute(instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 487, in get_attribute
+    raise type(exc)(msg)
+AttributeError: Got AttributeError when attempting to get a value for field `plan_name` on serializer `ExecutePlanAllIDSer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `ExecutePlanCases` instance.
+Original exception text was: 'ExecutePlanCases' object has no attribute 'plan_name'.
+2020-06-27 23:32:30,845,10868,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1 HTTP/1.1" 500 18836

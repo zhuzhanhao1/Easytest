@@ -95,6 +95,12 @@ class RelevanceCaseSetList(APIView):
         parent = data.get("parent","")
         parent_id = InterfaceCaseSet.objects.filter(interface_case_set_name=parent).first().id
         for id in json.loads(relevance_ids):
+            #判断是否已经存在了相同的用例
+            exist_id = RelevanceCaseSet.objects.filter(Q(parent__interface_case_set_name=parent)&Q(relevance_id=id)).first()
+            if  exist_id:
+                error_code["error"] = "在用例集下已存在相同用例"
+                return Response(error_code)
+            #不存在将进行在接口集下添加用例操作
             dic = {}
             obj = InterFaceCase.objects.filter(id=id).first()
             dic["interface_case_name"] = obj.interface_case_name
