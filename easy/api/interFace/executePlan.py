@@ -6,11 +6,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
-from easy.common.interfaceRun import InterfaceRun
-import json
-import jsonpath
-from django.utils.decorators import method_decorator
-from dwebsocket import accept_websocket
+from .interfaceCase import InterfaceCaseRun
+from datetime import datetime
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 class ExecutePlanList(APIView):
 
@@ -190,18 +188,37 @@ class ExecutePlanCasesList(APIView):
             error_code["error"] = "删除计划关联用例集失败"
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
-class ExecutePlanRun(APIView):
-
+class ExecutePlanRun(InterfaceCaseRun):
+    '''
+        继承运行接口用例的类
+    '''
     def get(self,request,*args,**kwargs):
         id = request.GET.get("id","")
         #查询任务下所有的用例集
-        query_set = ExecutePlanCases.objects.filter(parent=id).values_list("relevance_id", flat=True)
-        print(query_set)
+        case_set = ExecutePlanCases.objects.filter(parent=id).values_list("relevance_id", flat=True)
         #查询所有用例集下所有的用例
-        query_set = RelevanceCaseSet.objects.filter(parent__in=query_set).values_list("relevance_id", flat=True)
-        print(query_set)
+        cases = RelevanceCaseSet.objects.filter(parent__in=case_set).values_list("relevance_id", flat=True)
         #查询所有用例下所有的接口
-        query_set = InterFaceCaseData.objects.filter(parent__in=query_set).values_list("interface_id", flat=True)
-        print(query_set)
+        # query_set = InterFaceCaseData.objects.filter(parent__in=query_set).values_list("interface_id", flat=True)
+        # print(query_set)
+        scheduler = BlockingScheduler()
+        scheduler.add_job(self.job_func, 'cron',  minutes=2,args=(cases,),start_date='2019-04-15 17:00:00' , end_date='2020-06-28 15:55:00')
+        # 每2小时触发
+        # scheduler.add_job(job_func, 'interval', seconds=10)
 
+        # 在 2019-04-15 17:00:00 ~ 2019-12-31 24:00:00 之间, 每隔两分钟执行一次 job_func 方法
+        # scheduler .add_job(job_func, 'interval', minutes=2, start_date='2019-04-15 17:00:00' , end_date='2019-12-31 24:00:00')
+        scheduler.start()
+        right_code["msg"] = "任务执行完成"
         return Response(right_code)
+
+    def job_func(self, cases):
+        for i in cases:
+            id_list = InterFaceCaseData.objects.filter(parent=i).values_list("interface_id", flat=True)
+            print(id_list)
+            if id_list:
+                for id in id_list:
+                    # 调用接口运行类方法runcase()运行接口
+                    InterfaceCaseRun().runcase(id, len(id_list))
+        print("定时任务第一次已经完成")
+        print("#"*100)
