@@ -9,6 +9,9 @@ from easy.config.Status import *
 from .interfaceCase import InterfaceCaseRun
 from datetime import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler   #非阻塞
+import pytz
+import uuid
 
 class ExecutePlanList(APIView):
 
@@ -201,24 +204,42 @@ class ExecutePlanRun(InterfaceCaseRun):
         #查询所有用例下所有的接口
         # query_set = InterFaceCaseData.objects.filter(parent__in=query_set).values_list("interface_id", flat=True)
         # print(query_set)
-        scheduler = BlockingScheduler()
-        scheduler.add_job(self.job_func, 'cron',  minutes=2,args=(cases,),start_date='2019-04-15 17:00:00' , end_date='2020-06-28 15:55:00')
-        # 每2小时触发
-        # scheduler.add_job(job_func, 'interval', seconds=10)
-
-        # 在 2019-04-15 17:00:00 ~ 2019-12-31 24:00:00 之间, 每隔两分钟执行一次 job_func 方法
-        # scheduler .add_job(job_func, 'interval', minutes=2, start_date='2019-04-15 17:00:00' , end_date='2019-12-31 24:00:00')
+        scheduler = BackgroundScheduler()
+        year = '*'
+        month = '*'
+        day = '*'
+        week = '*'
+        day_of_week = '*'
+        hour = '*'
+        minute = '*/5'
+        second = '*'
+        start_date = '2020-06-29 18:29:45'
+        end_date = '2020-06-29 18:29:45'
+        uid = str(uuid.uuid4())
+        scheduler.add_job(self.job_func, 'cron', start_date=start_date,end_date=end_date, id=uid, year=year,
+                          month=month, day=day, week=week,day_of_week=day_of_week, hour=hour, minute=minute,
+                          second=second,args=(cases,end_date,scheduler,id))  #end_date=end_date,
         scheduler.start()
-        right_code["msg"] = "任务执行完成"
+        right_code["msg"] = "执行任务已开始"
         return Response(right_code)
 
-    def job_func(self, cases):
+    def job_func(self, cases, end_date, scheduler, id):
+
+        locals_time = datetime.fromtimestamp(int(time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+        print(locals_time)
+        if locals_time >= end_date:
+            scheduler.remove_job(id)
+            print('这个时候通过消息通知给使用者，提示定时任务已经结束')
+        #遍历所有的用例
         for i in cases:
             id_list = InterFaceCaseData.objects.filter(parent=i).values_list("interface_id", flat=True)
-            print(id_list)
+            #如果用例下存在接口，则挨个运行
             if id_list:
                 for id in id_list:
                     # 调用接口运行类方法runcase()运行接口
                     InterfaceCaseRun().runcase(id, len(id_list))
-        print("定时任务第一次已经完成")
+        print("定时任务已经完成")
         print("#"*100)
+
+
+    # https://blog.csdn.net/qq_38839677/article/details/84233350
