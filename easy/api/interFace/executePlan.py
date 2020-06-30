@@ -1,17 +1,17 @@
 from time import time
 from django.core.paginator import Paginator
 from easy.models import ExecutePlan,ExecutePlanCases,RelevanceCaseSet,InterFaceCaseData
-from .executePlanSer import ExecutePlanSer,PlanNameSer,DescriptionSer,ExecutePlanCasesSer,DescriptionCaseSer,ExecutePlanAllIDSer
+from .executePlanSer import ExecutePlanSer,PlanNameSer,StuatusSer,ExecutePlanCasesSer,DescriptionCaseSer,ExecutePlanAllIDSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
 from .interfaceCase import InterfaceCaseRun
 from datetime import datetime
-from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.schedulers.background import BackgroundScheduler   #非阻塞
 import pytz
 import uuid
+from easy.common.notification import DingNotice
 
 class ExecutePlanList(APIView):
 
@@ -46,20 +46,19 @@ class ExecutePlanList(APIView):
             编辑任务计划
         '''
         data = request.data
+        print(data)
         obj = ExecutePlan.objects.filter(id=pk).first()
         if len(data) == 1:
             for i in data.keys():
                 try:
                     if i == "plan_name":
                         serializer = PlanNameSer(obj, data=data)
-                    elif i == "description":
-                        serializer = DescriptionSer(obj, data=data)
-                    if serializer.is_valid():
-                        serializer.save()
-                        right_code["msg"] = "编辑成功"
-                        return Response(right_code)
-                    else:
-                        error_code['error'] = '保存数据到数据库失败'
+                        if serializer.is_valid():
+                            serializer.save()
+                            right_code["msg"] = "编辑成功"
+                            return Response(right_code)
+                        else:
+                            error_code['error'] = '保存数据到数据库失败'
                 except Exception as e:
                     print(e)
                     error_code["error"] = str(e)
@@ -192,44 +191,82 @@ class ExecutePlanCasesList(APIView):
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
 class ExecutePlanRun(InterfaceCaseRun):
+    num = 0
     '''
         继承运行接口用例的类
     '''
+    def determine_ploy(self,ploy):
+        '''
+            校验ploy参数是否符合cron格式要求
+        '''
+        if ploy:
+            ploy_list = ploy.split(" ")
+            print(ploy_list)
+            if len(ploy_list) == 6:
+                return ploy_list[0],ploy_list[1],ploy_list[2],ploy_list[3],ploy_list[4],ploy_list[5]
+            return False,False,False,False,False,False
+
     def get(self,request,*args,**kwargs):
+        '''
+            接收前端参数，开始线程执行调度任务
+        '''
         id = request.GET.get("id","")
+        ploy = request.GET.get("ploy","")
+        notification = request.GET.get("notification","")
+        start_date = request.GET.get("start_time","")
+        end_date = request.GET.get("end_time", "")
+        print(start_date,end_date)
+        # DayofMonth没有，只支持week(1-53)个星期
+        second,minute,hour,week,month,day_of_week = self.determine_ploy(ploy)
+        if not second:
+            error_code["error"] = "请输入合法的ploy"
+            return Response(error_code)
         #查询任务下所有的用例集
         case_set = ExecutePlanCases.objects.filter(parent=id).values_list("relevance_id", flat=True)
         #查询所有用例集下所有的用例
         cases = RelevanceCaseSet.objects.filter(parent__in=case_set).values_list("relevance_id", flat=True)
-        #查询所有用例下所有的接口
+        #查询所有用例下所有的接口,此查询的结果列表，排序是乱的
         # query_set = InterFaceCaseData.objects.filter(parent__in=query_set).values_list("interface_id", flat=True)
-        # print(query_set)
+        # 实例化非阻塞模式的调度器
         scheduler = BackgroundScheduler()
-        year = '*'
-        month = '*'
-        day = '*'
-        week = '*'
-        day_of_week = '*'
-        hour = '*'
-        minute = '*/5'
-        second = '*'
-        start_date = '2020-06-29 18:29:45'
-        end_date = '2020-06-29 18:29:45'
         uid = str(uuid.uuid4())
-        scheduler.add_job(self.job_func, 'cron', start_date=start_date,end_date=end_date, id=uid, year=year,
-                          month=month, day=day, week=week,day_of_week=day_of_week, hour=hour, minute=minute,
-                          second=second,args=(cases,end_date,scheduler,id))  #end_date=end_date,
+        obj = ExecutePlan.objects.get(id=id)
+        scheduler.add_job(self.job_func, 'cron', start_date=start_date,id=uid,month=month,week=week,day_of_week=day_of_week,
+                          hour=hour, minute=minute,second=second,args=(cases,end_date,scheduler,uid,notification,obj))
         scheduler.start()
+
+        #将运行状态的标志改为true
+        serializer = StuatusSer(obj,{"status":True})
+        if serializer.is_valid():
+            serializer.save()
         right_code["msg"] = "执行任务已开始"
         return Response(right_code)
 
-    def job_func(self, cases, end_date, scheduler, id):
-
+    def job_func(self, cases, end_date, scheduler, uid, notification, obj):
+        '''
+            调度执行任务
+        '''
+        print("任务结束时间为：" + str(end_date))
         locals_time = datetime.fromtimestamp(int(time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
-        print(locals_time)
+        print("当前时间为："+str(locals_time))
+        title = obj.plan_name
+
+        print("#" * 100)
         if locals_time >= end_date:
-            scheduler.remove_job(id)
-            print('这个时候通过消息通知给使用者，提示定时任务已经结束')
+            id = scheduler.get_job(uid)
+            print(id)
+            #移除正在进行的任务
+            scheduler.remove_job(uid)
+            try:
+                DingNotice().send_text_bot(title+"任务已结束，请查看测试报告")
+                scheduler.shutdown()
+            except Exception as e:
+                print(e)
+            #将运行状态的标志改为false
+            serializer = StuatusSer(obj, {"status": False})
+            if serializer.is_valid():
+                serializer.save()
+            return
         #遍历所有的用例
         for i in cases:
             id_list = InterFaceCaseData.objects.filter(parent=i).values_list("interface_id", flat=True)
@@ -238,8 +275,7 @@ class ExecutePlanRun(InterfaceCaseRun):
                 for id in id_list:
                     # 调用接口运行类方法runcase()运行接口
                     InterfaceCaseRun().runcase(id, len(id_list))
-        print("定时任务已经完成")
-        print("#"*100)
+        if notification:
+            self.num += 1
+            DingNotice().send_text_bot(title + "第" + str(self.num) + "次运行已结束，请查看测试报告")
 
-
-    # https://blog.csdn.net/qq_38839677/article/details/84233350

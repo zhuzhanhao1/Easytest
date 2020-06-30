@@ -4943,3 +4943,117 @@ Traceback (most recent call last):
   File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceCase.py", line 230, in get
     id_list = json.loads(message.decode())
 AttributeError: 'NoneType' object has no attribute 'decode'
+2020-06-30 16:34:49,201,39292,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/executePlan.py", line 234, in get
+    hour=hour, minute=minute,second=second,args=(cases,end_date,scheduler,uid,notification,obj))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 420, in add_job
+    'trigger': self._create_trigger(trigger, trigger_args),
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 921, in _create_trigger
+    return self._create_plugin_instance('trigger', trigger, trigger_args)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 906, in _create_plugin_instance
+    return plugin_cls(**constructor_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/__init__.py", line 82, in __init__
+    field = field_class(field_name, exprs, is_default)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 33, in __init__
+    self.compile_expressions(exprs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 58, in compile_expressions
+    self.compile_expression(expr)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 75, in compile_expression
+    raise ValueError('Unrecognized expression "%s" for field "%s"' % (expr, self.name))
+ValueError: Unrecognized expression "?" for field "day_of_week"
+2020-06-30 16:34:49,205,39292,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1&ploy=0%2F10%20*%20*%20*%20*%20%3F&notification=false&start_time=2020-06-30T00%3A00%3A00%2B08%3A00&end_time=2020-06-30T00%3A00%3A00%2B08%3A00 HTTP/1.1" 500 18345
+2020-06-30 16:34:50,719,39292,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/executePlan.py", line 234, in get
+    hour=hour, minute=minute,second=second,args=(cases,end_date,scheduler,uid,notification,obj))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 420, in add_job
+    'trigger': self._create_trigger(trigger, trigger_args),
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 921, in _create_trigger
+    return self._create_plugin_instance('trigger', trigger, trigger_args)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 906, in _create_plugin_instance
+    return plugin_cls(**constructor_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/__init__.py", line 82, in __init__
+    field = field_class(field_name, exprs, is_default)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 33, in __init__
+    self.compile_expressions(exprs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 58, in compile_expressions
+    self.compile_expression(expr)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 75, in compile_expression
+    raise ValueError('Unrecognized expression "%s" for field "%s"' % (expr, self.name))
+ValueError: Unrecognized expression "?" for field "day_of_week"
+2020-06-30 16:34:50,721,39292,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1&ploy=0%2F10%20*%20*%20*%20*%20%3F&notification=false&start_time=2020-06-30T00%3A00%3A00%2B08%3A00&end_time=2020-06-30T00%3A00%3A00%2B08%3A00 HTTP/1.1" 500 18345
+2020-06-30 16:36:38,540,39374,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/executePlan.py", line 235, in get
+    hour=hour, minute=minute,second=second,args=(cases,end_date,scheduler,uid,notification,obj))
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 420, in add_job
+    'trigger': self._create_trigger(trigger, trigger_args),
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 921, in _create_trigger
+    return self._create_plugin_instance('trigger', trigger, trigger_args)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/schedulers/base.py", line 906, in _create_plugin_instance
+    return plugin_cls(**constructor_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/__init__.py", line 82, in __init__
+    field = field_class(field_name, exprs, is_default)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 33, in __init__
+    self.compile_expressions(exprs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 58, in compile_expressions
+    self.compile_expression(expr)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/apscheduler/triggers/cron/fields.py", line 75, in compile_expression
+    raise ValueError('Unrecognized expression "%s" for field "%s"' % (expr, self.name))
+ValueError: Unrecognized expression "?" for field "day_of_week"
+2020-06-30 16:36:38,542,39374,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1&ploy=0%2F10%20*%20*%20*%20*%20%3F&notification=false&start_time=2020-06-30T00%3A00%3A00%2B08%3A00&end_time=2020-06-30T00%3A00%3A00%2B08%3A00 HTTP/1.1" 500 18345

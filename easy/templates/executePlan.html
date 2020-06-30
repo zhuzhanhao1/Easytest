@@ -44,15 +44,18 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">策略</label>
                     <div class="layui-input-block">
-                        <textarea  name="ploy" placeholder="需要熟悉cron,例如：3/10 * * * * ? *" class="layui-textarea"></textarea>
+                        <textarea  name="ploy" placeholder="Seconds Minutes Hours DayofMonth Month DayofWeek" class="layui-textarea"></textarea>
+                        <span>注意：您输入的策略必须通过下方的Cron表达式工具的校验</span><br>
+                        <a href="http://www.bejson.com/othertools/cronvalidate/" target="_blank" class="ploy">Cron表达式校验工具</a>
                     </div>
                 </div>
+
 
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">是否通知</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="notification" value="True" title="通知">
-                        <input type="radio" name="notification" value="False" title="不通知" checked>
+                        <input type="radio" name="notification" value="True" title="通知" checked>
+                        <input type="radio" name="notification" value="False" title="不通知">
                     </div>
                 </div>
 

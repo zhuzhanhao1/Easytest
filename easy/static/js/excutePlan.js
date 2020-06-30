@@ -305,10 +305,11 @@ layui.use(['table', "soulTable"], function (data) {
             , {field: 'ploy', title: '策略', width: 200, align: "left", edit: "text"}
             , {
                 field: 'notification', title: '是否通知', align: "left", templet: function(res){
-                    if(res.status == false){
+                    if(res.notification == false){
                         return '<span  class="fa fa-ban" style="color: red;font-size: 20px;padding:0 2px;' +
                             'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
-                    }else if(res.status == true){
+                    }else if(res.notification == true){
+                        console.log("xianshia");
                         return '<span class ="fa fa-paper-plane-o" style="color: #5FB878;font-size: 20px;padding:0 2px;' +
                             'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
                     }
@@ -330,7 +331,7 @@ layui.use(['table', "soulTable"], function (data) {
                 }
             }
             , {field: 'end_time', title: '结束时间', align: "left", templet: function (res) {
-                    let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                    let date = new Date(+new Date(res.end_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
                     return '<span>'+date+'</span>'
                 }}
         ]]
@@ -569,6 +570,7 @@ layui.use(['table', "soulTable"], function (data) {
         }
         //编辑接口整体
         else if (obj.event === 'update_plan') {
+            console.log(data);
             var a = layer.open({
                 type: 1,
                 title: "编辑计划任务",
@@ -656,11 +658,19 @@ layui.use(['table', "soulTable"], function (data) {
         }
         //执行任务
         else if (obj.event === 'run') {
+            let start_time = new Date(+new Date(data["start_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+            let end_time = new Date(+new Date(data["end_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+            console.log(start_time);
+            console.log(end_time);
             $.ajax({
                 url: "/api/v1/excute_plan/run/",
                 type: 'GET',
                 data:{
-                    "id":id
+                    "id":id,
+                    "ploy":data["ploy"],
+                    "notification":data["notification"],
+                    "start_time":start_time,
+                    "end_time":end_time
                 },
                 success: function (data) {
                     if (data.code === 1000) {
@@ -812,7 +822,7 @@ function add_plan() {
     });
 }
 
-//获取责任者
+//获取用例集
 function get_case_set(id) {
     var res = [];
     $.ajax({

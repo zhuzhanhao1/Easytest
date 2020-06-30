@@ -121,3 +121,10 @@
     width: 35%;
     left: 62%;
 }
+.ploy:hover{
+    color: #0000FF;
+}
+.ploy{
+    float: right;
+    margin-top: 10px;
+}

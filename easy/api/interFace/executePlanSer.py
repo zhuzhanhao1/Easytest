@@ -20,13 +20,13 @@ class PlanNameSer(serializers.ModelSerializer):
         # exclude = ("",)
         fields = ("plan_name",)
 
-class DescriptionSer(serializers.ModelSerializer):
+class StuatusSer(serializers.ModelSerializer):
     '''
-        执行计划描述
+        运行状态
     '''
     class Meta:
         model = ExecutePlan
-        fields = ("description",)
+        fields = ("status",)
 
 class ExecutePlanCasesSer(serializers.ModelSerializer):
     '''
@@ -40,7 +40,7 @@ class ExecutePlanCasesSer(serializers.ModelSerializer):
 
 class DescriptionCaseSer(serializers.ModelSerializer):
     '''
-        执行计划描述
+        执行计划用例集描述
     '''
     class Meta:
         model = ExecutePlanCases
