@@ -44,8 +44,9 @@
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">策略</label>
                     <div class="layui-input-block">
-                        <textarea  name="ploy" placeholder="Seconds Minutes Hours DayofMonth Month DayofWeek" class="layui-textarea"></textarea>
+                        <textarea  name="ploy" placeholder="Seconds Minutes Hours Week Month DayofWeek" class="layui-textarea"></textarea>
                         <span>注意：您输入的策略必须通过下方的Cron表达式工具的校验</span><br>
+                        <span>差别：python scheduler的Cron第四位是Week(1-53)</span><br>
                         <a href="http://www.bejson.com/othertools/cronvalidate/" target="_blank" class="ploy">Cron表达式校验工具</a>
                     </div>
                 </div>
@@ -93,14 +94,6 @@
         </div>
     </div>
 
-    <div class="layui-row" id="jindutiao" style="display: none;">
-        <div class="layui-col-md11">
-            <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
-                <div class="layui-progress-bar" lay-percent="0%"></div>
-            </div>
-        </div>
-    </div>
-
     <div class="layui-row" id="add_update_parameter">
         <div class="layui-col-md11">
             <form class="layui-form" lay-filter="add_update_parameter">
@@ -127,6 +120,44 @@
                         </button>
                     </div>
                 </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="layui-row" id="run">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="run">
+
+                <div class="layui-form-item" style="margin-top: 30px;">
+                    <label class="layui-form-label">admin路径</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="admin_url"
+                               placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text my_token">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input  name="username" placeholder="" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text my_token">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input  name="password" placeholder="" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="run">确定</button>
+                    </div>
+                </div>
+
             </form>
         </div>
     </div>
@@ -158,6 +189,7 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button type="button" onclick="add_plan()" class="layui-btn layui-btn-sm">添加计划任务</button>
+        <button type="button" lay-event="batch_delete" class="layui-btn layui-btn-sm">批量删除</button>
     </div>
 </script>
 <!--行内按钮-->

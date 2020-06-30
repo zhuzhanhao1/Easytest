@@ -373,45 +373,6 @@ layui.use(['table', "soulTable"], function (data) {
         var checkStatus = table.checkStatus(obj.config.id);
         console.log(checkStatus);
         switch (obj.event) {
-            //导出用例
-            case "export_interface":
-                if (checkStatus.data.length > 0) {
-                    soulTable.export(myTable, {
-                        filename: '勾选数据.xlsx',
-                        checked: true, // 只导出勾选数据
-                        border: {
-                            style: 'thin',
-                            color: '000000'
-                        },
-                        head: { // 表头样式
-                            family: 'helvetica', // 字体
-                            size: 14, // 字号
-                            color: 'FFFFFF', // 字体颜色
-                            bgColor: 'ff8c00' // 背景颜色
-                        },
-                        font: { // 正文样式
-                            family: 'Calibri', // 字体
-                            size: 12, // 字号
-                            color: '000000', // 字体颜色
-                            bgColor: 'FFFFFF' //背景颜色t
-                        }
-                    });
-                    layer.msg('操作成功', {icon: 6, offset: 't'});
-                } else {
-                    layer.msg('前端的导出，没调取接口，需先勾选数据在导出，后期改为后台导出！', {icon: 0, offset: 't'});
-                }
-                break;
-            //全屏显示
-            case "fullScreen":
-                var docE = document.documentElement;
-                if (docE.requestFullScreen) {
-                    docE.requestFullScreen();
-                } else if (docE.mozRequestFullScreen) {
-                    docE.mozRequestFullScreen();
-                } else if (docE.webkitRequestFullScreen) {
-                    docE.webkitRequestFullScreen();
-                }
-                break;
             //导入接口
             case "import_interface":
                 layer.open({
@@ -658,45 +619,70 @@ layui.use(['table', "soulTable"], function (data) {
         }
         //执行任务
         else if (obj.event === 'run') {
-            let start_time = new Date(+new Date(data["start_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-            let end_time = new Date(+new Date(data["end_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-            console.log(start_time);
-            console.log(end_time);
-            $.ajax({
-                url: "/api/v1/excute_plan/run/",
-                type: 'GET',
-                data:{
-                    "id":id,
-                    "ploy":data["ploy"],
-                    "notification":data["notification"],
-                    "start_time":start_time,
-                    "end_time":end_time
-                },
-                success: function (data) {
-                    if (data.code === 1000) {
-                        layer.msg(data.msg, {
-                            icon: 6, offset: "t"
-                        })
-                    } else {
-                        layer.msg(data.error, {
-                            icon: 5, offset: "t"
-                        })
-                    }
-                },
-                error: function (data) {
-                    if (data.responseJSON.code === 1001) {
-                        layer.msg(data.responseJSON.error, {
-                            icon: 5,
-                            offset: 't'
+            var run = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "操作人信息",
+                skin: "layui-layer-molv",
+                area: ['40%',],
+                content: $("#run").html(),
+                success: function () {
+                    layui.use(['form', "jquery"], function () {
+                        var form = layui.form,
+                            $ = layui.$;
+                        form.val("run", {
+                            "admin_url":"http://app.amberdata.cn/adminapi/user/login",
+                            "password":"Y+zilsR88g9SZI8WOeHJlA=="
                         });
-                    } else {
-                        layer.msg("回调失败", {
-                            icon: 5,
-                            offset: 't'
+                        let start_time = new Date(+new Date(data["start_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                        let end_time = new Date(+new Date(data["end_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                        console.log(start_time);
+                        console.log(end_time);
+                        let ploy = data["ploy"];
+                        let notification = data["notification"];
+                        form.on('submit(run)', function (data) {
+                            $.ajax({
+                                url: "/api/v1/excute_plan/run/",
+                                type: 'GET',
+                                data:{
+                                    "id":id,
+                                    "ploy":ploy,
+                                    "notification":notification,
+                                    "start_time":start_time,
+                                    "end_time":end_time,
+                                    "admin_url": data.field.admin_url,
+                                    "username": data.field.username,
+                                    "password": data.field.password,
+                                },
+                                success: function (data) {
+                                    if (data.code === 1000) {
+                                        layer.msg(data.msg, {
+                                            icon: 6, offset: "t"
+                                        })
+                                    } else {
+                                        layer.msg(data.error, {
+                                            icon: 5, offset: "t"
+                                        })
+                                    }
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                    layer.msg("回调失败", {
+                                        icon: 5,
+                                        offset: 't'
+                                    });
+                                },
+                                complete:function () {
+                                    layer.close(run)
+                                }
+                            });
+                            return false;//阻止表单跳转
                         });
-                    }
-                },
+
+                    });
+                }
             });
+
 
         }
     });
@@ -742,7 +728,7 @@ layui.use(['table', "soulTable"], function (data) {
 });
 
 
-//新建用例
+//新建计划
 function add_plan() {
     var add_interface = layer.open({
         //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）

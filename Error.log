@@ -5057,3 +5057,27 @@ Traceback (most recent call last):
     raise ValueError('Unrecognized expression "%s" for field "%s"' % (expr, self.name))
 ValueError: Unrecognized expression "?" for field "day_of_week"
 2020-06-30 16:36:38,542,39374,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1&ploy=0%2F10%20*%20*%20*%20*%20%3F&notification=false&start_time=2020-06-30T00%3A00%3A00%2B08%3A00&end_time=2020-06-30T00%3A00%3A00%2B08%3A00 HTTP/1.1" 500 18345
+2020-06-30 23:31:26,016,9936,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/excute_plan/run/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\executePlan.py", line 227, in get
+    second,minute,hour,week,month,day_of_week = self.determine_ploy(ploy)
+TypeError: cannot unpack non-iterable NoneType object
+2020-06-30 23:31:26,017,9936,django.server,ERROR,basehttp.py:157,"GET /api/v1/excute_plan/run/?id=1&start_time=2020-06-30%2023%3A31%3A14&end_time=2020-06-30%2023%3A34%3A15&admin_url=http%3A%2F%2Fapp.amberdata.cn%2Fadminapi%2Fuser%2Flogin&username=zzh616&password=Y%2BzilsR88g9SZI8WOeHJlA%3D%3D HTTP/1.1" 500 17552
