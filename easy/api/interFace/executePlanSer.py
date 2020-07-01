@@ -20,6 +20,15 @@ class PlanNameSer(serializers.ModelSerializer):
         # exclude = ("",)
         fields = ("plan_name",)
 
+class PlanPloySer(serializers.ModelSerializer):
+    '''
+        执行计划策略
+    '''
+    class Meta:
+        model = ExecutePlan
+        # exclude = ("",)
+        fields = ("ploy",)
+
 class StuatusSer(serializers.ModelSerializer):
     '''
         运行状态

@@ -43,7 +43,7 @@ book_store = {
             }
         ],
         "bicycle": {
-            "color": "red",
+            "colo                         r": "red",
             "price": 19.95
         }
     },

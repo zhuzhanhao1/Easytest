@@ -2,7 +2,7 @@ import json
 from time import time
 from django.core.paginator import Paginator
 from easy.models import ExecutePlan, ExecutePlanCases, RelevanceCaseSet, InterFaceCaseData, InterFaceSet
-from .executePlanSer import ExecutePlanSer, PlanNameSer, StuatusSer, ExecutePlanCasesSer, DescriptionCaseSer
+from .executePlanSer import ExecutePlanSer, PlanNameSer, StuatusSer, ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -57,12 +57,14 @@ class ExecutePlanList(APIView):
                 try:
                     if i == "plan_name":
                         serializer = PlanNameSer(obj, data=data)
-                        if serializer.is_valid():
-                            serializer.save()
-                            right_code["msg"] = "编辑成功"
-                            return Response(right_code)
-                        else:
-                            error_code['error'] = '保存数据到数据库失败'
+                    elif i == "ploy":
+                        serializer = PlanPloySer(obj, data=data)
+                    if serializer.is_valid():
+                        serializer.save()
+                        right_code["msg"] = "编辑成功"
+                        return Response(right_code)
+                    else:
+                        error_code['error'] = '保存数据到数据库失败'
                 except Exception as e:
                     print(e)
                     error_code["error"] = str(e)
@@ -114,13 +116,10 @@ class ExecutePlanCasesList(APIView):
 
     def get(self, request, *args, **kwargs):
         '''
-            任务计划列表
+            任务计划下用例集列表
         '''
-        planName = request.GET.get("plan_name", "")
-        obj = ExecutePlanCases.objects.filter()
-        # 如果有搜索内容
-        if planName:
-            obj = ExecutePlanCases.objects.filter(plan_name__contains=planName)
+        id = request.GET.get("id", "")
+        obj = ExecutePlanCases.objects.filter(parent_id=id)
         serializer = ExecutePlanCasesSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量
@@ -163,7 +162,7 @@ class ExecutePlanCasesList(APIView):
 
     def post(self, request, *args, **kwargs):
         '''
-            添加任务计划
+            计划下添加用例集
         '''
         data = request.data
         print(data)
@@ -182,7 +181,7 @@ class ExecutePlanCasesList(APIView):
 
     def delete(self, request, pk, *args, **kwargs):
         '''
-            删除任务计划
+            删除计划关联用例集
         '''
         try:
             obj = ExecutePlanCases.objects.filter(id=pk)
@@ -217,6 +216,7 @@ class ExecutePlanRun(InterfaceCaseRun):
             接收前端参数，开始线程执行调度任务
         '''
         id = request.GET.get("id", "")
+        print(id)
         ploy = request.GET.get("ploy", "")
         notification = request.GET.get("notification", "")
         start_date = request.GET.get("start_time", "")
@@ -231,14 +231,19 @@ class ExecutePlanRun(InterfaceCaseRun):
             return Response(error_code)
         # 查询任务下所有的用例集
         case_set = ExecutePlanCases.objects.filter(parent=id).values_list("relevance_id", flat=True)
+        print("查询任务下所有的用例集:"+str(case_set))
+        if not case_set:
+            error_code["error"] = "请您先在任务下添加用例集！"
+            return Response(error_code)
         # 查询所有用例集下所有的用例
         cases = RelevanceCaseSet.objects.filter(parent__in=case_set).values_list("relevance_id", flat=True)
+        print("查询所有用例集下所有的用例:" + str(cases))
         # 查询所有用例下所有的接口,此查询的结果列表，排序是乱的
         interface_id_list = InterFaceCaseData.objects.filter(parent__in=cases).values_list("interface_id", flat=True).distinct()
-        # 批量修改执行接口的所有请求头
-        token = self.get_token(interface_id_list,admin_url,username,password)
-        if "error" in token:
-            return Response(token)
+        # # 批量修改执行接口的所有请求头
+        # token = self.get_token(interface_id_list,admin_url,username,password)
+        # if "error" in token:
+        #     return Response(token)
         # 实例化非阻塞模式的调度器
         scheduler = BackgroundScheduler()
         uid = str(uuid.uuid4())
@@ -248,11 +253,14 @@ class ExecutePlanRun(InterfaceCaseRun):
                           args=(cases,end_date,scheduler,uid,notification,obj,interface_id_list,admin_url,username,password))
         # 开启调度任务
         scheduler.start()
+        job = str(scheduler.get_job(uid))
+        print(str(job))
+        task_notification = job.split(",")[-1][1:-1]
         # 将运行状态的标志改为true
         serializer = StuatusSer(obj, {"status": True})
         if serializer.is_valid():
             serializer.save()
-        right_code["msg"] = "执行任务已开始"
+        right_code["msg"] = task_notification
         return Response(right_code)
 
     def job_func(self,cases,end_date,scheduler,uid,notification,obj,interface_id_list,admin_url,username,password):
@@ -283,6 +291,7 @@ class ExecutePlanRun(InterfaceCaseRun):
             # 如果用例下存在接口，则挨个运行
             if id_list:
                 process_dict, status_code = InterfaceCaseRun().runcase(id_list[0], len(id_list))
+                print("返回的状态码为:"+str(status_code))
                 # 如果token过期了，则重新获取一次
                 if status_code == 401:
                     token = self.get_token(interface_id_list, admin_url, username, password)
@@ -290,6 +299,7 @@ class ExecutePlanRun(InterfaceCaseRun):
                         scheduler.remove_job(uid)
                         DingNotice().send_text_bot(title + "：任务下获取Token失败，请留意！")
                         return
+                    print("任务下获取Token成功")
                 for id in id_list:
                     # 调用接口运行类方法runcase()运行接口
                     process_dict, status_code = InterfaceCaseRun().runcase(id, len(id_list))
@@ -318,6 +328,7 @@ class ExecutePlanRun(InterfaceCaseRun):
         try:
             response_headers, response_body, duration, status_code = InterfaceRun().run_main(method, admin_url, headers, '', data)
             headers = {"content-type": "application/json","accessToken": response_body["accessToken"]}
+            print(headers)
             #替换所有的请求头
             for pk in interface_id_list:
                 obj = InterFaceSet.objects.filter(id=pk).first()

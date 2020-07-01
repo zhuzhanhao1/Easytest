@@ -109,7 +109,7 @@ layui.use(['table', "soulTable"], function (data) {
                         , url: "/api/v1/excute_plan_cases/list/"
                         , where: function (row) {
                             console.log(row);
-                            return {parentId: row.belong_module, id: row.id}
+                            return {id: row.id}
                         }
                         , skin: 'line'
                         , size: "lg"
@@ -721,6 +721,33 @@ layui.use(['table', "soulTable"], function (data) {
                             offset: 't'
                         });
                     }
+                }
+            });
+        }
+        else if (field == "ploy") {
+            $.ajax({
+                url: "/api/v1/excute_plan/update_plan/" + data.id + '/',
+                type: 'PUT',
+                data: {
+                    "ploy": value
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        layer.msg(data.msg, {
+                            icon: 6, offset: "t"
+                        })
+                    } else {
+                        layer.msg(data.error, {
+                            icon: 5, offset: "t"
+                        })
+                    }
+                },
+                error: function (data) {
+                    layer.msg(data.statusText, {
+                        icon: 5,
+                            offset: 't'
+                    });
+
                 }
             });
         }
