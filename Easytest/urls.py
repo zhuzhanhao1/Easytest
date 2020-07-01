@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^logout/$', renderHtml.logout_views),
     url(r'^index/$', renderHtml.index_views),
     url(r'^home/', renderHtml.home_views),
+    url(r'^menuMange/', renderHtml.menu_manager_views),
     url(r'^interface_manager/', renderHtml.interface_manager_views),
     url(r'^interface_set/', renderHtml.interface_set_views),
     url(r'^interface_case_manage/', renderHtml.interface_case_views),
@@ -36,4 +37,6 @@ urlpatterns = [
     url(r'^interface_case_set_manage/', renderHtml.interface_case_set_manage_views),
     url(r'^interface_case_search/', renderHtml.interface_case_search_views),
     url(r'^execute_plan/', renderHtml.execute_plan_views),
+    url(r'^interface_test_report/', renderHtml.interface_test_report_views),
+
 ]

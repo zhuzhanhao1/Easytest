@@ -3,7 +3,7 @@ from django.conf.urls import url
 # 导入api相关模块
 from easy.api.Menu import Menu
 from easy.api.interFace import interfaceManage, interfaceCase, \
-    relevanceInterface,public,interfaceCaseSetMange,executePlan
+    relevanceInterface,public,interfaceCaseSetMange,executePlan,executePlanReport
 
 
 urlpatterns = [
@@ -70,6 +70,10 @@ urlpatterns = [
     url(r'excute_plan_cases/add_case/$', executePlan.ExecutePlanCasesList.as_view()),
     url(r'excute_plan_cases/update_case/(?P<pk>[0-9]+)/$', executePlan.ExecutePlanCasesList.as_view()),
     url(r'excute_plan_cases/del_case/(?P<pk>[0-9]+)/$', executePlan.ExecutePlanCasesList.as_view()),
+
+    # 执行任务报告
+    url(r'excute_plan_report/list/$', executePlanReport.ExecutePlanReportList.as_view()),
+    url(r'excute_plan_report/del_report/(?P<pk>[0-9]+)/$', executePlanReport.ExecutePlanReportList.as_view()),
 
 
     #公共方法

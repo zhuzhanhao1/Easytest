@@ -1,15 +1,17 @@
 import json
 from time import time
 from django.core.paginator import Paginator
-from easy.models import ExecutePlan, ExecutePlanCases, RelevanceCaseSet, InterFaceCaseData, InterFaceSet
-from .executePlanSer import ExecutePlanSer, PlanNameSer, StuatusSer, ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer
+from easy.models import ExecutePlan, ExecutePlanCases, RelevanceCaseSet, \
+    InterFaceCaseData, InterFaceSet, ExecutePlanExport
+from .executePlanSer import ExecutePlanSer, PlanNameSer, \
+    StuatusSer, ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer,ExecutePlanReporttSer,ReportStuatusSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
 from .interfaceCase import InterfaceCaseRun
 from datetime import datetime
-from apscheduler.schedulers.background import BackgroundScheduler  # 非阻塞
+from apscheduler.schedulers.background import BackgroundScheduler   #非阻塞
 import pytz
 import uuid
 from easy.common.notification import DingNotice
@@ -195,14 +197,16 @@ class ExecutePlanCasesList(APIView):
 
 
 class ExecutePlanRun(InterfaceCaseRun):
+    #任务运行的次数
     num = 0
+
     '''
         继承运行接口用例的类
     '''
 
     def determine_ploy(self, ploy):
         '''
-            校验ploy参数是否符合cron格式要求
+            校验ploy参数是否符合cron格式要求，要求是6位的格式
         '''
         if ploy:
             ploy_list = ploy.split(" ")
@@ -216,7 +220,6 @@ class ExecutePlanRun(InterfaceCaseRun):
             接收前端参数，开始线程执行调度任务
         '''
         id = request.GET.get("id", "")
-        print(id)
         ploy = request.GET.get("ploy", "")
         notification = request.GET.get("notification", "")
         start_date = request.GET.get("start_time", "")
@@ -255,9 +258,19 @@ class ExecutePlanRun(InterfaceCaseRun):
         scheduler.start()
         job = str(scheduler.get_job(uid))
         print(str(job))
+        #获取下次运行的时间节点
         task_notification = job.split(",")[-1][1:-1]
         # 将运行状态的标志改为true
         serializer = StuatusSer(obj, {"status": True})
+        if serializer.is_valid():
+            serializer.save()
+        dic = {
+            "parent":id,
+            "status":False,
+            "start_time":start_date,
+            "end_time":end_date
+        }
+        serializer = ExecutePlanReporttSer(data=dic)
         if serializer.is_valid():
             serializer.save()
         right_code["msg"] = task_notification
@@ -277,6 +290,10 @@ class ExecutePlanRun(InterfaceCaseRun):
             scheduler.remove_job(uid)
             try:
                 DingNotice().send_text_bot("定时任务：" + title + "已结束，请查看测试报告")
+                #将报告状态改为完成（True）
+                serializer = ReportStuatusSer(obj, {"status": True})
+                if serializer.is_valid():
+                    serializer.save()
                 scheduler.shutdown()
             except Exception as e:
                 print(e)

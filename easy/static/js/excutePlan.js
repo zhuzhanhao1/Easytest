@@ -302,7 +302,7 @@ layui.use(['table', "soulTable"], function (data) {
             }
             , {field: 'plan_name', title: '计划名称', align: "left", excel: {color: '0040ff', bgColor: 'f3fef3'}, edit: "text"}
             , {field: 'description', title: '描述', width: 200, align: "left"}
-            , {field: 'ploy', title: '策略', width: 200, align: "left", edit: "text"}
+            , {field: 'ploy', title: 'cron表达式', width: 200, align: "left", edit: "text"}
             , {
                 field: 'notification', title: '是否通知', align: "left", templet: function(res){
                     if(res.notification == false){
@@ -315,7 +315,7 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 }
             }
-            , {field: 'status', title: '当前状态', width: 90, align: "left", templet: function(res){
+            , {field: 'status', title: '状态', width: 90, align: "left", templet: function(res){
                     if(res.status == false){
                         return '<span  class="fa fa-toggle-off" style="color: red;font-size: 20px;padding:0 2px;' +
                             'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'

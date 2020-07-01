@@ -205,3 +205,18 @@ class ExecutePlanCases(models.Model):
 
     class Meta:
         verbose_name_plural = '关联用例集名称'
+
+
+class ExecutePlanExport(models.Model):
+    '''
+        执行计划报告
+    '''
+    parent = models.ForeignKey(ExecutePlan, on_delete=models.CASCADE, verbose_name='执行计划id')
+    pass_rate = models.CharField(max_length=8, verbose_name="通过率", null=True, blank=True,default="")
+    #报告状态：False进行中，True完成
+    status = models.BooleanField(verbose_name="报告状态")
+    start_time = models.DateTimeField(verbose_name="开始时间",null=True,blank=True)
+    end_time = models.DateTimeField(verbose_name="结束时间", null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = '测试报告'

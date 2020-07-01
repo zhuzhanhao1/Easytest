@@ -1,4 +1,4 @@
-from easy.models import ExecutePlan,ExecutePlanCases
+from easy.models import ExecutePlan,ExecutePlanCases,ExecutePlanExport
 from rest_framework import serializers
 
 
@@ -8,7 +8,6 @@ class ExecutePlanSer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExecutePlan
-        # exclude = ("",)
         fields = "__all__"
 
 class PlanNameSer(serializers.ModelSerializer):
@@ -17,7 +16,6 @@ class PlanNameSer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExecutePlan
-        # exclude = ("",)
         fields = ("plan_name",)
 
 class PlanPloySer(serializers.ModelSerializer):
@@ -26,7 +24,6 @@ class PlanPloySer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExecutePlan
-        # exclude = ("",)
         fields = ("ploy",)
 
 class StuatusSer(serializers.ModelSerializer):
@@ -43,7 +40,6 @@ class ExecutePlanCasesSer(serializers.ModelSerializer):
     '''
     class Meta:
         model = ExecutePlanCases
-        # exclude = ("",)
         fields = "__all__"
 
 
@@ -58,10 +54,25 @@ class DescriptionCaseSer(serializers.ModelSerializer):
 
 class ExecutePlanAllIDSer(serializers.ModelSerializer):
     '''
-        执行计划列表
+        暂放，深度查询
     '''
     class Meta:
         model = ExecutePlanCases
-        depth = 2
-        # exclude = ("",)
+        depth = 1
         fields = "__all__"
+
+class ExecutePlanReporttSer(serializers.ModelSerializer):
+    '''
+        执行计划用例集描述
+    '''
+    class Meta:
+        model = ExecutePlanExport
+        fields = "__all__"
+
+class ReportStuatusSer(serializers.ModelSerializer):
+    '''
+        运行状态
+    '''
+    class Meta:
+        model = ExecutePlanExport
+        fields = ("status",)

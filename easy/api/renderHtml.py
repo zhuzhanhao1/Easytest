@@ -90,6 +90,11 @@ def home_views(request):
     '''
     return render(request, 'home.html')
 
+def menu_manager_views(request):
+    '''
+        接口管理
+    '''
+    return render(request, 'menuManage.html')
 
 def interface_manager_views(request):
     '''
@@ -154,3 +159,9 @@ def execute_plan_views(request):
         接口用例集管理
     '''
     return render(request, 'executePlan.html')
+
+def interface_test_report_views(request):
+    '''
+        测试报告
+    '''
+    return render(request, 'executePlanReport.html')
