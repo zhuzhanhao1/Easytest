@@ -303,7 +303,7 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 });
                 break;
-            //
+            //jsonpath
             case "jsonpath":
                 var data = checkStatus.data;
                 console.log(data);
@@ -313,8 +313,7 @@ layui.use(['table', "soulTable"], function (data) {
                         icon: 0,
                         offset: "t"
                     });
-                }
-                else {
+                } else {
                     value = data[0]["result"];
                 }
                 layer.open({
@@ -330,7 +329,7 @@ layui.use(['table', "soulTable"], function (data) {
                             var form = layui.form,
                                 $ = layui.$;
                             form.val("jsonpath", {
-                                "value":value
+                                "value": value
                             });
                             form.on('submit(jsonpath)', function (data) {
                                 $.ajax({
@@ -345,7 +344,7 @@ layui.use(['table', "soulTable"], function (data) {
                                     },
                                     success: function (data) {
                                         console.log(data.data);
-                                        form.val("jsonpath", {"json_result":data.data});
+                                        form.val("jsonpath", {"json_result": data.data});
                                         if (data.code === 1000) {
                                             layer.msg(data.msg, {
                                                 icon: 6, offset: "t"
@@ -388,6 +387,98 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 });
                 break
+            //
+            case 'locust':
+                var data = checkStatus.data;
+                console.log(data);
+                if (data.length == 0) {
+                    layer.msg("请先选中需要执行的用例", {
+                        icon: 2,
+                        offset: "t"
+                    });
+                } else {
+                    var l = [];
+                    for (i = 0; i < data.length; i++) {
+                        l.push(data[i].id);
+                    }
+                    console.log(l);
+                    $.ajax({
+                        url: "/api/v1/relevance_interface/open_locust/",
+                        type: 'POST',
+                        data: {
+                            "id": JSON.stringify(l)
+                        },
+                        //请求前的处理,加载loading
+                        beforeSend: function () {
+                            var locust_test = layer.open({
+                                type: 1
+                                , title: ["locust接口性能测试"]
+                                , skin: "layui-layer-lan"
+                                , shade: 0.6
+                                , shadeClose: true
+                                , moveOut: true
+                                , area: ["30%", '33%'] //自定义文本域宽高
+                                , content: $("#locust").html(),
+                                success: function () {
+                                    layui.use('form', function () {
+                                        var form = layui.form;
+                                        //关闭locust，
+                                        form.on('submit(locust)', function (data) {
+                                            $.ajax({
+                                                cache: false,
+                                                url: "/api/v1/relevance_interface/close_locust/",
+                                                type: 'GET',
+                                                success: function (data) {
+                                                    if (data.code === 1000) {
+                                                        layer.msg(data.msg, {
+                                                            icon: 6, offset: "t"
+                                                        })
+                                                    } else {
+                                                        layer.msg(data.error, {
+                                                            icon: 5, offset: "t"
+                                                        })
+                                                    }
+                                                    $(".layui-laypage-btn").click();
+                                                },
+                                                error: function () {
+                                                    layer.msg("回调失败", {
+                                                        icon: 5,
+                                                        offset: 't'
+                                                    });
+                                                },
+                                                complete: function () {
+                                                    layer.close(locust_test);
+                                                }
+
+                                            });
+                                            return false;//阻止表单跳转
+                                        });
+                                    })
+                                }
+
+                            });
+                        },
+                        success: function (data) {
+                            if (data.code === 1000) {
+                                layer.msg(data.msg, {
+                                    icon: 6, offset: "t"
+                                })
+                            } else {
+                                layer.msg(data.error, {
+                                    icon: 5, offset: "t"
+                                })
+                            }
+                            $(".layui-laypage-btn").click();
+                        },
+                        error: function () {
+                            layer.msg("回调失败", {
+                                icon: 5,
+                                offset: 't'
+                            });
+                        }
+                    });
+                }
+                break;
         }
 
     });

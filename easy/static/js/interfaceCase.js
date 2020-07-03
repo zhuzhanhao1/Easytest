@@ -471,6 +471,8 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 });
                 break
+            //
+
         }
 
     });

@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'interface_case_manage/add_case/$', interfaceCase.InterfaceCase.as_view()),
     url(r'interface_case_manage/update_case/(?P<pk>[0-9]+)/$',interfaceCase.InterfaceCase.as_view()),
     url(r'interface_case_manage/del_case/(?P<pk>[0-9]+)/$',interfaceCase.InterfaceCase.as_view()),
-    #接口运行
+    #接口运行open_locust
     url(r'interface_case_manage/run/$', interfaceCase.InterfaceCaseRun.as_view()),
     url(r'interface_case_manage/get_token/$', interfaceCase.InterfaceBacthUpdate.as_view()),
     url(r'interface_case_manage/bacth_update/$', interfaceCase.InterfaceBacthUpdate.as_view()),
@@ -47,6 +47,8 @@ urlpatterns = [
     url(r'relevance_interface/add_interface/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/update_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/del_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
+    url(r'relevance_interface/open_locust/$', relevanceInterface.InterfaceCaseDataLocust.as_view()),
+    url(r'relevance_interface/close_locust/$', relevanceInterface.InterfaceCaseDataLocust.as_view()),
 
     #用例集
     url(r'interface_case_set_manage/list/$',interfaceCaseSetMange.InterfaceCaseSetList.as_view()),

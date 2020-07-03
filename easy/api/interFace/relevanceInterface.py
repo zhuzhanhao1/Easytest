@@ -7,8 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
-from easy.common.jsonPath import GetValueByJsonpath
-
+from django_redis import get_redis_connection
 
 class InterfaceCaseData(APIView):
 
@@ -89,5 +88,33 @@ class InterfaceCaseData(APIView):
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
 
+class InterfaceCaseDataLocust(APIView):
 
+    def get(self, request, *args, **kwargs):
+        pass
+
+    def post(self,request, *args, **kwargs):
+        data = request.data
+        id_list =  json.loads(data["id"])
+        print(id_list)
+        interface_id_list = InterFaceCaseData.objects.filter(id__in=id_list).values_list("interface_id", flat=True)
+        print(interface_id_list)
+        locust_dic = {}
+        num = 1
+        for id in interface_id_list:
+            dic = {}
+            obj = InterFaceSet.objects.get(id=id)
+            dic["method"] = obj.method
+            dic["url"] = obj.url
+            dic["params"] = obj.params
+            dic["headers"] = obj.headers
+            dic["body"] = obj.body
+            dic["interface_name"] = obj.interface_name
+            locust_dic[num] = dic
+            num += 1
+        print(locust_dic)
+        conn = get_redis_connection('default')
+        conn.set("locust_dic", json.dumps(locust_dic))
+        right_code["msg"] = "Locust已经开启"
+        return Response(right_code)
 

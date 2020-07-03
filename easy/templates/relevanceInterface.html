@@ -267,7 +267,6 @@
         </div>
     </div>
 
-
     <!--JSONPATH-->
     <div class="layui-row" id="jsonpath">
         <div class="layui-col-md11">
@@ -306,6 +305,34 @@
         </div>
     </div>
 
+    <!--性能测试-->
+    <div class="layui-row" id="locust" style="display: none;">
+        <div class="layui-col-md11">
+
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 20px;">
+                <a href="http://localhost:8089/" target="_blank"
+                   style="font-size: 20px;color: #1E9FFF;padding-left: 20px;">
+                    点击前往-->Start new Locust swarm
+                </a>
+            </blockquote>
+            <!--a标签跳转到话加上target="_blank"-->
+            <blockquote class="layui-elem-quote" style="margin-top: 20px;padding-left: 20px;">
+                注意:如果测试结束，请回到此页面关闭8089端口进程
+            </blockquote>
+
+            <form class="layui-form" lay-filter="locust">
+
+                <div class="layui-form-item" style="margin-top: 20px;">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="locust"
+                                style="float: right;background-color: cornflowerblue;">关闭8089端口
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
 </div>
 <!--主题内容-table-->
 <div id="layuibody" class="layui-body mybg" style="margin-bottom: -70px;">
@@ -353,6 +380,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="batch_delete">批量删除</button>
         <button class="layui-btn layui-btn-sm" lay-event="export_interface">导出接口</button>
         <button class="layui-btn layui-btn-sm" lay-event="jsonpath">JSONPATH</button>
+        <button class="layui-btn layui-btn-sm" lay-event="locust">接口性能测试</button>
     </div>
 </script>
 <!--行内按钮-->
