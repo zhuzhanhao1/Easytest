@@ -161,3 +161,7 @@
     width: 90%;
     min-height:180px;
 }
+
+.my_hide{
+    overflow: hidden;
+}

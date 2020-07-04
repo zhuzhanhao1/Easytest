@@ -1,4 +1,4 @@
-import json
+import json,os
 from django.core.paginator import Paginator
 from easy.models import InterFaceCaseData,InterFaceSet
 from .relevanceInterfaceSer import InterFaceCaseDataSer,AddRelevanceInterfaceSer,\
@@ -8,6 +8,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
 from django_redis import get_redis_connection
+
+
+
 
 class InterfaceCaseData(APIView):
 
@@ -91,12 +94,67 @@ class InterfaceCaseData(APIView):
 class InterfaceCaseDataLocust(APIView):
 
     def get(self, request, *args, **kwargs):
-        pass
+        '''
+        关闭蝗虫(性能测试端口)
+        '''
+        system = request.GET.get("system","")
+        if system == "MacOS":
+            locust_process = os.popen('lsof -i:8089').readlines()[-1]
+            res = locust_process.split(" ")
+            res_filter = list(filter(None, res))
+            try:
+                if not res_filter[1]:
+                    error_code["error"] = "获取8089对应的进程号失败"
+                    return Response(error_code)
+                command = "kill -9 {}".format(res_filter[1])
+                print(command)
+                os.system(command)
+                right_code["msg"] = "Successful closing locust"
+                return Response(right_code)
+            except Exception as e:
+                print(e)
+                error_code["error"] = "Failed closing locust"
+            return Response(error_code)
+        #如果是windows
+        else:
+            # 查找端口的pid
+            try:
+                find_port = 'netstat -aon | findstr 8089'
+                result = os.popen(find_port)
+                text = result.read()
+                pid = text[-6:-1].strip()
+                print(pid)
+                if not pid:
+                    error_code["error"] = "获取8089对应的进程号失败"
+                    return Response(error_code)
+            except Exception as e:
+                print(e)
+                error_code["error"] = "8089端口未打开"
+                return Response(error_code)
+            # 占用端口的pid
+            try:
+                find_kill = 'taskkill -f -pid %s' % pid
+                # result = os.popen(find_kill)
+                # print(result.read())
+                os.system(find_kill)
+                right_code["msg"] = "Successful closing locust"
+                return Response(right_code)
+            except Exception as e:
+                print(e)
+                error_code["error"] = "关闭8089对应的进程失败"
+                return Response(error_code)
+
+
 
     def post(self,request, *args, **kwargs):
         data = request.data
         id_list =  json.loads(data["id"])
+        system = data.get("system","")
+        ip = data.get("ip","")
         print(id_list)
+        if not id_list:
+            error_code["error"] = "暂不支持将依赖的接口加入到Loucst中测试"
+            return Response(error_code)
         interface_id_list = InterFaceCaseData.objects.filter(id__in=id_list).values_list("interface_id", flat=True)
         print(interface_id_list)
         locust_dic = {}
@@ -115,6 +173,12 @@ class InterfaceCaseDataLocust(APIView):
         print(locust_dic)
         conn = get_redis_connection('default')
         conn.set("locust_dic", json.dumps(locust_dic))
-        right_code["msg"] = "Locust已经开启"
+        #linux
+        if system == "MacOS":
+            os.system("nohup locust -f easy/common/locustTest.py --host={} &".format(ip))
+        #win
+        elif system == "Windows":
+            os.system("locust -f easy/common/locustTest.py --host={}".format(ip))
+            right_code["msg"] = "Locust已经开启"
         return Response(right_code)
 

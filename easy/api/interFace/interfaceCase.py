@@ -1,4 +1,3 @@
-from time import time
 from django.core.paginator import Paginator
 from easy.models import InterFaceCase, InterFaceCaseData, InterFaceSet
 from .interfaceCaseSer import InterFaceCaseSer, DescriptionSer

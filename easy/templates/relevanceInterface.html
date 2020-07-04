@@ -136,7 +136,6 @@
             </div>
         </div>
     </div>
-
     <!--创建+编辑-接口-->
     <div class="layui-row" id="add_update_case">
         <div class="layui-col-md11">
@@ -266,7 +265,6 @@
             </form>
         </div>
     </div>
-
     <!--JSONPATH-->
     <div class="layui-row" id="jsonpath">
         <div class="layui-col-md11">
@@ -304,10 +302,9 @@
             </form>
         </div>
     </div>
-
     <!--性能测试-->
-    <div class="layui-row" id="locust" style="display: none;">
-        <div class="layui-col-md11">
+    <div class="layui-row" id="locust">
+        <div class="layui-col-md11 my_hide">
 
             <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 20px;">
                 <a href="http://localhost:8089/" target="_blank"
@@ -316,17 +313,47 @@
                 </a>
             </blockquote>
             <!--a标签跳转到话加上target="_blank"-->
-            <blockquote class="layui-elem-quote" style="margin-top: 20px;padding-left: 20px;">
+            <blockquote class="layui-elem-quote" style="margin-top: 20px;padding-left: 20px;background-color: aliceblue;">
                 注意:如果测试结束，请回到此页面关闭8089端口进程
             </blockquote>
-
             <form class="layui-form" lay-filter="locust">
 
                 <div class="layui-form-item" style="margin-top: 20px;">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit lay-filter="locust"
-                                style="float: right;background-color: cornflowerblue;">关闭8089端口
+                                style="float: right;">关闭8089端口
                         </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!--输入IP和当前系统-->
+    <div class="layui-row" id="system_ip">
+        <div class="layui-col-md11">
+            <form class="layui-form" lay-filter="system_ip">
+
+                <div class="layui-form-item" style="margin-top: 30px;">
+                    <label class="layui-form-label">admin路径</label>
+                    <div class="layui-input-block">
+                        <select name="system">
+                            <option>MacOS</option>
+                            <option>Windows</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text my_token">
+                    <label class="layui-form-label">ip</label>
+                    <div class="layui-input-block">
+                        <input  name="ip" placeholder="请输入压测的IP地址" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="system_ip">确定</button>
                     </div>
                 </div>
 

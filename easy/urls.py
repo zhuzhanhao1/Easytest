@@ -9,7 +9,16 @@ from easy.api.interFace import interfaceManage, interfaceCase, \
 urlpatterns = [
     #左侧菜单
     url(r'menu/$', Menu.MainMenuApi.as_view()),
-
+    #主菜单管理
+    url(r'menu_manage/main_list/$', Menu.MenuManageMainList.as_view()),
+    url(r'menu_manage/add_main_menu/$', Menu.MainMenuApi.as_view()),
+    url(r'menu_manage/update_main_menu/(?P<pk>[0-9]+)/$', Menu.MenuManageMainList.as_view()),
+    url(r'menu_manage/del_main_menu/(?P<pk>[0-9]+)/$', Menu.MenuManageMainList.as_view()),
+    #子菜单管理
+    url(r'menu_manage/children_list/$', Menu.MenuManageChildrenList.as_view()),
+    url(r'menu_manage/add_children_menu/$', Menu.MenuManageChildrenList.as_view()),
+    url(r'menu_manage/update_children_menu/(?P<pk>[0-9]+)/$', Menu.MenuManageChildrenList.as_view()),
+    url(r'menu_manage/del_children_menu/(?P<pk>[0-9]+)/$', Menu.MenuManageChildrenList.as_view()),
     # 接口分类
     url(r'interface_manager/get_classification/$',interfaceManage.InterfaceClassification.as_view()),
     url(r'interface_manager/add_classification/$',interfaceManage.InterfaceClassification.as_view()),

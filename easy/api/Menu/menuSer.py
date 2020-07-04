@@ -10,6 +10,14 @@ class MainMenuSer(serializers.ModelSerializer):
         model = MainMenu
         fields = ('title', 'icon', 'href', 'spread')
 
+class MainMenuAllSer(serializers.ModelSerializer):
+    '''
+        主菜单
+    '''
+    class Meta:
+        model = MainMenu
+        fields = ('title', 'icon', 'href', 'spread',"id")
+
 
 class ChildMenuSer(serializers.ModelSerializer):
     '''
@@ -18,6 +26,14 @@ class ChildMenuSer(serializers.ModelSerializer):
     class Meta:
         model = ChildMenu
         fields = "__all__"
+
+class UpdatteChildMenuSer(serializers.ModelSerializer):
+    '''
+        子菜单
+    '''
+    class Meta:
+        model = ChildMenu
+        fields = ('title', 'icon', 'href', 'spread')
 
 
 class MenuAppendSer(serializers.ModelSerializer):

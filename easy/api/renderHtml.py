@@ -90,13 +90,13 @@ def home_views(request):
     '''
     return render(request, 'home.html')
 
-def menu_manager_views(request):
+def menu_manage_views(request):
     '''
         接口管理
     '''
     return render(request, 'menuManage.html')
 
-def interface_manager_views(request):
+def interface_manage_views(request):
     '''
         接口管理
     '''
