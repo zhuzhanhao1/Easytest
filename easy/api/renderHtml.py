@@ -165,3 +165,16 @@ def interface_test_report_views(request):
         测试报告
     '''
     return render(request, 'executePlanReport.html')
+
+def report_detail_views(request):
+    '''
+        报告详情
+    '''
+    parentId = request.GET.get("parentId", "")
+    return render(request, 'report_detail.html', {"parentId": parentId})
+
+def echart_report_views(request):
+    '''
+        内容ifame-报表
+    '''
+    return render(request, 'pyechartReport.html')

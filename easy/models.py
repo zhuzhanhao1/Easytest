@@ -116,8 +116,8 @@ class InterFaceCase(models.Model):
     pass_rate = models.CharField(max_length=8, verbose_name="通过率", null=True, blank=True,default="100")
     create_data = models.DateField(auto_now=True,null=True,blank=True,verbose_name="创建时间")
 
-    def __str__(self):
-        return self.interface_case_name
+    # def __str__(self):
+    #     return self.interface_case_name
 
     class Meta:
         verbose_name = '接口用例表'
@@ -207,7 +207,7 @@ class ExecutePlanCases(models.Model):
         verbose_name_plural = '关联用例集名称'
 
 
-class ExecutePlanExport(models.Model):
+class ExecutePlanReport(models.Model):
     '''
         执行计划报告
     '''

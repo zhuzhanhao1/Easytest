@@ -3,9 +3,7 @@ from rest_framework import serializers
 
 
 class InterFaceCaseDataSer(serializers.ModelSerializer):
-    '''
-        主菜单
-    '''
+
     # 获取关联表的数据
     relevance_interface_name = serializers.CharField(
         source='interface_id.interface_name')
@@ -56,36 +54,28 @@ class InterFaceCaseDataSer(serializers.ModelSerializer):
 
 
 class DescriptionSer(serializers.ModelSerializer):
-    '''
-        主菜单
-    '''
+
     class Meta:
         model = InterFaceCaseData
         # exclude = ("",)
         fields = ("description",)
 
 class InterfaceNameSer(serializers.ModelSerializer):
-    '''
-        主菜单
-    '''
+
     class Meta:
         model = InterFaceCaseData
         # exclude = ("",)
         fields = ("interface_name",)
 
 class HeadSer(serializers.ModelSerializer):
-    '''
-        主菜单
-    '''
+
     class Meta:
         model = InterFaceCaseData
         # exclude = ("",)
         fields = ("head",)
 
 class AddRelevanceInterfaceSer(serializers.ModelSerializer):
-    '''
-        主菜单
-    '''
+
     class Meta:
         model = InterFaceCaseData
         # exclude = ("",)

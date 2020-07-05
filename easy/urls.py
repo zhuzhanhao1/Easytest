@@ -85,10 +85,14 @@ urlpatterns = [
     # 执行任务报告
     url(r'excute_plan_report/list/$', executePlanReport.ExecutePlanReportList.as_view()),
     url(r'excute_plan_report/del_report/(?P<pk>[0-9]+)/$', executePlanReport.ExecutePlanReportList.as_view()),
+    # 报告详细
+    url(r'report_detail/tree/$', executePlanReport.ReportDetail.as_view()),
+    url(r'report_detail/list/$', executePlanReport.ReportDetail.as_view()),
+    url(r'report_detail/echarts/$', executePlanReport.echartsReport.as_view()),
 
 
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
-
+    url(r'public/export_report/$', public.ExportReport.as_view()),
 
 ]

@@ -2,7 +2,7 @@ import json
 from time import time
 from django.core.paginator import Paginator
 from easy.models import ExecutePlan, ExecutePlanCases, RelevanceCaseSet, \
-    InterFaceCaseData, InterFaceSet, ExecutePlanExport
+    InterFaceCaseData, InterFaceSet, ExecutePlanReport
 from .executePlanSer import ExecutePlanSer, PlanNameSer, \
     StuatusSer, ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer,ExecutePlanReporttSer,ReportStuatusSer
 from rest_framework.views import APIView
@@ -326,7 +326,7 @@ class ExecutePlanRun(InterfaceCaseRun):
         # 每次运行完一次任务，则清空success_id_list
         InterfaceCaseRun.success_id_list = []
         # 需要消息通知时，每次结束发送当前任务进度
-        if notification:
+        if bool(notification):
             self.num += 1
             DingNotice().send_text_bot(title + "第" + str(self.num) + "次运行已结束，请查看测试报告")
         print("#" * 100)

@@ -187,15 +187,14 @@ layui.use(['table', "soulTable"], function (data) {
                                     shada: 0.6,
                                     content: $("#add_update_case").html(),
                                     success: function () {
-                                        layui.use(['form', "jquery"], function (data) {
+                                        layui.use(['form', "jquery"], function () {
                                             var form = layui.form,
                                                 $ = layui.$;
-                                            console.log(data);
                                             form.val("add_update_case", {
-                                                "title": data.title,
-                                                "icon": data.icon,
-                                                "href": data.href,
-                                                "spread": data.spread,
+                                                "title": obj.data.title,
+                                                "icon": obj.data.icon,
+                                                "href": obj.data.href,
+                                                "spread": obj.data.spread,
                                             });
                                             form.on('submit(add_update_case)', function (data) {
                                                 $.ajax({

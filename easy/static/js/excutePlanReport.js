@@ -219,8 +219,10 @@ layui.use(['table', "soulTable"], function (data) {
     //监听行工具事件
     table.on('tool(test)', function (obj) {
         var data = obj.data;
+        console.log(data);
         var id = data['id'];
-        console.log(obj);
+        var parent_id = data["parent"];
+        console.log(parent_id);
         //删除接口用例
         if (obj.event === 'del_report') {
             layer.confirm('你确定要删除吗' + '？', {
@@ -263,69 +265,10 @@ layui.use(['table', "soulTable"], function (data) {
         }
         //执行任务
         else if (obj.event === 'report_detail') {
-            var run = layer.open({
-                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                type: 1,
-                title: "操作人信息",
-                skin: "layui-layer-molv",
-                area: ['40%',],
-                content: $("#run").html(),
-                success: function () {
-                    layui.use(['form', "jquery"], function () {
-                        var form = layui.form,
-                            $ = layui.$;
-                        form.val("run", {
-                            "admin_url":"http://app.amberdata.cn/adminapi/user/login",
-                            "password":"Y+zilsR88g9SZI8WOeHJlA=="
-                        });
-                        let start_time = new Date(+new Date(data["start_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                        let end_time = new Date(+new Date(data["end_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                        console.log(start_time);
-                        console.log(end_time);
-                        let ploy = data["ploy"];
-                        let notification = data["notification"];
-                        form.on('submit(run)', function (data) {
-                            $.ajax({
-                                url: "/api/v1/excute_plan/run/",
-                                type: 'GET',
-                                data:{
-                                    "id":id,
-                                    "ploy":ploy,
-                                    "notification":notification,
-                                    "start_time":start_time,
-                                    "end_time":end_time,
-                                    "admin_url": data.field.admin_url,
-                                    "username": data.field.username,
-                                    "password": data.field.password,
-                                },
-                                success: function (data) {
-                                    if (data.code === 1000) {
-                                        layer.msg(data.msg, {
-                                            icon: 6, offset: "t"
-                                        })
-                                    } else {
-                                        layer.msg(data.error, {
-                                            icon: 5, offset: "t"
-                                        })
-                                    }
-                                },
-                                error: function (data) {
-                                    console.log(data);
-                                    layer.msg("回调失败", {
-                                        icon: 5,
-                                        offset: 't'
-                                    });
-                                },
-                                complete:function () {
-                                    layer.close(run)
-                                }
-                            });
-                            return false;//阻止表单跳转
-                        });
-
-                    });
-                }
-            });
+            var href = "/report_detail?parentId=" + parent_id;
+            console.log(href);
+            //$(window).attr('location',href);
+            $(location).attr('href', href);
 
 
         }

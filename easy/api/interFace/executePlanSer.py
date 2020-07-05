@@ -1,4 +1,4 @@
-from easy.models import ExecutePlan,ExecutePlanCases,ExecutePlanExport
+from easy.models import ExecutePlan,ExecutePlanCases,ExecutePlanReport
 from rest_framework import serializers
 
 
@@ -66,7 +66,7 @@ class ExecutePlanReporttSer(serializers.ModelSerializer):
         执行计划用例集描述
     '''
     class Meta:
-        model = ExecutePlanExport
+        model = ExecutePlanReport
         fields = "__all__"
 
 class ReportStuatusSer(serializers.ModelSerializer):
@@ -74,5 +74,5 @@ class ReportStuatusSer(serializers.ModelSerializer):
         运行状态
     '''
     class Meta:
-        model = ExecutePlanExport
+        model = ExecutePlanReport
         fields = ("status",)
