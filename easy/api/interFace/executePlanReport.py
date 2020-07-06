@@ -87,9 +87,9 @@ class echartsReport(APIView):
 
     def get(self, request, *args, **kwargs):
         parentId = request.GET.get("parentId", "")
-        l = []
-        data1 = [{"value": 2, "name": '成功:2'},{"value": 1, "name": '失败:1'}]
-        data2= [{"value": 1, "name": '成功:1'}, {"value": 2, "name": '失败:2'}]
-        l.append(data1)
-        l.append(data2)
-        return Response(l)
+        flag = request.GET.get("id", "")
+        if flag == "caseset":
+            data = [{"name": '成功',"y": 38.59,}, {"name": '失败',"y": 61.41,}]
+        else:
+            data = [{"name": '成功',"y": 61.41,}, {"name": '失败',"y": 38.59,}]
+        return Response(data)

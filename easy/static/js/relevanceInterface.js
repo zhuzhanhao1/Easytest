@@ -114,7 +114,25 @@ layui.use(['table', "soulTable"], function (data) {
                     return '<span>' + String(res.duration)+"ms" + '</span>'
                 }
             }
-            , {field: 'result', title: '响应结果', align: "left"}
+            , {field: 'result', title: '响应结果', align: "left", templet: function (res) {
+                    if (res.result == null || res.result == "") {
+                        console.log("空值");
+                        return '<span>' + res.result + '</span>'
+
+                    } else if(res.result.indexOf("<") != -1){
+                        console.log(res.result);
+                        let a = "表格个出现了<>等不支持的符号";
+                        return '<span>' + a + '</span>'
+                    }
+                    else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
+                        let b = JSON.parse(res.result);
+                        return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
+
+                    } else {
+                        return '<span>' + res.result + '</span>'
+                    }
+                }
+                }
             , {field: 'head', title: '负责人', align: "left",edit: "text"}
         ]]
         , filter: {

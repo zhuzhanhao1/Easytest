@@ -126,7 +126,7 @@ def relevance_interface_views(request):
         接口用例
     '''
     parentId = request.GET.get("parentId", "")
-    interface_case_name = InterFaceCase.objects.get(id=parentId)
+    interface_case_name = InterFaceCase.objects.get(id=parentId).interface_case_name
     return render(
         request, 'relevanceInterface.html', {
             "parentId": parentId, "interface_case_name": interface_case_name})
@@ -171,7 +171,7 @@ def report_detail_views(request):
         报告详情
     '''
     parentId = request.GET.get("parentId", "")
-    return render(request, 'report_detail.html', {"parentId": parentId})
+    return render(request, 'reportDetail.html', {"parentId": parentId})
 
 def echart_report_views(request):
     '''

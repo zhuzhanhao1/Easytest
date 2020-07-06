@@ -16,8 +16,8 @@ class LocustTest(TaskSet):
 
 
     def get(self,value):
-        params = value.get("params","")
-        params = json.loads(params).encode('utf-8') if params else None
+        params = value.get("params","").encode('utf-8')
+        params = json.loads(params) if params else None
         data = value.get("body", "")
         data = data.encode('utf-8') if data else None
         headers = json.loads(value.get("headers",""))
@@ -30,8 +30,8 @@ class LocustTest(TaskSet):
                 response.failure(str(title) +"失败！！！")
 
     def post(self,value):
-        params = value.get("params","")
-        params = json.loads(params).encode('utf-8') if params else None
+        params = value.get("params","").encode('utf-8')
+        params = json.loads(params) if params else None
         data = value.get("body","")
         data = data.encode('utf-8') if data else None
         headers = json.loads(value.get("headers", ""))

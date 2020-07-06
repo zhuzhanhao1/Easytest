@@ -22,30 +22,24 @@ body{
     background-repeat: no-repeat;
 }
 
-#case{
-    width: 320px;
-    height: 250px;
-    float: right;
-    margin-top: 20px;
-    margin-right: 200px;
-}
-#caseset{
-    width: 320px;
-    height: 250px;
-    float: right;
-    margin-top: 20px;
-    margin-right: 200px;
-}
 
 #test{
     margin-left: 20px;
     margin-top: 20px;
-    height: 100%;
+    /*min-height: 600px;*/
     float: left;
     border-right-width: initial;
     width: 15%;
+    /*border: 1px solid silver;*/
 }
 .return{
     margin-left: 20px;
     margin-top: 20px;
+}
+
+.report{
+    float: right;
+}
+.highcharts-credits{
+    display: none;
 }

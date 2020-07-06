@@ -175,10 +175,10 @@ class InterfaceCaseDataLocust(APIView):
         conn.set("locust_dic", json.dumps(locust_dic))
         #linux
         if system == "MacOS":
-            os.system("nohup locust -f easy/common/locustTest.py --host={} &".format(ip))
+            os.system("nohup locust -f easy/common/locustTest.py --host=http://{}/ &".format(ip))
         #win
         elif system == "Windows":
-            os.system("locust -f easy/common/locustTest.py --host={}".format(ip))
+            os.system("locust -f easy/common/locustTest.py --host=http://{}/".format(ip))
             right_code["msg"] = "Locust已经开启"
         return Response(right_code)
 

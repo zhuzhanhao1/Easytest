@@ -295,7 +295,6 @@ class RunInterfaceDebugTest(APIView):
             return Response(error_code)
 
 
-
 class InterfaceSetSearchList(APIView):
 
     def get(self, request, *args, **kwargs):

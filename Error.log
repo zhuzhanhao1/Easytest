@@ -6858,3 +6858,21 @@ Traceback (most recent call last):
     l.append(data1,data2)
 TypeError: append() takes exactly one argument (2 given)
 2020-07-05 23:16:16,933,10088,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/echarts/?parentId=1&id=caseset HTTP/1.1" 500 17033
+2020-07-06 10:05:00,905,13240,django.request,ERROR,log.py:228,Internal Server Error: /report_detail/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/renderHtml.py", line 174, in report_detail_views
+    return render(request, 'report_detail.html', {"parentId": parentId})
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: report_detail.html
+2020-07-06 10:05:00,911,13240,django.server,ERROR,basehttp.py:157,"GET /report_detail/?parentId=1 HTTP/1.1" 500 83261

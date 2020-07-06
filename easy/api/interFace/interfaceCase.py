@@ -196,6 +196,8 @@ class InterfaceCaseRun(APIView):
             print(e)
         try:
             djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+            if "xml" in djson:
+                djson = "表格中不允许出现XML"
             ResultTimeObj = InterFaceSet.objects.get(id=id)
             data = {"result": djson, "duration": duration}
             serializer = ResultTimeSer(ResultTimeObj, data=data)
