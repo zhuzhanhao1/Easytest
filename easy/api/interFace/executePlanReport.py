@@ -1,5 +1,3 @@
-import json
-from time import time
 from django.core.paginator import Paginator
 from easy.models import ExecutePlanReport,ExecutePlanCases,ExecutePlan,InterfaceCaseSet,InterFaceCaseData,InterFaceSet
 from .executePlanReportSer import ExecutePlanReportSer,ReportDetailTreeSer,InterFaceSetSer

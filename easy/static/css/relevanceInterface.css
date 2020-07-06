@@ -22,7 +22,7 @@
 #sousuo {
     position: fixed;
     right: 15px;
-    top: 15px;
+    top: 25px;
 }
 
 .layui-laypage .layui-laypage-curr .layui-laypage-em {
@@ -164,4 +164,13 @@
 
 .my_hide{
     overflow: hidden;
+}
+.layui-breadcrumb{
+    font-size: 30px
+}
+.demoTable>.layui-table-view{
+    margin-top: 30px;
+}
+.layui-breadcrumb a{
+    font-size: 17px;
 }

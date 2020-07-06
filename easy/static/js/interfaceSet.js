@@ -20,7 +20,7 @@ layui.use(['table', "soulTable"], function (data) {
         , title: '接口流程测试'
         , page: {groups: 5} //开启分页
         , loading: false
-        , height: 'full-60'
+        , height: 'full-80'
         , drag: {toolbar: true}//实现固定列与非固定列之间的转换
         , rowDrag: {
             trigger: 'row', done: function (obj) {
