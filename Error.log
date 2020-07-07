@@ -6876,3 +6876,71 @@ Traceback (most recent call last):
     raise TemplateDoesNotExist(template_name, chain=chain)
 django.template.exceptions.TemplateDoesNotExist: report_detail.html
 2020-07-06 10:05:00,911,13240,django.server,ERROR,basehttp.py:157,"GET /report_detail/?parentId=1 HTTP/1.1" 500 83261
+2020-07-07 11:58:54,494,1475,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/list/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 507, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 422, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'NoneType'>`
+2020-07-07 11:58:54,498,1475,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/list/?page=1&limit=10 HTTP/1.1" 500 16331
+2020-07-07 11:58:55,187,1475,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/list/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 507, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 422, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'NoneType'>`
+2020-07-07 11:58:55,190,1475,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/list/?page=1&limit=10 HTTP/1.1" 500 16331
+2020-07-07 17:09:34,739,1545,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/debug_test/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/interFace/interfaceManage.py", line 285, in post
+    params, body)
+  File "/Users/zhuzhanhao/Easytest/easy/common/interfaceRun.py", line 65, in run_main
+    params = json.loads(params) if any(params) else None
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 5 column 15 (char 102)
+2020-07-07 17:09:34,749,1545,django.server,ERROR,basehttp.py:157,"POST /api/v1/interface_set/debug_test/ HTTP/1.1" 500 25309

@@ -10,6 +10,7 @@ class LocustTest(TaskSet):
     def setup(cls):
         conn = get_redis_connection('default')
         locust_dic = conn.get("locust_dic")
+        print(locust_dic)
         if not locust_dic:
             return
         cls.locust_dic = json.loads(locust_dic)
@@ -73,7 +74,6 @@ class LocustTest(TaskSet):
 
     @task
     def data_source(self):
-        print(self.locust_dic)
         for value in self.locust_dic.values():
             if value["method"] == "GET":
                 self.get(value)
@@ -86,7 +86,7 @@ class LocustTest(TaskSet):
 
 class WebsiteUser(HttpLocust):
     task_set = LocustTest #定义此 HttpLocust 的执行行为的 TaskSet 类
-    wait_time = between(1, 3)
+    wait_time = between(0.1, 0.3)#模拟用户在每个任务执行后等待时间
 
 if __name__ == "__main__":
     os.system("locust -f locustTest.py --host=http://app.amberdata.cn/")

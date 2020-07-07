@@ -283,6 +283,9 @@ class RunInterfaceDebugTest(APIView):
             url = tcp + "://" + ip + "/" + url
             response_headers, response_body, duration, status_code = InterfaceRun().run_main(method, url, headers,
                                                                                              params, body)
+            if not status_code:
+                error_code["error"] = response_headers
+                return Response(error_code)
             # response = json.dumps(response, ensure_ascii=False, sort_keys=True, indent=2)
             right_code["msg"] = "接口调试成功"
             right_code["response_headers"] = response_headers

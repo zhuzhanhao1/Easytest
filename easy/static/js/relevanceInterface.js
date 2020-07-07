@@ -751,9 +751,20 @@ layui.use(['table', "soulTable"], function (data) {
                                         if (data.code === 1000) {
                                             layer.msg(data.msg, {
                                                 icon: 6, offset: "t"
+                                            });
+                                            layer.open({
+                                                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                                                type: 1,
+                                                title: "响应体",
+                                                skin: "layui-layer-molv",
+                                                area: ['40%', '100%'],
+                                                offset: 'rb',
+                                                content: $("#response_info").html(),
+                                                success: function () {
+                                                    //console.log(res);
+                                                }
                                             })
-                                        }
-                                        else {
+                                        } else {
                                             layer.msg(data.error, {
                                                 icon: 5, offset: "t"
                                             })
@@ -762,18 +773,7 @@ layui.use(['table', "soulTable"], function (data) {
                                         console.log('捕获到异常：',e);
                                     }
 
-                                    layer.open({
-                                        //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                                        type: 1,
-                                        title: "响应体",
-                                        skin: "layui-layer-molv",
-                                        area: ['40%', '100%'],
-                                        offset: 'rb',
-                                        content: $("#response_info").html(),
-                                        success: function () {
-                                            //console.log(res);
-                                        }
-                                    })
+
 
                                 },
                                 error: function (data) {

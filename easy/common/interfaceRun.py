@@ -62,9 +62,13 @@ class InterfaceRun():
             return r.text
 
     def run_main(self, method, url, headers, params, data):
-        params = json.loads(params) if any(params) else None
-        headers = json.loads(headers) if any(headers) else None
-        data = json.loads(data) if any(data) else None
+        try:
+            params = json.loads(params) if any(params) else None
+            headers = json.loads(headers) if any(headers) else None
+            data = json.loads(data) if any(data) else None
+        except Exception as e:
+            print(e)
+            return "json.decoder.JSONDecodeError：请查看请求头或请求体的内容，如False，None，Null等不应该出现",None,None,None
 
         strat_time = time()
         if method == "GET":
