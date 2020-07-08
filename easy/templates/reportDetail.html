@@ -22,6 +22,7 @@
     <script src="{% static 'layui2.5.5/layui.js' %}"></script>
     <script>
         var parentId = '{{ parentId }}';
+        var reportId = '{{ reportId }}';
     </script>
     <script src="{% static 'js/reportDetail.js' %}"></script>
 </head>
@@ -53,112 +54,6 @@
     </div>
 </script>
 
-<script>
-// 绘制图表。
-$(function () {
-    $.ajax({
-        url: "/api/v1/report_detail/echarts/",
-        type: 'GET',
-        data: {
-            "parentId": parentId,
-            "id": "caseset"
-        },
-        //请求前的处理,加载loading
-        success: function (data) {
-            console.log(data);
-            Highcharts.chart('highcaseset', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: '用例集数据统计'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        },
-                        showInLegend: true
-                    }
-                },
-                series: [{
-                    name: '用例集',
-                    colorByPoint: true,
-                    data: data
-                }]
-            });
-        },
-        error: function (data) {
-            console.log(data);
-            alert("出错了，请查看控制台！")
-
-        }
-    });
-    $.ajax({
-        url: "/api/v1/report_detail/echarts/",
-        type: 'GET',
-        data: {
-            "parentId": parentId,
-            "id": "cases"
-        },
-        //请求前的处理,加载loading
-        success: function (data) {
-            console.log(data);
-            Highcharts.chart('highcases', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: '用例数据统计'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        size:"100%",
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        },
-                        showInLegend: true
-                    }
-                },
-                series: [{
-                    name: '用例',
-                    colorByPoint: true,
-                    data: data
-                }]
-            });
-        },
-        error: function (data) {
-            console.log(data);
-            alert("出错了，请查看控制台！")
-
-        }
-    });
-})
-</script>
 
 
 </body>

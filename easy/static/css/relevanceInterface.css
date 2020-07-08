@@ -38,7 +38,7 @@
 }
 
 .layui-laypage a, .layui-laypage span {
-    color: #fff;
+    /*color: #fff;*/
 }
 
 .soul-bottom-contion {
@@ -141,7 +141,7 @@
 }
 .my_textarea_body{
     width: 90%;
-    min-height:220px;
+    min-height:280px;
 }
 .my_submit{
     position: fixed;
@@ -159,7 +159,7 @@
 }
 .my_textarea{
     width: 90%;
-    min-height:180px;
+    min-height:150px;
 }
 
 .my_hide{

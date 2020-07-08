@@ -26,14 +26,6 @@ class PlanPloySer(serializers.ModelSerializer):
         model = ExecutePlan
         fields = ("ploy",)
 
-class StuatusSer(serializers.ModelSerializer):
-    '''
-        运行状态
-    '''
-    class Meta:
-        model = ExecutePlan
-        fields = ("status",)
-
 class ExecutePlanCasesSer(serializers.ModelSerializer):
     '''
         执行计划管理接口集
@@ -76,3 +68,12 @@ class ReportStuatusSer(serializers.ModelSerializer):
     class Meta:
         model = ExecutePlanReport
         fields = ("status",)
+
+
+class ReportCountSer(serializers.ModelSerializer):
+    '''
+        成功失败个数
+    '''
+    class Meta:
+        model = ExecutePlanReport
+        fields = ("fail_case_count","fail_interface_count","all_interface_count")

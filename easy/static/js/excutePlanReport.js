@@ -55,7 +55,10 @@ layui.use(['table', "soulTable"], function (data) {
                         return '<span>完成</span>'
                     }
             }}
-            , {field: 'pass_rate', title: '通过率', width: 120, align: "left"}
+            , {field: 'fail_case_count', title: '失败用例数', width: 120, align: "left"}
+            , {field: 'all_case_count', title: '所有用例数', width: 120, align: "left"}
+            , {field: 'fail_interface_count', title: '失败接口数', width: 120, align: "left"}
+            , {field: 'all_interface_count', title: '所有接口数', width: 120, align: "left"}
             , {
                 field: 'start_time', title: '开始时间', align: "left", templet: function (res) {
                     let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
@@ -265,7 +268,8 @@ layui.use(['table', "soulTable"], function (data) {
         }
         //执行任务
         else if (obj.event === 'report_detail') {
-            var href = "/report_detail?parentId=" + parent_id;
+
+            var href = "/report_detail?parentId=" + parent_id +"&reportId="+id;
             console.log(href);
             //$(window).attr('location',href);
             $(location).attr('href', href);

@@ -84,10 +84,22 @@ class ReportDetail(APIView):
 class echartsReport(APIView):
 
     def get(self, request, *args, **kwargs):
-        parentId = request.GET.get("parentId", "")
+        reportId = request.GET.get("reportId", "")
         flag = request.GET.get("id", "")
-        if flag == "caseset":
-            data = [{"name": '成功',"y": 38.59,}, {"name": '失败',"y": 61.41,}]
+        if flag == "cases":
+            obj = ExecutePlanReport.objects.filter(id=reportId).first()
+            all_case_count = obj.all_case_count
+            fail_case_count= obj.fail_case_count
+            if all_case_count and fail_case_count:
+                data = [{"name": '成功', "y": all_case_count - fail_case_count}, {"name": '失败', "y": fail_case_count}]
+            else:
+                data = [{"name": '未执行完',"y": 100}]
         else:
-            data = [{"name": '成功',"y": 61.41,}, {"name": '失败',"y": 38.59,}]
+            obj = ExecutePlanReport.objects.filter(id=reportId).first()
+            all_interface_count = obj.all_interface_count
+            fail_interface_count= obj.fail_interface_count
+            if all_interface_count and fail_interface_count:
+                data = [{"name": '成功',"y": all_interface_count-fail_interface_count}, {"name": '失败',"y": fail_interface_count}]
+            else:
+                data = [{"name": '未执行完',"y": 100}]
         return Response(data)

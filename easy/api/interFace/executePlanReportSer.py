@@ -10,7 +10,8 @@ class ExecutePlanReportSer(serializers.ModelSerializer):
 
     class Meta:
         model = ExecutePlanReport
-        fields = ("parent","pass_rate","status","start_time","end_time","plan_name","id")
+        fields = ("parent","all_case_count","fail_case_count","fail_interface_count",
+                  "all_interface_count","status","start_time","end_time","plan_name","id")
 
 
 class ReportDetailTreeSer(serializers.ModelSerializer):

@@ -315,15 +315,6 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 }
             }
-            , {field: 'status', title: '状态', width: 90, align: "left", templet: function(res){
-                    if(res.status == false){
-                        return '<span  class="fa fa-toggle-off" style="color: red;font-size: 20px;padding:0 2px;' +
-                            'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
-                    }else if(res.status == true){
-                        return '<span class ="fa fa-toggle-on" style="color: #5FB878;font-size: 20px;padding:0 2px;' +
-                            'margin-top:1px;vertical-align:middle;font-weight: lighter;"></span>'
-                    }
-                }}
             , {
                 field: 'start_time', title: '开始时间', align: "left", templet: function (res) {
                     let date = new Date(+new Date(res.start_time) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
@@ -550,7 +541,6 @@ layui.use(['table', "soulTable"], function (data) {
                             "description": data.description,
                             "ploy": data.ploy,
                             "notification": data.notification,
-                            "status": data.status,
                             "start_time": data.start_time,
                             "end_time": data.end_time,
                         });
@@ -572,7 +562,6 @@ layui.use(['table', "soulTable"], function (data) {
                                     "description": data.field.description,
                                     "ploy": data.field.ploy,
                                     "notification": data.field.notification,
-                                    "status": data.field.status,
                                     "start_time": data.field.start_time,
                                     "end_time": data.field.end_time,
                                 },
@@ -790,7 +779,6 @@ function add_plan() {
                             "description": data.field.description,
                             "ploy": data.field.ploy,
                             "notification": data.field.notification,
-                            "status": data.field.status,
                             "start_time": data.field.start_time,
                             "end_time": data.field.end_time,
                         },

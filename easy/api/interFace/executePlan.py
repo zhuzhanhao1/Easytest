@@ -4,7 +4,8 @@ from django.core.paginator import Paginator
 from easy.models import ExecutePlan, ExecutePlanCases, RelevanceCaseSet, \
     InterFaceCaseData, InterFaceSet, ExecutePlanReport
 from .executePlanSer import ExecutePlanSer, PlanNameSer, \
-    StuatusSer, ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer,ExecutePlanReporttSer,ReportStuatusSer
+    ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer,\
+    ExecutePlanReporttSer,ReportStuatusSer,ReportCountSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -243,6 +244,7 @@ class ExecutePlanRun(InterfaceCaseRun):
         print("查询所有用例集下所有的用例:" + str(cases))
         # 查询所有用例下所有的接口,此查询的结果列表，排序是乱的
         interface_id_list = InterFaceCaseData.objects.filter(parent__in=cases).values_list("interface_id", flat=True).distinct()
+        print("查询所有用例集下所有的接口:" + str(interface_id_list))
         # # 批量修改执行接口的所有请求头
         # token = self.get_token(interface_id_list,admin_url,username,password)
         # if "error" in token:
@@ -251,32 +253,32 @@ class ExecutePlanRun(InterfaceCaseRun):
         scheduler = BackgroundScheduler()
         uid = str(uuid.uuid4())
         obj = ExecutePlan.objects.get(id=id)
-        scheduler.add_job(self.job_func,'cron',start_date=start_date,id=uid,month=month,week=week,day_of_week=day_of_week,
-                          hour=hour,minute=minute,second=second,
-                          args=(cases,end_date,scheduler,uid,notification,obj,interface_id_list,admin_url,username,password))
-        # 开启调度任务
-        scheduler.start()
-        job = str(scheduler.get_job(uid))
-        print(str(job))
-        #获取下次运行的时间节点
-        task_notification = job.split(",")[-1][1:-1]
-        # 将运行状态的标志改为true
-        serializer = StuatusSer(obj, {"status": True})
-        if serializer.is_valid():
-            serializer.save()
+        #保存报告信息
         dic = {
             "parent":id,
             "status":False,
+            "all_case_count":len(cases),
             "start_time":start_date,
             "end_time":end_date
         }
         serializer = ExecutePlanReporttSer(data=dic)
         if serializer.is_valid():
             serializer.save()
+        #获取最新一个报告的对象
+        report_obj = ExecutePlanReport.objects.filter().last()
+        scheduler.add_job(self.job_func,'cron',start_date=start_date,id=uid,month=month,week=week,day_of_week=day_of_week,
+                          hour=hour,minute=minute,second=second,
+                          args=(cases,end_date,scheduler,uid,notification,obj,interface_id_list,admin_url,username,password,report_obj))
+        # 开启调度任务
+        scheduler.start()
+        job = str(scheduler.get_job(uid))
+        print(str(job))
+        #获取下次运行的时间节点
+        task_notification = job.split(",")[-1][1:-1]
         right_code["msg"] = task_notification
         return Response(right_code)
 
-    def job_func(self,cases,end_date,scheduler,uid,notification,obj,interface_id_list,admin_url,username,password):
+    def job_func(self,cases,end_date,scheduler,uid,notification,obj,interface_id_list,admin_url,username,password,report_obj):
         '''
             调度执行任务
         '''
@@ -291,19 +293,19 @@ class ExecutePlanRun(InterfaceCaseRun):
             try:
                 DingNotice().send_text_bot("定时任务：" + title + "已结束，请查看测试报告")
                 #将报告状态改为完成（True）
-                serializer = ReportStuatusSer(obj, {"status": True})
+                serializer = ReportStuatusSer(report_obj, {"status": True})
                 if serializer.is_valid():
                     serializer.save()
                 scheduler.shutdown()
             except Exception as e:
                 print(e)
-            # 将运行状态的标志改为false
-            serializer = StuatusSer(obj, {"status": False})
-            if serializer.is_valid():
-                serializer.save()
             return
         # 在结束的时间内，遍历所有的用例并执行
+        fail_case_count = 0
+        fail_interface_count = 0
+        all_interface_count = 0
         for i in cases:
+            fail_interface = []
             id_list = InterFaceCaseData.objects.filter(parent=i).values_list("interface_id", flat=True)
             # 如果用例下存在接口，则挨个运行
             if id_list:
@@ -319,12 +321,26 @@ class ExecutePlanRun(InterfaceCaseRun):
                     print("任务下获取Token成功")
                 for id in id_list:
                     # 调用接口运行类方法runcase()运行接口
+                    all_interface_count += 1
                     process_dict, status_code = InterfaceCaseRun().runcase(id, len(id_list))
                     if status_code != 200:
+                        fail_interface.append(id)
+                        fail_interface_count += 1
                         interface_name = process_dict["interface_execute_now"]
                         DingNotice().send_text_bot(interface_name + "：接口执行异常，请留意！")
+                if len(fail_interface) > 0:
+                    fail_case_count += 1
+                    fail_interface.clear()
+        count_dic = {
+            "fail_case_count":fail_case_count,
+            "fail_interface_count":fail_interface_count,
+            "all_interface_count":all_interface_count
+        }
+        serializer = ReportCountSer(report_obj,count_dic)
+        if serializer.is_valid():
+            serializer.save()
         # 每次运行完一次任务，则清空success_id_list
-        InterfaceCaseRun.success_id_list = []
+        InterfaceCaseRun.success_id_list.clear()
         # 需要消息通知时，每次结束发送当前任务进度
         if bool(notification):
             self.num += 1

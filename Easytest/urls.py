@@ -17,10 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from easy.api import renderHtml
 
+
 urlpatterns = [
     # django-restframework
     url(r'^api/(?P<version>\w+)/', include('easy.urls')),
-    # 后台页面
+    # 后台管理页面
     url(r'^admin/', admin.site.urls),
     # 返回页面
     url(r'^login/$', renderHtml.login_views),

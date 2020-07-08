@@ -180,7 +180,6 @@ class ExecutePlan(models.Model):
     description = models.CharField(max_length=255, verbose_name="计划描述", null=True, blank=True)
     ploy = models.CharField(max_length=50, verbose_name="策略")
     notification = models.BooleanField(verbose_name="消息通知")
-    status = models.BooleanField(verbose_name="计划状态")
     start_time = models.DateTimeField(verbose_name="开始时间",null=True,blank=True)
     end_time = models.DateTimeField(verbose_name="结束时间", null=True, blank=True)
 
@@ -212,7 +211,10 @@ class ExecutePlanReport(models.Model):
         执行计划报告
     '''
     parent = models.ForeignKey(ExecutePlan, on_delete=models.CASCADE, verbose_name='执行计划id')
-    pass_rate = models.CharField(max_length=8, verbose_name="通过率", null=True, blank=True,default="")
+    fail_case_count = models.IntegerField(verbose_name="失败用例数",null=True,blank=True)
+    all_case_count = models.IntegerField(verbose_name="所有用例数")
+    fail_interface_count = models.IntegerField(verbose_name="失败接口数",null=True,blank=True)
+    all_interface_count = models.IntegerField(verbose_name="所有接口数",null=True,blank=True)
     #报告状态：False进行中，True完成
     status = models.BooleanField(verbose_name="报告状态")
     start_time = models.DateTimeField(verbose_name="开始时间",null=True,blank=True)

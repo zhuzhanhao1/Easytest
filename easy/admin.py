@@ -62,4 +62,4 @@ class RelevanceCaseSetAdmin(admin.ModelAdmin):
 
 @admin.register(ExecutePlan)
 class ExecutePlanAdmin(admin.ModelAdmin):
-    list_display = ("plan_name", "description", "ploy", "notification", "status", "start_time", "end_time")
+    list_display = ("plan_name", "description", "ploy", "notification",  "start_time", "end_time")

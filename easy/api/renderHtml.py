@@ -171,7 +171,8 @@ def report_detail_views(request):
         报告详情
     '''
     parentId = request.GET.get("parentId", "")
-    return render(request, 'reportDetail.html', {"parentId": parentId})
+    reportId = request.GET.get("reportId", "")
+    return render(request, 'reportDetail.html', {"parentId": parentId,"reportId":reportId})
 
 def echart_report_views(request):
     '''

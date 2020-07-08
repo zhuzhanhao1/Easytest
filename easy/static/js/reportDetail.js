@@ -156,3 +156,108 @@ layui.use(['tree', "table"], function () {
 
 
 
+$(function () {
+    $.ajax({
+        url: "/api/v1/report_detail/echarts/",
+        type: 'GET',
+        data: {
+            "reportId": reportId,
+            "id": "cases"
+        },
+        //请求前的处理,加载loading
+        success: function (data) {
+            console.log(data);
+            Highcharts.chart('highcaseset', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: '用例数据统计'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        size:"100%",
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: '用例',
+                    colorByPoint: true,
+                    data: data
+                }]
+            });
+        },
+        error: function (data) {
+            console.log(data);
+            alert("出错了，请查看控制台！")
+
+        }
+    });
+    $.ajax({
+        url: "/api/v1/report_detail/echarts/",
+        type: 'GET',
+        data: {
+            "reportId": reportId,
+            "id": "interface"
+        },
+        //请求前的处理,加载loading
+        success: function (data) {
+            console.log(data);
+            Highcharts.chart('highcases', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: '接口数据统计'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        size:"100%",
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: '接口',
+                    colorByPoint: true,
+                    data: data
+                }]
+            });
+        },
+        error: function (data) {
+            console.log(data);
+            alert("出错了，请查看控制台！")
+
+        }
+    });
+})
+
