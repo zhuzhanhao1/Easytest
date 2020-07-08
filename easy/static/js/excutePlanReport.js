@@ -268,8 +268,10 @@ layui.use(['table', "soulTable"], function (data) {
         }
         //执行任务
         else if (obj.event === 'report_detail') {
+            let start_time = new Date(+new Date(data["start_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+            let end_time = new Date(+new Date(data["end_time"]) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
 
-            var href = "/report_detail?parentId=" + parent_id +"&reportId="+id;
+            var href = "/report_detail?parentId=" + parent_id +"&reportId="+id+"&plan_name="+data["plan_name"]+"&start_time="+start_time+"&end_time="+end_time;
             console.log(href);
             //$(window).attr('location',href);
             $(location).attr('href', href);

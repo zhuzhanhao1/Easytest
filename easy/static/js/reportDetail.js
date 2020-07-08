@@ -18,9 +18,17 @@ layui.use(['tree', "table"], function () {
                 , isJump: true //是否允许点击节点时弹出新窗口跳转
                 //, onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
                 , click: function (obj) {
+                    console.log($(this));
                     var data = obj.data;  //获取当前点击的节点数据
                     console.log(data);
-                    layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data.title));
+                    var nodes = document.getElementsByClassName("layui-tree-txt");
+                    for(var i=0;i<nodes.length;i++){
+                        if(nodes[i].innerHTML === obj.data.title)
+                            nodes[i].style.color = "#5FB878";
+                        else
+                            nodes[i].style.color= "#555";
+                    }
+                    //layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data.title));
                     var title = data.title;
                     var tableIns = table.render({
                         elem: '#treetable',

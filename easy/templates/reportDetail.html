@@ -34,11 +34,41 @@
     <div class="zzh">
         <!--树-->
         <div class="report">
-            <div id="highcases" style="min-width:400px;height:250px;;margin-right: 200px;float: right;"></div>
+            <div id="highcases" style="min-width:400px;height:250px;float: right;"></div>
             <div id="highcaseset" style="min-width:400px;height:250px;"></div>
         </div>
         <div class="return"><a class="layui-btn layui-btn-sm" href="/interface_test_report">返回上一级</a></div>
         <div id="test" class="demo-tree demo-tree-box treetable"></div>
+        <div class="report_table">
+            <div style="padding: 20px; background-color: #F2F2F2;">
+              <div class="layui-row layui-col-space15">
+                <div class="layui-col-md6">
+                  <div class="layui-card">
+                    <div class="layui-card-header">开始时间</div>
+                    <div class="layui-card-body">
+                      {{start_time}}
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-col-md6">
+                  <div class="layui-card">
+                    <div class="layui-card-header">结束时间</div>
+                    <div class="layui-card-body">
+                      {{end_time}}
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-col-md12">
+                  <div class="layui-card">
+                    <div class="layui-card-header">报告标题</div>
+                    <div class="layui-card-body">
+                      {{plan_name}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
         <div class="treetable mytable">
             <!--表格-->
             <table id="treetable" lay-filter="treetable"></table>

@@ -24,6 +24,7 @@ function get_table_by_title() {
                     limits: [10, 15, 20, 25],
                     id: "linkListTab",
                     size: 'lg',
+                    //skin: 'line', //行边框风格 /row列表框风格 /nob无边框风格
                     where: {
                         "title": title
                     },
@@ -256,6 +257,7 @@ $(document).ready(function(){
             limits: [10, 15, 20, 25],
             id: "linkListTab",
             size: 'lg',
+            //skin: 'line', //行边框风格 /row列表框风格 /nob无边框风格
             where: {
                 "title": res
             },

@@ -172,7 +172,17 @@ def report_detail_views(request):
     '''
     parentId = request.GET.get("parentId", "")
     reportId = request.GET.get("reportId", "")
-    return render(request, 'reportDetail.html', {"parentId": parentId,"reportId":reportId})
+    plan_name = request.GET.get("plan_name", "")
+    start_time = request.GET.get("start_time", "")
+    end_time = request.GET.get("end_time", "")
+    dic = {
+        "parentId":parentId,
+        "reportId":reportId,
+        "plan_name":plan_name,
+        "start_time":start_time,
+        "end_time":end_time
+    }
+    return render(request, 'reportDetail.html', dic)
 
 def echart_report_views(request):
     '''

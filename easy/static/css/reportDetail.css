@@ -43,3 +43,16 @@ body{
 .highcharts-credits{
     display: none;
 }
+.layui-tree{
+    height: 800px;
+    background-color: #F2F2F2;
+    overflow: visible;
+    border-radius: 10px;
+}
+.report_table{
+    width: 400px;
+    height: 200px;
+    float:left;
+    margin-left: 3%;
+    margin-top: -20px;
+}

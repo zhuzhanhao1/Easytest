@@ -19,3 +19,12 @@ class DescriptionSer(serializers.ModelSerializer):
         model = InterFaceCase
         # exclude = ("",)
         fields = ("description",)
+
+class PassRateSer(serializers.ModelSerializer):
+    '''
+        主菜单
+    '''
+    class Meta:
+        model = InterFaceCase
+        # exclude = ("",)
+        fields = ("pass_rate",)

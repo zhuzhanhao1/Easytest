@@ -112,7 +112,7 @@ layui.use(['table', "soulTable"], function (data) {
                 templet: function (res) {
                     if (res.pass_rate == 100) {
                         let a = String(res.pass_rate) + "%";
-                        return '<span style="color: chartreuse;">' + a + '</span>'
+                        return '<span style="color: #5FB878;">' + a + '</span>'
                     } else {
                         let b = String(res.pass_rate) + "%";
                         return '<span style="color: red;">' + b + '</span>'
@@ -308,8 +308,9 @@ layui.use(['table', "soulTable"], function (data) {
                                         $(".layui-progress-bar").addClass("layui-bg-red");
                                     } else if (num_progress == 100) {
                                         $(".layui-progress-bar").removeClass("layui-bg-red");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            layer.close(process);
+                                        layer.close(process);
                                         ws.close()
+
                                     };
                                 })
                             }
@@ -321,11 +322,12 @@ layui.use(['table', "soulTable"], function (data) {
                     ws.onclose = function () {
                         // 关闭 websocket
                         layer.msg('用例执行完成，websocket连接即将关闭！', {icon: 6, offset: "t"});
+                        $(".layui-laypage-btn").click();
                     };
 
                 }
                 break
-            //
+            //批量修改
             case "bacth_update":
                 var data = checkStatus.data;
                 var id_list = [];
@@ -471,7 +473,6 @@ layui.use(['table', "soulTable"], function (data) {
                     }
                 });
                 break
-            //
 
         }
 

@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from easy.models import InterFaceCase, InterFaceCaseData, InterFaceSet
-from .interfaceCaseSer import InterFaceCaseSer, DescriptionSer
+from .interfaceCaseSer import InterFaceCaseSer, DescriptionSer,PassRateSer
 from .interfaceManageSer import ResultTimeSer,HeadersSer,IPSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -235,6 +235,11 @@ class InterfaceCaseRun(APIView):
                         process_dict,status_code = self.runcase(id,all_num)
                         process_dict["status_code"] = status_code
                         request.websocket.send(str.encode(json.dumps(process_dict)))
+                    obj = InterFaceCase.objects.filter(id=id_list[0]).first()
+                    pass_rate = {"pass_rate":str(int(len(self.success_id_list) / all_num * 100))}
+                    serializer = PassRateSer(obj, pass_rate)
+                    if serializer.is_valid():
+                        serializer.save()
         except Exception as e:
             print(e)
         right_code["msg"] = "接口用例运行结束"
