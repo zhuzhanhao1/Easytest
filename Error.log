@@ -7812,3 +7812,51 @@ Traceback (most recent call last):
     raise TypeError('Expected a `coreapi.Document` instance')
 TypeError: Expected a `coreapi.Document` instance
 2020-07-08 20:16:33,161,11049,django.server,ERROR,basehttp.py:157,"GET /docs/ HTTP/1.1" 500 114484
+2020-07-09 23:34:51,971,5780,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/echarts/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\executePlanReport.py", line 112, in get
+    pass_rate = int((all_case_count - fail_case_count) / all_case_count * 100)
+TypeError: unsupported operand type(s) for -: 'int' and 'NoneType'
+2020-07-09 23:34:51,972,5780,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/echarts/?id=home HTTP/1.1" 500 17098
+2020-07-09 23:37:20,799,3804,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/echarts/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\executePlanReport.py", line 114, in get
+    pass_rate = int((all_case_count - fail_case_count) / all_case_count * 100)
+ZeroDivisionError: division by zero
+2020-07-09 23:37:20,800,3804,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/echarts/?id=home HTTP/1.1" 500 16979

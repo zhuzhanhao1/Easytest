@@ -34,6 +34,7 @@ a:hover {
 
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -312,15 +313,54 @@ p {
     border-radius: 100%;
 }
 
-
-
 h1 {
     width:100%;
     text-align: center;
-
-
 }
 
 #container{
     margin: 20px;
+    /*position: fixed;*/
+    /*bottom: 50px;*/
+}
+.header{
+    margin-left: 45%;
+    margin-top: 10px;
+}
+.my-card{
+    margin: 20px 0px;
+}
+#wrapper{
+    margin-left: 88%;
+}
+.layui-card-body{
+    font-size: 30px;
+    line-height: 80px;
+}
+.layui-card-header{
+    height: 50px;
+    line-height: 50px;
+}
+.card-fa{
+    float: right;
+    margin: 15px;
+    font-size: 20px;
+}
+.fa-list-ol{
+    color: rgb(124, 181, 236);
+}
+.fa-bug{
+    color: rgb(85, 191, 59);
+}
+
+.fa-tasks{
+    color: rgb(238, 170, 238);
+}
+
+.fa-sliders{
+    color: rgb(247, 163, 92);
+}
+
+.highcharts-credits{
+    display: none;
 }

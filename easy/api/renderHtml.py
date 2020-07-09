@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from easy.models import InterFaceManageModule, InterFaceCase
+from easy.models import InterFaceManageModule, InterFaceCase, InterfaceCaseSet,InterFaceSet,ExecutePlan
 from django.contrib import auth
 import requests
 
@@ -88,7 +88,17 @@ def home_views(request):
     '''
         首页
     '''
-    return render(request, 'home.html')
+    case_coount = InterFaceCase.objects.filter().count()
+    case_set_coount = InterfaceCaseSet.objects.filter().count()
+    interface_coount = InterFaceSet.objects.filter().count()
+    plan_coount = ExecutePlan.objects.filter().count()
+    dic = {
+        "case_coount":case_coount,
+        "case_set_coount": case_set_coount,
+        "interface_coount": interface_coount,
+        "plan_coount": plan_coount,
+    }
+    return render(request, 'home.html',dic)
 
 def menu_manage_views(request):
     '''

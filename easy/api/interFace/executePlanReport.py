@@ -94,7 +94,7 @@ class echartsReport(APIView):
                 data = [{"name": '成功', "y": all_case_count - fail_case_count}, {"name": '失败', "y": fail_case_count}]
             else:
                 data = [{"name": '未执行完',"y": 100}]
-        else:
+        elif flag =="caseset" :
             obj = ExecutePlanReport.objects.filter(id=reportId).first()
             all_interface_count = obj.all_interface_count
             fail_interface_count= obj.fail_interface_count
@@ -102,4 +102,15 @@ class echartsReport(APIView):
                 data = [{"name": '成功',"y": all_interface_count-fail_interface_count}, {"name": '失败',"y": fail_interface_count}]
             else:
                 data = [{"name": '未执行完',"y": 100}]
+        else:
+            obj = ExecutePlanReport.objects.filter().order_by("-id")[0:10]
+            data = []
+            if obj:
+                for i in obj:
+                    all_case_count = i.all_case_count
+                    fail_case_count = i.fail_case_count
+                    if not fail_case_count:
+                        fail_case_count = 0
+                    pass_rate = int((all_case_count - fail_case_count) / all_case_count * 100)
+                    data.append(pass_rate)
         return Response(data)
