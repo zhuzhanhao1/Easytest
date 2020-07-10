@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./../static/layui2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="./../static/css/main.css">
     <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="./../static/css/search.css">
+    <link rel="stylesheet" href="./../static/css/home.css">
 
     <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
     <script src="https://code.highcharts.com.cn/highcharts/highcharts-more.js"></script>
@@ -39,7 +39,7 @@
                         <span class="card-fa fa fa-list-ol"></span>
                     </div>
                     <div class="layui-card-body fa-list-ol">
-                      {{ case_coount }}个
+                      {{ 个interface_coount }}
                     </div>
                   </div>
                 </div>
@@ -47,7 +47,7 @@
                   <div class="layui-card">
                     <div class="layui-card-header">用例数<span class="card-fa fa fa-bug"></span></div>
                     <div class="layui-card-body fa-bug">
-                      {{ case_set_coount }}个
+                      {{ 个case_coount }}
                     </div>
                   </div>
                 </div>
@@ -55,7 +55,7 @@
                   <div class="layui-card">
                     <div class="layui-card-header">用例集数<span class="card-fa fa fa-sliders"></span></div>
                     <div class="layui-card-body fa-sliders">
-                      {{ interface_coount }}个
+                      {{ case_set_coount }}个
                     </div>
                   </div>
                 </div>
@@ -70,8 +70,8 @@
               </div>
             </div>
     <div id="wrapper">
-        <button class="layui-btn layui-btn-sm" id="plain">普通</button>
-        <button class="layui-btn layui-btn-sm" id="inverted">反转</button>
+        <button class="layui-btn layui-btn-sm" id="plain">纵向柱状图</button>
+        <button class="layui-btn layui-btn-sm" id="inverted">横向柱状图</button>
         <button class="layui-btn layui-btn-sm" id="polar">极地图</button>
     </div>
     <div id="container"></div>

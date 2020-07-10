@@ -15,10 +15,10 @@ class ExecutePlanReportList(APIView):
             任务计划列表
         '''
         planName = request.GET.get("plan_name", "")
-        obj = ExecutePlanReport.objects.filter()
+        obj = ExecutePlanReport.objects.filter().order_by("-id")
         # 如果有搜索内容
         if planName:
-            obj = ExecutePlanReport.objects.filter(plan_name__contains=planName)
+            obj = ExecutePlanReport.objects.filter(plan_name__contains=planName).order_by("-id")
         serializer = ExecutePlanReportSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量
@@ -94,7 +94,7 @@ class echartsReport(APIView):
                 data = [{"name": '成功', "y": all_case_count - fail_case_count}, {"name": '失败', "y": fail_case_count}]
             else:
                 data = [{"name": '未执行完',"y": 100}]
-        elif flag =="caseset" :
+        elif flag =="interface" :
             obj = ExecutePlanReport.objects.filter(id=reportId).first()
             all_interface_count = obj.all_interface_count
             fail_interface_count= obj.fail_interface_count

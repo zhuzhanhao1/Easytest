@@ -7860,3 +7860,76 @@ Traceback (most recent call last):
     pass_rate = int((all_case_count - fail_case_count) / all_case_count * 100)
 ZeroDivisionError: division by zero
 2020-07-09 23:37:20,800,3804,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/echarts/?id=home HTTP/1.1" 500 16979
+2020-07-10 14:28:23,834,5267,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/list/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 507, in dispatch
+    self.response = self.finalize_response(request, response, *args, **kwargs)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/rest_framework/views.py", line 422, in finalize_response
+    % type(response)
+AssertionError: Expected a `Response`, `HttpResponse` or `HttpStreamingResponse` to be returned from the view, but received a `<class 'NoneType'>`
+2020-07-10 14:28:23,843,5267,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/list/?page=1&limit=10 HTTP/1.1" 500 16492
+2020-07-10 18:30:42,388,8378,django.request,ERROR,log.py:228,Internal Server Error: /home/
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/defaulttags.py", line 1021, in find_library
+    return parser.libraries[name]
+KeyError: 'templates'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/zhuzhanhao/Easytest/easy/api/renderHtml.py", line 101, in home_views
+    return render(request, 'home/home.html',dic)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/backends/django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/loaders/base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/base.py", line 156, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/base.py", line 194, in compile_nodelist
+    return parser.parse()
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/base.py", line 477, in parse
+    raise self.error(token, e)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/base.py", line 475, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/defaulttags.py", line 1078, in load
+    lib = find_library(parser, name)
+  File "/Users/zhuzhanhao/opt/anaconda3/envs/py37/lib/python3.7/site-packages/django/template/defaulttags.py", line 1025, in find_library
+    name, "\n".join(sorted(parser.libraries)),
+django.template.exceptions.TemplateSyntaxError: 'templates' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+i18n
+l10n
+log
+rest_framework
+static
+tz
+2020-07-10 18:30:42,393,8378,django.server,ERROR,basehttp.py:157,"GET /home/ HTTP/1.1" 500 147539

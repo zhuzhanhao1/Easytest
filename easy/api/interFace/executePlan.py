@@ -344,7 +344,7 @@ class ExecutePlanRun(InterfaceCaseRun):
         # 需要消息通知时，每次结束发送当前任务进度
         if bool(notification):
             self.num += 1
-            DingNotice().send_text_bot(title + "第" + str(self.num) + "次运行已结束，请查看测试报告")
+            DingNotice().send_text_bot(title + "第" + str(self.num) + "次运行已完成，请查看测试报告")
         print("#" * 100)
 
     def get_token(self, interface_id_list, admin_url, username, password):
