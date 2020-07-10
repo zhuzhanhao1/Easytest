@@ -1040,7 +1040,8 @@ function add_case() {
                 var form = layui.form,
                     $ = layui.$;
                 form.val("add_update_case", {
-                    "preprocessor": "False"
+                    "preprocessor": "False",
+                    "url":11
                 });
                 form.on('radio(preprocessor)', function (data) {
                     console.log(data.elem); //得到radio原始DOM对象

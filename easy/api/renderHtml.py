@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from easy.models import InterFaceManageModule, InterFaceCase, InterfaceCaseSet,InterFaceSet,ExecutePlan
 from django.contrib import auth
 import requests
-
+from django.contrib.auth.decorators import login_required
 
 def login_views(request):
     '''
@@ -46,20 +46,6 @@ def dingding_login_views(request):
             'https://oapi.dingtalk.com/sns/getuserinfo?sns_token={sns_token}'.format(sns_token=sns_token))
         user_info = user_info_request.json()['user_info']
         print(user_info)
-        # if user_obj:
-        #     print("当前登录用户已存在！")
-        # else:
-        #     password = make_password("admin")
-        #     user = User.objects.create(
-        #         username=pypinyin.slug(user_info["nick"], separator="") + str(random.randint(0, 9999)),
-        #         password=password, first_name=user_info["nick"])
-        #     userprofile = UserProfile.objects.create(user=user, openId=openid, unionid=unionid)
-        #     print(userprofile)
-        # user = UserProfile.objects.get(unionid=unionid)
-        # user = User.objects.get(id=user.user_id)
-        # request.session['username'] = user.username  # 登录成功后，用户登录信息存>放于session
-        # request.session.set_expiry(86400)  # 设置登录过期时间
-        # print(request.session)
         return redirect('/index/')
     else:
         return render(request, 'login.html')
@@ -82,8 +68,6 @@ def index_views(request):
     return render(request, 'index.html')
 
 # 以下都是内嵌的iframe
-
-
 def home_views(request):
     '''
         首页

@@ -7933,3 +7933,33 @@ rest_framework
 static
 tz
 2020-07-10 18:30:42,393,8378,django.server,ERROR,basehttp.py:157,"GET /home/ HTTP/1.1" 500 147539
+2020-07-10 21:05:02,638,2632,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/export_report/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "D:\python\project\Easytest\easy\api\interFace\public.py", line 48, in post
+    content = json.loads(datas.get("request", ""))
+  File "D:\Anaconda3\envs\test\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Anaconda3\envs\test\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Anaconda3\envs\test\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2020-07-10 21:05:02,640,2632,django.server,ERROR,basehttp.py:157,"POST /api/v1/public/export_report/ HTTP/1.1" 500 17761
