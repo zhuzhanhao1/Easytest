@@ -53,7 +53,7 @@ class InterFaceSetCaseAdmin(admin.ModelAdmin):
 
 @admin.register(InterFaceCaseData)
 class InterFaceCaseDataAdmin(admin.ModelAdmin):
-    list_display = ("parent", "interface_id", "interface_name", "description")
+    list_display = ("parent",  "interface_name", "description")
 
 @admin.register(RelevanceCaseSet)
 class RelevanceCaseSetAdmin(admin.ModelAdmin):

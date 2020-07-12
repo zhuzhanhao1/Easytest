@@ -675,7 +675,7 @@ layui.use(['table', "soulTable"], function (data) {
                             "url": data.url,
                             "method": data.method,
                             "headers": data.headers,
-                            "params": data.query,
+                            "params": data.params,
                             "body": data.body,
                             "preprocessor": data.preprocessor,
                             "depend_id": data.depend_id,
@@ -726,7 +726,7 @@ layui.use(['table', "soulTable"], function (data) {
                                     "method": data.field.method,
                                     "belong_module": parentId,
                                     "headers": data.field.headers,
-                                    "params": data.field.query,
+                                    "params": data.field.params,
                                     "preprocessor": data.field.preprocessor,
                                     "body": data.field.body,
                                     "depend_id": data.field.depend_id,
@@ -1032,16 +1032,15 @@ function add_case() {
         title: "新建用例",
         skin: "layui-layer-molv",
         shade: 0.6,
-        area: ['35%',],
-        //offset: 't',
+        area: ['35%',"100%"],
+        offset: 'lt',
         content: $("#add_update_case").html(),
         success: function () {
             layui.use(['form', "jquery"], function () {
                 var form = layui.form,
                     $ = layui.$;
                 form.val("add_update_case", {
-                    "preprocessor": "False",
-                    "url":11
+                    "preprocessor": "False"
                 });
                 form.on('radio(preprocessor)', function (data) {
                     console.log(data.elem); //得到radio原始DOM对象

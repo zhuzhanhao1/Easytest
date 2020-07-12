@@ -1,4 +1,4 @@
-from easy.models import ExecutePlanReport,InterFaceSet,InterfaceCaseSet,RelevanceCaseSet
+from easy.models import ExecutePlanReport,InterFaceCaseData,InterfaceCaseSet,RelevanceCaseSet
 from rest_framework import serializers
 
 
@@ -40,7 +40,7 @@ class InterFaceSetSer(serializers.ModelSerializer):
     '''
         报告列表
     '''
-    belong_module = serializers.CharField(source="belong_module.puisne_module")
+    # belong_module = serializers.CharField(source="belong_module.puisne_module")
     class Meta:
-        model = InterFaceSet
-        fields = ("interface_name","url","belong_module","duration","result")
+        model = InterFaceCaseData
+        fields = ("interface_name","url","duration","result")

@@ -65,9 +65,7 @@ class ReportDetail(APIView):
             menu_data = ReportDetailTreeSer(obj, many=True).data
             return Response(menu_data)
         elif id:
-            ids = InterFaceCaseData.objects.filter(parent=id).values_list("interface_id",flat=True)
-            print(ids)
-            obj = InterFaceSet.objects.filter(id__in=ids)
+            obj = InterFaceCaseData.objects.filter(parent=id)
             print(obj)
             serializer = InterFaceSetSer(obj, many=True)
             pageindex = request.GET.get('page', 1)  # 页数
@@ -90,7 +88,8 @@ class echartsReport(APIView):
             obj = ExecutePlanReport.objects.filter(id=reportId).first()
             all_case_count = obj.all_case_count
             fail_case_count= obj.fail_case_count
-            if all_case_count and fail_case_count:
+            print(all_case_count,fail_case_count)
+            if all_case_count or fail_case_count:
                 data = [{"name": '成功', "y": all_case_count - fail_case_count}, {"name": '失败', "y": fail_case_count}]
             else:
                 data = [{"name": '未执行完',"y": 100}]
@@ -98,7 +97,7 @@ class echartsReport(APIView):
             obj = ExecutePlanReport.objects.filter(id=reportId).first()
             all_interface_count = obj.all_interface_count
             fail_interface_count= obj.fail_interface_count
-            if all_interface_count and fail_interface_count:
+            if all_interface_count or fail_interface_count:
                 data = [{"name": '成功',"y": all_interface_count-fail_interface_count}, {"name": '失败',"y": fail_interface_count}]
             else:
                 data = [{"name": '未执行完',"y": 100}]

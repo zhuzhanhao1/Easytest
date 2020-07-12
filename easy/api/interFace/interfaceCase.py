@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from easy.models import InterFaceCase, InterFaceCaseData, InterFaceSet
 from .interfaceCaseSer import InterFaceCaseSer, DescriptionSer,PassRateSer
-from .interfaceManageSer import ResultTimeSer,HeadersSer,IPSer
+from .relevanceInterfaceSer import HeadersSer,IpSer,ResultTimeSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -93,7 +93,7 @@ class InterfaceCaseRun(APIView):
         '''
             运行接口
         '''
-        QuerySet = InterFaceSet.objects.get(id=id)
+        QuerySet = InterFaceCaseData.objects.get(id=id)
         id = QuerySet.id
         url = QuerySet.url
         method = QuerySet.method
@@ -113,6 +113,7 @@ class InterfaceCaseRun(APIView):
         # 拼接请求的URL
         url = tcp + "://" + ip + "/" + url
         if depend_id:
+            print("依赖的id："+str(depend_id))
             params = json.loads(params) if any(params) else ""
             body = json.loads(body) if any(body) else ""
             # 依赖的id列表
@@ -134,7 +135,7 @@ class InterfaceCaseRun(APIView):
                         continue
 
                     print("依赖取值开开始。。。。")
-                    dependId = InterFaceSet.objects.get(id=depend_id[num])
+                    dependId = InterFaceCaseData.objects.get(id=depend_id[num])
                     depend_result = json.loads(dependId.result)
                     # 获取需要替换的jsonpath[key]的结果，转为字典，字典的键放入一个列表存储。
                     if isinstance(depend_jsonpath, list):
@@ -198,9 +199,9 @@ class InterfaceCaseRun(APIView):
             djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
             if "xml" in djson:
                 djson = "表格中不允许出现XML"
-            ResultTimeObj = InterFaceSet.objects.get(id=id)
+            #更新结果的值
             data = {"result": djson, "duration": duration}
-            serializer = ResultTimeSer(ResultTimeObj, data=data)
+            serializer = ResultTimeSer(QuerySet, data=data)
             # 在获取反序列化的数据前，必须调用is_valid()方法进行验证，验证成功返回True，否则返回False
             if serializer.is_valid():
                 serializer.save()
@@ -228,21 +229,26 @@ class InterfaceCaseRun(APIView):
                     id_list = json.loads(message.decode())
                     print(id_list)
                     # 获取用例依赖的关联结果集
-                    interface_id_list = InterFaceCaseData.objects.filter(parent__in=id_list).values_list("interface_id",flat=True)
+                    interface_id_list = InterFaceCaseData.objects.filter(parent__in=id_list).values_list("id",flat=True)
                     print("关联的id_list" + str(interface_id_list))
                     all_num = len(interface_id_list)
+                    pass_num = 0
                     for id in interface_id_list:
                         process_dict,status_code = self.runcase(id,all_num)
                         process_dict["status_code"] = status_code
                         request.websocket.send(str.encode(json.dumps(process_dict)))
+                        if status_code == 200:
+                            pass_num += 1
+                    #更新用例通过率的值
                     obj = InterFaceCase.objects.filter(id=id_list[0]).first()
-                    pass_rate = {"pass_rate":str(int(len(self.success_id_list) / all_num * 100))}
+                    pass_rate = {"pass_rate":str(int(pass_num / all_num * 100))}
                     serializer = PassRateSer(obj, pass_rate)
                     if serializer.is_valid():
                         serializer.save()
         except Exception as e:
             print(e)
         right_code["msg"] = "接口用例运行结束"
+        self.success_id_list.clear()
         return Response(right_code)
 
 class InterfaceBacthUpdate(APIView):
@@ -282,19 +288,19 @@ class InterfaceBacthUpdate(APIView):
         #如果勾选了多选框修改
         if not id_list:
             id_list = InterFaceCase.objects.filter().values_list("id", flat=True)
-        interface_id_list = InterFaceCaseData.objects.filter(parent__in=id_list).values_list("interface_id", flat=True).distinct()
+        interface_id_list = InterFaceCaseData.objects.filter(parent__in=id_list).values_list("id", flat=True).distinct()
         print(interface_id_list)
         #如果未勾选多选框修改
 
         for pk in interface_id_list:
-            obj = InterFaceSet.objects.filter(id=pk).first()
+            obj = InterFaceCaseData.objects.filter(id=pk).first()
             try:
                 if key == "headers":
                     data_ser = {"headers":value}
                     serializer = HeadersSer(obj, data=data_ser)
                 elif key == "ip":
                     data_ser = {"ip": value}
-                    serializer = IPSer(obj, data=data_ser)
+                    serializer = IpSer(obj, data=data_ser)
                 if serializer.is_valid():
                     serializer.save()
                 else:

@@ -1,8 +1,9 @@
 import json,os
 from django.core.paginator import Paginator
+from django.db.models import Q
 from easy.models import InterFaceCaseData,InterFaceSet
-from .relevanceInterfaceSer import InterFaceCaseDataSer,AddRelevanceInterfaceSer,\
-    DescriptionSer,InterfaceNameSer,HeadSer
+from .relevanceInterfaceSer import AddRelevanceInterfaceSer,DescriptionSer,\
+    InterfaceNameSer,HeadSer,DependIdSer,DependKeySer,ReplaceKeySer,ReplacePositionSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,14 +11,15 @@ from easy.config.Status import *
 from django_redis import get_redis_connection
 
 
-
-
 class InterfaceCaseData(APIView):
 
     def get(self, request, *args, **kwargs):
         parentId = request.GET.get("parentId")
+        id = request.GET.get("id")
         obj = InterFaceCaseData.objects.filter(parent=parentId)
-        serializer = InterFaceCaseDataSer(obj, many=True)
+        if id:
+            obj = InterFaceCaseData.objects.filter(Q(parent=parentId) & Q(id=id))
+        serializer = AddRelevanceInterfaceSer(obj, many=True)
         pageindex = request.GET.get('page', 1)  # 页数
         pagesize = request.GET.get("limit", 10)  # 每页显示数量
         pageInator = Paginator(serializer.data, pagesize)
@@ -40,10 +42,21 @@ class InterfaceCaseData(APIView):
         parent = data.get("parent","")
         for id in json.loads(relevance_ids):
             dic = {}
-            interface_name = InterFaceSet.objects.filter(id=id).first().interface_name
-            dic["interface_name"] = interface_name
-            dic["interface_id"] = id
+            obj = InterFaceSet.objects.filter(id=id).first()
+            dic["interface_name"] = obj.interface_name
             dic["parent"] = parent
+            dic["tcp"] = obj.tcp
+            dic["ip"] = obj.ip
+            dic["url"] = obj.url
+            dic["method"] = obj.method
+            dic["headers"] = obj.headers
+            dic["params"] = obj.params
+            dic["body"] = obj.body
+            dic["preprocessor"] = obj.preprocessor
+            dic["depend_id"] = obj.depend_id
+            dic["depend_key"] = obj.depend_key
+            dic["replace_key"] = obj.replace_key
+            dic["replace_position"] = obj.replace_position
             print(dic)
             serializer = AddRelevanceInterfaceSer(data=dic)
             if serializer.is_valid():
@@ -56,7 +69,7 @@ class InterfaceCaseData(APIView):
 
     def delete(self, request, pk, *args, **kwargs):
         '''
-            删除系统分类
+            删除用例内接口数据
         '''
         try:
             obj = InterFaceCaseData.objects.filter(id=pk)
@@ -70,25 +83,51 @@ class InterfaceCaseData(APIView):
 
     def put(self, request, pk, *args, **kwargs):
         data = request.data
+        print(pk)
+        print(data)
         obj = InterFaceCaseData.objects.filter(id=pk).first()
-        for i in data.keys():
-            try:
-                if i == "interface_name":
-                    serializer = InterfaceNameSer(obj, data=data)
-                elif i == "description":
-                    serializer = DescriptionSer(obj, data=data)
-                elif i == "head":
-                    serializer = HeadSer(obj, data=data)
-                if serializer.is_valid():
-                    serializer.save()
-                    right_code["msg"] = "编辑成功"
-                    return Response(right_code)
-                else:
-                    error_code['error'] = '保存数据到数据库失败'
-            except Exception as e:
-                print(e)
-                error_code["error"] = str(e)
-            return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+        if len(data) == 1:
+            for i in data.keys():
+                try:
+                    if i == "interface_name":
+                        serializer = InterfaceNameSer(obj, data=data)
+                    elif i == "description":
+                        serializer = DescriptionSer(obj, data=data)
+                    elif i == "head":
+                        serializer = HeadSer(obj, data=data)
+                    elif i == "depend_id":
+                        serializer = DependIdSer(obj, data=data)
+                    elif i == "depend_key":
+                        serializer = DependKeySer(obj, data=data)
+                    elif i == "replace_key":
+                        serializer = ReplaceKeySer(obj, data=data)
+                    elif i == "replace_position":
+                        if data.get("replace_position") == '0' or data.get("replace_position") == '1' or data.get("replace_position") == '2':
+                            serializer = ReplacePositionSer(obj, data=data)
+                        else:
+                            error_code['error'] = '必须是0，1，2其中之一'
+                            return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+
+                    if serializer.is_valid():
+                        serializer.save()
+                        right_code["msg"] = "编辑成功"
+                        return Response(right_code)
+                    else:
+                        error_code['error'] = '保存数据到数据库失败'
+                except Exception as e:
+                    print(e)
+                    error_code["error"] = str(e)
+                return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = AddRelevanceInterfaceSer(obj, data=data)
+            print(serializer)
+            if serializer.is_valid():
+                serializer.save()
+                right_code["msg"] = "编辑成功"
+                return Response(right_code)
+            else:
+                error_code['error'] = '保存数据到数据库失败'
+                return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InterfaceCaseDataLocust(APIView):
@@ -144,8 +183,6 @@ class InterfaceCaseDataLocust(APIView):
                 error_code["error"] = "关闭8089对应的进程失败"
                 return Response(error_code)
 
-
-
     def post(self,request, *args, **kwargs):
         data = request.data
         id_list =  json.loads(data["id"])
@@ -155,13 +192,12 @@ class InterfaceCaseDataLocust(APIView):
         if not id_list:
             error_code["error"] = "暂不支持将依赖的接口加入到Loucst中测试"
             return Response(error_code)
-        interface_id_list = InterFaceCaseData.objects.filter(id__in=id_list).values_list("interface_id", flat=True)
+        interface_id_list = InterFaceCaseData.objects.filter(id__in=id_list)
         print(interface_id_list)
         locust_dic = {}
         num = 1
-        for id in interface_id_list:
+        for obj in interface_id_list:
             dic = {}
-            obj = InterFaceSet.objects.get(id=id)
             dic["method"] = obj.method
             dic["url"] = obj.url
             dic["params"] = obj.params

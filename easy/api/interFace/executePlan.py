@@ -2,10 +2,11 @@ import json
 from time import time
 from django.core.paginator import Paginator
 from easy.models import ExecutePlan, ExecutePlanCases, RelevanceCaseSet, \
-    InterFaceCaseData, InterFaceSet, ExecutePlanReport
+    InterFaceCaseData, ExecutePlanReport
 from .executePlanSer import ExecutePlanSer, PlanNameSer, \
     ExecutePlanCasesSer, DescriptionCaseSer,PlanPloySer,\
     ExecutePlanReporttSer,ReportStuatusSer,ReportCountSer
+from .relevanceInterfaceSer import HeadersSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -243,7 +244,7 @@ class ExecutePlanRun(InterfaceCaseRun):
         cases = RelevanceCaseSet.objects.filter(parent__in=case_set).values_list("relevance_id", flat=True)
         print("查询所有用例集下所有的用例:" + str(cases))
         # 查询所有用例下所有的接口,此查询的结果列表，排序是乱的
-        interface_id_list = InterFaceCaseData.objects.filter(parent__in=cases).values_list("interface_id", flat=True).distinct()
+        interface_id_list = InterFaceCaseData.objects.filter(parent__in=cases).values_list("id", flat=True).distinct()
         print("查询所有用例集下所有的接口:" + str(interface_id_list))
         # # 批量修改执行接口的所有请求头
         # token = self.get_token(interface_id_list,admin_url,username,password)
@@ -306,7 +307,7 @@ class ExecutePlanRun(InterfaceCaseRun):
         all_interface_count = 0
         for i in cases:
             fail_interface = []
-            id_list = InterFaceCaseData.objects.filter(parent=i).values_list("interface_id", flat=True)
+            id_list = InterFaceCaseData.objects.filter(parent=i).values_list("id", flat=True)
             # 如果用例下存在接口，则挨个运行
             if id_list:
                 process_dict, status_code = InterfaceCaseRun().runcase(id_list[0], len(id_list))
@@ -364,7 +365,7 @@ class ExecutePlanRun(InterfaceCaseRun):
             print(headers)
             #替换所有的请求头
             for pk in interface_id_list:
-                obj = InterFaceSet.objects.filter(id=pk).first()
+                obj = InterFaceCaseData.objects.filter(id=pk).first()
                 try:
                     data_ser = {"headers": json.dumps(headers)}
                     serializer = HeadersSer(obj, data=data_ser)

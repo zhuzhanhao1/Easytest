@@ -116,8 +116,8 @@ class InterFaceCase(models.Model):
     pass_rate = models.CharField(max_length=8, verbose_name="通过率", null=True, blank=True,default="100")
     create_data = models.DateField(auto_now=True,null=True,blank=True,verbose_name="创建时间")
 
-    # def __str__(self):
-    #     return self.interface_case_name
+    def __str__(self):
+        return self.interface_case_name
 
     class Meta:
         verbose_name = '接口用例表'
@@ -129,10 +129,24 @@ class InterFaceCaseData(models.Model):
         接口用例里的数据
     '''
     parent = models.ForeignKey(InterFaceCase,on_delete=models.CASCADE,verbose_name='接口用例id')
-    interface_id = models.ForeignKey(InterFaceSet,on_delete=models.CASCADE,verbose_name="关联接口id")
     interface_name = models.CharField(max_length=50, verbose_name="接口名称")
     description = models.CharField(max_length=255,verbose_name="描述",null=True,blank=True)
     head = models.CharField(max_length=20,verbose_name="负责人",null=True,blank=True)
+    tcp = models.CharField(max_length=20, verbose_name="传输协议", default="http")
+    ip = models.CharField(max_length=50, verbose_name="访问路径")
+    url = models.CharField(max_length=550, verbose_name="访问路径")
+    method = models.CharField(max_length=20, verbose_name="请求方式")
+    headers = models.CharField(max_length=200,verbose_name="请求头",null=True,blank=True)
+    params = models.TextField(verbose_name="请求参数", null=True, blank=True)
+    body = models.TextField(verbose_name="请求体内容", null=True, blank=True)
+    preprocessor = models.CharField(max_length=20,verbose_name="前置处理器",default=False)
+    depend_id = models.CharField(max_length=20,verbose_name="依赖的id",null=True,blank=True)
+    depend_key = models.CharField(max_length=500,verbose_name="依赖的key",null=True,blank=True)
+    replace_key = models.CharField(max_length=500,verbose_name="替换的key",null=True,blank=True)
+    replace_position = models.CharField(max_length=50,verbose_name="替换的内容区域",null=True,blank=True)
+    duration = models.IntegerField(blank=True, null=True, verbose_name='响应时长')
+    result = models.TextField(blank=True, null=True, verbose_name='执行结果')
+
 
     def __str__(self):
         return self.interface_name

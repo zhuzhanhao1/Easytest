@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'Easytest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ZzhTest',
+        'NAME': 'EasyTest',
         'USER': 'root',
         'PASSWORD': '123456',
         # 'HOST':'127.0.0.1',#mac-localhost

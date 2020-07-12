@@ -95,21 +95,212 @@ layui.use(['table', "soulTable"], function (data) {
         }
         , cols: [[ //表头, fixed: 'left'
             {type: 'checkbox'}
+            , {title: '操作', toolbar: '#barDemo', width: 120, align: "left"}
+            , {field: 'id', title: 'ID', width: 100, align: "left", edit: "text"}
             , {
-                title: '操作', toolbar: '#barDemo', width: 120, align: "left"
+                field: '', title: '前置处理', width: 90, align: "left"
+                , isChild: function (row) {
+                    return row.preprocessor == 'True'
+                }
+                , collapse: true
+                , icon: ['layui-icon layui-icon-star', 'layui-icon layui-icon-star-fill']
+                , childTitle: false
+                , children: [
+                    {
+                        elem: '#templateTable'
+                        , url: "/api/v1/relevance_interface/list/"
+                        , where: function (row) {
+                            console.log(row);
+                            return {parentId: row.parent, id: row.id}
+                        }
+                        , title: "前置控制器"
+                        , skin: 'line'
+                        , size: "lg"
+                        //, height: 'full-10'
+                        , cols: [[
+                            {field: 'depend_id', title: '前置的id', align: "left", edit: 'text'},
+                            {field: 'depend_key', title: '前置结果jsonpath', align: "left", edit: 'text'},
+                            {field: 'replace_key', title: '替换区域jsonpath', align: "left", edit: 'text'},
+                            {
+                                field: 'replace_position',
+                                title: '替换区域(params:0,body:1,all:2)',
+                                align: "left",
+                                edit: 'text'
+                            }
+                        ]]
+                        , rowEvent: function (obj, pobj) {
+                            // 单击行事件
+                            // obj 子表当前行对象
+                            // pobj 父表当前行对象
+                            obj.tr.css({'background': '#ECEFFC'}).siblings().removeAttr('style');
+                            console.log(obj.tr) //得到当前行元素对象
+                            console.log(obj.data) //得到当前行数据
+                            console.log(pobj) //得到当前行数据
+                        }
+                        , editEvent: function (obj, pobj) {
+                            // obj 子表当前行对象
+                            // pobj 父表当前行对象
+                            let id = pobj.data.id;
+                            if (obj.field == "depend_id") {
+                                $.ajax({
+                                    url: "/api/v1/relevance_interface/update_interface/" + id + '/',
+                                    type: 'PUT',
+                                    data: {
+                                        "depend_id": obj.value
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if (data.responseJSON.code === 1001) {
+                                            layer.msg(data.responseJSON.error, {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        } else {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                    },
+                                    complete: function () {
+                                        table.reload(this.id);
+                                    }
+                                });
+                            }
+                            else if (obj.field == "depend_key") {
+                                $.ajax({
+                                    url: "/api/v1/relevance_interface/update_interface/" + id + '/',
+                                    type: 'PUT',
+                                    data: {
+                                        "depend_key": obj.value
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if (data.responseJSON.code === 1001) {
+                                            layer.msg(data.responseJSON.error, {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        } else {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                    },
+                                    complete: function () {
+                                        table.reload(this.id);
+                                    }
+                                });
+                            }
+                            else if (obj.field == "replace_key") {
+                                $.ajax({
+                                    url: "/api/v1/relevance_interface/update_interface/" + id + '/',
+                                    type: 'PUT',
+                                    data: {
+                                        "replace_key": obj.value
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if (data.responseJSON.code === 1001) {
+                                            layer.msg(data.responseJSON.error, {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        } else {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                    },
+                                    complete: function () {
+                                        table.reload(this.id);
+                                    }
+                                });
+                            }
+                            else if (obj.field == "replace_position") {
+                                $.ajax({
+                                    url: "/api/v1/relevance_interface/update_interface/" + id + '/',
+                                    type: 'PUT',
+                                    data: {
+                                        "replace_position": obj.value
+                                    },
+                                    success: function (data) {
+                                        if (data.code === 1000) {
+                                            layer.msg(data.msg, {
+                                                icon: 6, offset: "t"
+                                            })
+                                        } else {
+                                            layer.msg(data.error, {
+                                                icon: 5, offset: "t"
+                                            })
+                                        }
+                                    },
+                                    error: function (data) {
+                                        if (data.responseJSON.code === 1001) {
+                                            layer.msg(data.responseJSON.error, {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        } else {
+                                            layer.msg("回调失败", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
 
+                                    },
+                                    complete: function () {
+                                        table.reload(this.id);
+                                    }
+                                });
+                            }
+                        }
+                        , done: function (data) {
+                            //console.log(data);
+                            soulTable.render(this);
+                        }
+
+                    }
+                ]
             }
-            , {
-                field: 'interface_name',
-                title: '接口名称',
-                align: "left",
-                excel: {color: '0040ff', bgColor: 'f3fef3'},
-                edit: "text"
-            }
+            , {field: 'interface_name', title: '接口名称', align: "left", excel: {color: '0040ff', bgColor: 'f3fef3'}, edit: "text"}
             , {field: 'description', title: '描述', align: "left", edit: "text"}
-            //, {field: 'interface_id', title: '关联的接口id', align: "left"}
+
+
             , {
-                field: 'duration', title: '响应时长', align: "left",
+                field: 'duration', title: '响应时长', align: "left",width: 120,
                 templet: function (res) {
                     return '<span>' + String(res.duration)+"ms" + '</span>'
                 }
@@ -132,8 +323,8 @@ layui.use(['table', "soulTable"], function (data) {
                         return '<span>' + res.result + '</span>'
                     }
                 }
-                }
-            , {field: 'head', title: '负责人', align: "left",edit: "text"}
+            }
+            , {field: 'head', title: '负责人', width: 120,align: "left",edit: "text"}
         ]]
         , filter: {
             items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
@@ -427,8 +618,8 @@ layui.use(['table', "soulTable"], function (data) {
                         , content: $("#system_ip").html(),
                         success: function () {
                             layui.use(['form', "jquery"], function () {
-                            var form = layui.form,
-                                $ = layui.$;
+                                var form = layui.form,
+                                    $ = layui.$;
                                 form.val("system_ip", {
                                 });
                                 form.on('submit(system_ip)', function (data) {
@@ -449,87 +640,87 @@ layui.use(['table', "soulTable"], function (data) {
 
                                     }
                                     $.ajax({
-                                            url: "/api/v1/relevance_interface/open_locust/",
-                                            type: 'POST',
-                                            data: {
-                                                "id": JSON.stringify(l),
-                                                "system":system,
-                                                "ip":data.field.ip
-                                            },
-                                            //请求前的处理,加载loading
-                                            beforeSend: function () {
-                                                layer.close(layer_system_ip);
-                                                var locust_test = layer.open({
-                                                    type: 1
-                                                    , title: ["locust接口性能测试"]
-                                                    , skin: "layui-layer-molv"
-                                                    , shade: 0.6
-                                                    , shadeClose: true
-                                                    , moveOut: true
-                                                    , area: ["30%", '30%'] //自定义文本域宽高
-                                                    , content: $("#locust").html(),
-                                                    success: function () {
-                                                        layui.use('form', function () {
-                                                            var form = layui.form;
-                                                            //关闭locust，
-                                                            form.on('submit(locust)', function (data) {
-                                                                $.ajax({
-                                                                    cache: false,
-                                                                    url: "/api/v1/relevance_interface/close_locust/",
-                                                                    type: 'GET',
-                                                                    data : {
-                                                                        "system":system
-                                                                    },
-                                                                    success: function (data) {
-                                                                        if (data.code === 1000) {
-                                                                            layer.msg(data.msg, {
-                                                                                icon: 6, offset: "t"
-                                                                            })
-                                                                        } else {
-                                                                            layer.msg(data.error, {
-                                                                                icon: 5, offset: "t"
-                                                                            })
-                                                                        }
-                                                                    },
-                                                                    error: function (data) {
-                                                                        console.log(data);
-                                                                        layer.msg("回调失败,请查看控制台", {
-                                                                            icon: 5,
-                                                                            offset: 't'
-                                                                        });
-                                                                    },
-                                                                    complete: function () {
-                                                                        layer.close(locust_test);
+                                        url: "/api/v1/relevance_interface/open_locust/",
+                                        type: 'POST',
+                                        data: {
+                                            "id": JSON.stringify(l),
+                                            "system":system,
+                                            "ip":data.field.ip
+                                        },
+                                        //请求前的处理,加载loading
+                                        beforeSend: function () {
+                                            layer.close(layer_system_ip);
+                                            var locust_test = layer.open({
+                                                type: 1
+                                                , title: ["locust接口性能测试"]
+                                                , skin: "layui-layer-molv"
+                                                , shade: 0.6
+                                                , shadeClose: true
+                                                , moveOut: true
+                                                , area: ["30%", '30%'] //自定义文本域宽高
+                                                , content: $("#locust").html(),
+                                                success: function () {
+                                                    layui.use('form', function () {
+                                                        var form = layui.form;
+                                                        //关闭locust，
+                                                        form.on('submit(locust)', function (data) {
+                                                            $.ajax({
+                                                                cache: false,
+                                                                url: "/api/v1/relevance_interface/close_locust/",
+                                                                type: 'GET',
+                                                                data : {
+                                                                    "system":system
+                                                                },
+                                                                success: function (data) {
+                                                                    if (data.code === 1000) {
+                                                                        layer.msg(data.msg, {
+                                                                            icon: 6, offset: "t"
+                                                                        })
+                                                                    } else {
+                                                                        layer.msg(data.error, {
+                                                                            icon: 5, offset: "t"
+                                                                        })
                                                                     }
+                                                                },
+                                                                error: function (data) {
+                                                                    console.log(data);
+                                                                    layer.msg("回调失败,请查看控制台", {
+                                                                        icon: 5,
+                                                                        offset: 't'
+                                                                    });
+                                                                },
+                                                                complete: function () {
+                                                                    layer.close(locust_test);
+                                                                }
 
-                                                                });
-                                                                return false;//阻止表单跳转
                                                             });
-                                                        })
-                                                    }
-
-                                                });
-                                            },
-                                            success: function (data) {
-                                                if (data.code === 1000) {
-                                                    layer.msg(data.msg, {
-                                                        icon: 6, offset: "t"
-                                                    })
-                                                } else {
-                                                    layer.msg(data.error, {
-                                                        icon: 5, offset: "t"
+                                                            return false;//阻止表单跳转
+                                                        });
                                                     })
                                                 }
 
-                                            },
-                                            error: function (data) {
-                                                console.log(data);
-                                                layer.msg("回调失败,请查看控制台", {
-                                                    icon: 5,
-                                                    offset: 't'
-                                                });
+                                            });
+                                        },
+                                        success: function (data) {
+                                            if (data.code === 1000) {
+                                                layer.msg(data.msg, {
+                                                    icon: 6, offset: "t"
+                                                })
+                                            } else {
+                                                layer.msg(data.error, {
+                                                    icon: 5, offset: "t"
+                                                })
                                             }
-                                        });
+
+                                        },
+                                        error: function (data) {
+                                            console.log(data);
+                                            layer.msg("回调失败,请查看控制台", {
+                                                icon: 5,
+                                                offset: 't'
+                                            });
+                                        }
+                                    });
                                     return false;//阻止表单跳转
                                 });
                             });
@@ -549,7 +740,8 @@ layui.use(['table', "soulTable"], function (data) {
     table.on('tool(test)', function (obj) {
         var data = obj.data;
         var id = data['id'];
-        console.log(obj);
+        var parent = data["parent"];
+        console.log(data);
         //删除接口用例
         if (obj.event === 'del_interface') {
             layer.confirm('你确定要删除吗' + '？', {
@@ -603,11 +795,9 @@ layui.use(['table', "soulTable"], function (data) {
                 success: function () {
                     layui.use(['form', "jquery"], function () {
                         var form = layui.form;
-                        let interface_id = data["interface_id"];
-                        let belong_module = data["belong_module"];
-                        console.log(interface_id,belong_module);
+                        console.log(data);
                         form.val("add_update_case", {
-                            "interface_name": data.relevance_interface_name,
+                            "interface_name": data.interface_name,
                             "url": data.url,
                             "tcp": data.tcp,
                             "ip": data.ip,
@@ -636,15 +826,15 @@ layui.use(['table', "soulTable"], function (data) {
                         form.on('submit(add_update_case)', function (data) {
                             $.ajax({
                                 cache: false,
-                                url: "/api/v1/interface_set/update_interface/" + interface_id + "/",
+                                url: "/api/v1/relevance_interface/update_interface/" + id + "/",
                                 type: 'PUT',
                                 data: {
+                                    "parent":parent,
                                     "interface_name": data.field.interface_name,
                                     "url": data.field.url,
                                     "tcp": data.field.tcp,
                                     "ip": data.field.ip,
                                     "method": data.field.method,
-                                    "belong_module": belong_module,
                                     "params": data.field.params,
                                     "headers": data.field.headers,
                                     "preprocessor": data.field.preprocessor,
