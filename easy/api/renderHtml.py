@@ -183,3 +183,10 @@ def echart_report_views(request):
         内容ifame-报表
     '''
     return render(request, 'pyechartReport.html')
+
+def fail_views(request):
+    '''
+        主页面
+    '''
+    return render(request, '404.html')
+

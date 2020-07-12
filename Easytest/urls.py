@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^logout/$', renderHtml.logout_views),
     url(r'^index/$', renderHtml.index_views),
     url(r'^home/', renderHtml.home_views),
+    url(r'^fail/', renderHtml.fail_views),
     url(r'^menu_manage/', renderHtml.menu_manage_views),
     url(r'^interface_manager/', renderHtml.interface_manage_views),
     url(r'^interface_set/', renderHtml.interface_set_views),

@@ -34,12 +34,9 @@ layui.use(['form', 'jquery', "layer"], function () {
             moveType: 1,
             content: '<div style="padding:15px 20px; text-align:justify; line-height: 24px; text-indent:2em;border-bottom:1px solid #e2e2e2;">' +
                 '<p><span style="font-size:20px;margin-bottom:20px;">大体功能</span></p>' +
-                '<p><span style="margin-left:15px;margin-top:20px;">单一接口自动化测试</span></p>' +
-                '<p><span style="margin-left:15px;margin-top:20px;">流程接口自动化测试</span></p>' +
+                '<p><span style="margin-left:15px;margin-top:20px;">接口自动化测试</span></p>' +
                 '<p><span style="margin-left:15px;">接口定时测试</span></p>' +
-                '<p><span style="margin-left:15px;">接口重复测试</span></p>' +
-                '<p><span style="margin-left:15px;">多线程接口压测</span></p>' +
-                '<p><span style="margin-left:15px;">钉钉发送测试结果</span></p>' +
+                '<p><span style="margin-left:15px;">钉钉推送结果</span></p>' +
                 '<p><span style="margin-left:15px;">导出测试记录</span></p>' +
                 '<p><span style="margin-left:15px;">接口性能测试</span></p>' +
                 '<p><span style="margin-left:15px;">功能测试</span></p>' +
@@ -78,7 +75,7 @@ layui.use(['form', 'jquery', "layer"], function () {
             title: false,
             type: 1,
             content: '<div class="admin-header-lock" id="lock-box">' +
-                '<div class="admin-header-lock-img"><img src="./../static/images/login.png" class="userAvatar"/></div>' +
+                '<div class="admin-header-lock-img"><img src="./../static/images/index_img.jpg" class="userAvatar"/></div>' +
                 '<div class="admin-header-lock-name" id="lockUserName">朱占豪</div>' +
                 '<div class="input_btn">' +
                 '<input type="password" class="admin-header-lock-input layui-input" autocomplete="off" placeholder="请输入密码解锁.." name="lockPwd" id="lockPwd" />' +
