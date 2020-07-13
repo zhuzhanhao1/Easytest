@@ -239,7 +239,7 @@
                 <div class="layui-form-item mydepend" style="display: none;">
                     <label class="layui-form-label">取前置结果的JSONPATH</label>
                     <div class="layui-input-block">
-                        <textarea name="depend_key"  placeholder="无前置不必填"
+                        <textarea name="depend_key"  placeholder="[{jsonpath语法：取值的索引},{jsonpath：0}]"
                                           class="layui-textarea"></textarea>
 
 {#                        <input type="text" name="depend_key" placeholder="无依赖不必填" class="layui-input">#}
@@ -249,7 +249,7 @@
                 <div class="layui-form-item mydepend" style="display: none;">
                     <label class="layui-form-label">取请求内容的JSONPATH</label>
                     <div class="layui-input-block">
-                        <textarea name="replace_key"  placeholder="无前置不必填"
+                        <textarea name="replace_key"  placeholder="{jsonpath语法：替换的区域（0：Query，1：body）}"
                                           class="layui-textarea"></textarea>
 {#                        <input type="text" name="replace_key" placeholder="无依赖不必填" class="layui-input">#}
                     </div>

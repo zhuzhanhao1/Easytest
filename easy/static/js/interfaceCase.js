@@ -247,7 +247,7 @@ layui.use(['table', "soulTable"], function (data) {
 
                     //创建socket连接,首先判断是否 支持 WebSocket
                     if('WebSocket' in window) {
-                        ws = new WebSocket("ws://127.0.0.1:8000/api/v1/interface_case_manage/run/");
+                        ws = new WebSocket("ws://0.0.0.0:8000/api/v1/interface_case_manage/run/");
                     }
 
                     //
@@ -279,7 +279,7 @@ layui.use(['table', "soulTable"], function (data) {
                         title: false,
                         area: ['30%', '20%'],
                         skin: "layui-layer-rim",
-                        offset: "rb",
+                        //offset: "rb",
                         //shade:false,
                         content: $("#jindutiao").html(),
                         success: function () {

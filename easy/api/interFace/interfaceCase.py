@@ -114,8 +114,13 @@ class InterfaceCaseRun(APIView):
         url = tcp + "://" + ip + "/" + url
         if depend_id:
             print("依赖的id："+str(depend_id))
+            if params == None:
+                params = ""
             params = json.loads(params) if any(params) else ""
+            if body == None:
+                body = ""
             body = json.loads(body) if any(body) else ""
+
             # 依赖的id列表
             depend_id = depend_id.split(",")
             # 替换的{jsonpath：0}的字典，和只包换[jsonpath]语法键的列表
@@ -145,8 +150,7 @@ class InterfaceCaseRun(APIView):
                         depend_jsonpath_key_dict = depend_jsonpath
                         depend_jsonpath_key_list = [key for key in depend_jsonpath_key_dict]
                     # 通过jsonpath将依赖的值从依赖的接口返回结果中替换出来
-                    depend_value = jsonpath.jsonpath(depend_result, depend_jsonpath_key_list[0])[
-                        depend_jsonpath_key_dict[depend_jsonpath_key_list[0]]]
+                    depend_value = jsonpath.jsonpath(depend_result, depend_jsonpath_key_list[0])[depend_jsonpath_key_dict[depend_jsonpath_key_list[0]]]
                     # 如果替换后的内容仍为列表则再次索引第一个位子
                     if type(depend_value) is list:
                         depend_value = depend_value[0]
@@ -192,6 +196,7 @@ class InterfaceCaseRun(APIView):
                                                                                              params=params,
                                                                                              data=body)
             print(status_code)
+            print(response_body)
         except Exception as e:
             print("request请求接口异常")
             print(e)
