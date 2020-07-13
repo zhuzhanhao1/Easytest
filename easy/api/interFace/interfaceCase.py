@@ -120,7 +120,6 @@ class InterfaceCaseRun(APIView):
             if body == None:
                 body = ""
             body = json.loads(body) if any(body) else ""
-
             # 依赖的id列表
             depend_id = depend_id.split(",")
             # 替换的{jsonpath：0}的字典，和只包换[jsonpath]语法键的列表
@@ -195,15 +194,13 @@ class InterfaceCaseRun(APIView):
                                                                                              headers=headers,
                                                                                              params=params,
                                                                                              data=body)
-            print(status_code)
+            print("状态码："+str(status_code))
             print(response_body)
         except Exception as e:
             print("request请求接口异常")
             print(e)
         try:
             djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
-            if "xml" in djson:
-                djson = "表格中不允许出现XML"
             #更新结果的值
             data = {"result": djson, "duration": duration}
             serializer = ResultTimeSer(QuerySet, data=data)
@@ -214,7 +211,7 @@ class InterfaceCaseRun(APIView):
                 if int(status_code) == 200:
                     self.success_id_list.append(id)
                 print(self.success_id_list)
-                print("*" * 100)
+                print("*" * 50 + QuerySet.interface_name + "接口运行结束" + "*" * 50)
             else:
                 print("保存数据库失败，这里之后用日志替换打印")
         except Exception as e:

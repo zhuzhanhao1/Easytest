@@ -174,3 +174,6 @@
 .layui-breadcrumb a{
     font-size: 17px;
 }
+.my_textarea_result{
+    min-height:700px;
+}

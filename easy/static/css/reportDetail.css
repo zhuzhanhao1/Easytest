@@ -56,3 +56,6 @@ body{
     margin-left: 3%;
     margin-top: -20px;
 }
+.my_textarea_result{
+    min-height:700px;
+}

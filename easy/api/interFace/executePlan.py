@@ -292,7 +292,8 @@ class ExecutePlanRun(InterfaceCaseRun):
             # 移除正在进行的任务
             scheduler.remove_job(uid)
             try:
-                DingNotice().send_text_bot("定时任务：" + title + "已结束，请查看测试报告")
+                if notification != "false":
+                    DingNotice().send_text_bot("定时任务：" + title + "已结束，请查看测试报告")
                 #将报告状态改为完成（True）
                 serializer = ReportStuatusSer(report_obj, {"status": True})
                 if serializer.is_valid():
@@ -317,7 +318,7 @@ class ExecutePlanRun(InterfaceCaseRun):
                     token = self.get_token(interface_id_list, admin_url, username, password)
                     if "error" in token:
                         scheduler.remove_job(uid)
-                        DingNotice().send_text_bot(title + "：任务下获取Token失败，请留意！")
+                        DingNotice().send_text_bot(title + "：任务下获取Token失败，请留意！！！")
                         return
                     print("任务下获取Token成功")
                 for id in id_list:
@@ -328,7 +329,7 @@ class ExecutePlanRun(InterfaceCaseRun):
                         fail_interface.append(id)
                         fail_interface_count += 1
                         interface_name = process_dict["interface_execute_now"]
-                        DingNotice().send_text_bot(interface_name + "：接口执行异常，请留意！")
+                        DingNotice().send_text_bot(interface_name + "接口执行异常，请留意！！！")
                 if len(fail_interface) > 0:
                     fail_case_count += 1
                     fail_interface.clear()
@@ -343,10 +344,10 @@ class ExecutePlanRun(InterfaceCaseRun):
         # 每次运行完一次任务，则清空success_id_list
         InterfaceCaseRun.success_id_list.clear()
         # 需要消息通知时，每次结束发送当前任务进度
-        if bool(notification):
-            self.num += 1
-            DingNotice().send_text_bot(title + "第" + str(self.num) + "次运行已完成，请查看测试报告")
-        print("#" * 100)
+        self.num += 1
+        if notification != "false":
+            DingNotice().send_text_bot(title + "：第" + str(self.num) + "次运行已完成，请查看测试报告")
+        print("#" * 50 + "第" + str(self.num)  + "次(" + title + ")执行计划运行已完成，可查看测试报告" + "#" * 50)
 
     def get_token(self, interface_id_list, admin_url, username, password):
         '''

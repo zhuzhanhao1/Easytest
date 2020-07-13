@@ -40,7 +40,16 @@ class InterFaceSetSer(serializers.ModelSerializer):
     '''
         报告列表
     '''
-    # belong_module = serializers.CharField(source="belong_module.puisne_module")
+    result_state = serializers.SerializerMethodField()
     class Meta:
         model = InterFaceCaseData
-        fields = ("interface_name","url","duration","result")
+        fields = ("id","interface_name","url","duration","result_state")
+
+    def get_result_state(self, obj):
+        queryset = obj.result
+        print(type(queryset))
+        if "message" and "error" in queryset:
+            queryset = "fail"
+        else:
+            queryset = "success"
+        return queryset

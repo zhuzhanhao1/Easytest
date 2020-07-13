@@ -305,25 +305,35 @@ layui.use(['table', "soulTable"], function (data) {
                     return '<span>' + String(res.duration)+"ms" + '</span>'
                 }
             }
-            , {field: 'result', title: '响应结果', align: "left", templet: function (res) {
-                    if (res.result == null || res.result == "") {
-                        console.log("空值");
-                        return '<span>' + res.result + '</span>'
-
-                    } else if(res.result.indexOf("<") != -1){
-                        console.log(res.result);
-                        let a = "表格个出现了<>等不支持的符号";
-                        return '<span>' + a + '</span>'
-                    }
-                    else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
-                        let b = JSON.parse(res.result);
-                        return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
-
+            , {field: 'result_state', title: '响应结果', align: "left", event: 'result_state',
+                templet: function (res) {
+                    if (res.result_state == "success") {
+                        return '<span style="color: #5FB878;">' + res.result_state + '</span>'
                     } else {
-                        return '<span>' + res.result + '</span>'
+                        return '<span style="color: red;">' + res.result_state + '</span>'
                     }
                 }
             }
+            // , {
+            //     field: 'result', title: '响应结果', align: "left", templet: function (res) {
+            //         if (res.result == null || res.result == "") {
+            //             console.log("空值");
+            //             return '<span>' + res.result + '</span>'
+            //
+            //         } else if(res.result.indexOf("<") != -1){
+            //             console.log(res.result);
+            //             let a = "表格个出现了<>等不支持的符号";
+            //             return '<span>' + a + '</span>'
+            //         }
+            //         else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
+            //             let b = JSON.parse(res.result);
+            //             return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
+            //
+            //         } else {
+            //             return '<span>' + res.result + '</span>'
+            //         }
+            //     }
+            // }
             , {field: 'head', title: '负责人', width: 120,align: "left",edit: "text"}
         ]]
         , filter: {
@@ -392,29 +402,6 @@ layui.use(['table', "soulTable"], function (data) {
                     layer.msg('前端的导出，没调取接口，需先勾选数据在导出，后期改为后台导出！', {icon: 0, offset: 't'});
                 }
                 break;
-            //全屏显示
-            case "fullScreen":
-                var docE = document.documentElement;
-                if (docE.requestFullScreen) {
-                    docE.requestFullScreen();
-                } else if (docE.mozRequestFullScreen) {
-                    docE.mozRequestFullScreen();
-                } else if (docE.webkitRequestFullScreen) {
-                    docE.webkitRequestFullScreen();
-                }
-                break;
-            //导入接口
-            case "import_interface":
-                layer.open({
-                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                    type: 1,
-                    title: "导入接口",
-                    area: ['35%', '30%'],
-                    skin: "layui-layer-rim",
-                    shade: 0.6,
-                    content: $("#import_interface").html()
-                });
-                break;
             //批量删除
             case "batch_delete":
                 var data = checkStatus.data;
@@ -455,14 +442,14 @@ layui.use(['table', "soulTable"], function (data) {
                 }
                 $.ajax({
                     cache: false,
-                    url: "/api/v1/publicapi/export_report/",
+                    url: "/api/v1/public/export_report/",
                     type: 'POST',
                     data: {
                         "request": JSON.stringify(l)
                     },
                     //请求前的处理,加载loading
                     beforeSend: function () {
-                        l_index = layer.msg('执行接口中，小伙伴请稍候~~', {
+                        l_index = layer.msg('转换图表中，小伙伴请稍候~~', {
                             icon: 16,
                             time: false,
                             shade: 0.5
@@ -732,6 +719,7 @@ layui.use(['table', "soulTable"], function (data) {
 
                 }
                 break;
+            //响应结果详情
         }
 
     });
@@ -1000,6 +988,51 @@ layui.use(['table', "soulTable"], function (data) {
                 }
             });
         }
+        //响应结果详情
+        else if (obj.event === 'result_state'){
+            $.ajax({
+                url: "/api/v1/relevance_interface/get_result_detail/",
+                type: 'GET',
+                data: {
+                    "result_detail": id
+                },
+                success: function (data) {
+                    if (data.code === 1000) {
+                        $("#result").html(data.msg);
+                        layer.open({
+                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            type: 1,
+                            title: "请求结果详情",
+                            skin: "layui-layer-molv",
+                            area: ['40%', '100%'],
+                            offset: 'rb',
+                            content: $("#result_detail").html(),
+                            success: function () {
+                            }
+                        });
+                    } else {
+                        layer.msg(data.error, {
+                            icon: 5, offset: "t"
+                        })
+                    }
+
+                },
+                error: function (data) {
+                    if (data.responseJSON.code === 1001) {
+                        layer.msg(data.responseJSON.error, {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    } else {
+                        layer.msg("回调失败", {
+                            icon: 5,
+                            offset: 't'
+                        });
+                    }
+                },
+            });
+        }
+
     });
     table.on('edit(test)', function (obj) {
         var value = obj.value //得到修改后的值

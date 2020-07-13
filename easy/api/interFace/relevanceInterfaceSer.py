@@ -21,11 +21,22 @@ class HeadSer(serializers.ModelSerializer):
         model = InterFaceCaseData
         fields = ("head",)
 
-class AddRelevanceInterfaceSer(serializers.ModelSerializer):
 
+class AddRelevanceInterfaceSer(serializers.ModelSerializer):
+    result_state = serializers.SerializerMethodField()
     class Meta:
         model = InterFaceCaseData
-        fields = "__all__"
+        fields = ("parent","id","interface_name","description","tcp","ip","url","method","duration","params","preprocessor",
+                  "body","depend_id","depend_key","replace_key","replace_position","headers","head","result_state")
+
+    def get_result_state(self, obj):
+        queryset = obj.result
+        print(type(queryset))
+        if "message" and "error" in queryset:
+            queryset = "fail"
+        else:
+            queryset = "success"
+        return queryset
 
 class HeadersSer(serializers.ModelSerializer):
 

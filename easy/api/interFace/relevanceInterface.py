@@ -14,8 +14,13 @@ from django_redis import get_redis_connection
 class InterfaceCaseData(APIView):
 
     def get(self, request, *args, **kwargs):
-        parentId = request.GET.get("parentId")
-        id = request.GET.get("id")
+        parentId = request.GET.get("parentId","")
+        id = request.GET.get("id","")
+        result_detail = request.GET.get("result_detail","")
+        if result_detail:
+            result = InterFaceCaseData.objects.filter(id=result_detail).first().result
+            right_code["msg"] = result
+            return Response(right_code)
         obj = InterFaceCaseData.objects.filter(parent=parentId)
         if id:
             obj = InterFaceCaseData.objects.filter(Q(parent=parentId) & Q(id=id))

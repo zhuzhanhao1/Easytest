@@ -68,7 +68,7 @@ class ExportReport(APIView):
                     datazoom_opts=opts.DataZoomOpts(),
 
                 )
-                .render("./easy/templates/pyechartReport.html")
+                .render("./easy/templates/pyEchartReport.html")
             )
             ret["msg"] = "生成报表成功"
         except Exception as e:

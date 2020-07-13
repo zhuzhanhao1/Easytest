@@ -53,6 +53,7 @@ urlpatterns = [
 
     #接口用例关联接口
     url(r'relevance_interface/list/$',relevanceInterface.InterfaceCaseData.as_view()),
+    url(r'relevance_interface/get_result_detail/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/add_interface/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/update_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/del_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
