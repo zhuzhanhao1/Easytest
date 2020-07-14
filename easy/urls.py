@@ -35,9 +35,6 @@ urlpatterns = [
     url(r'interface_set/add_interface/$',interfaceManage.InterfaceSetList.as_view()),
     url(r'interface_set/update_interface/(?P<pk>[0-9]+)/$',interfaceManage.InterfaceSetList.as_view()),
     url(r'interface_set/del_interface/(?P<pk>[0-9]+)/$',interfaceManage.InterfaceSetList.as_view()),
-
-    # 接口集调试
-    url(r'interface_set/debug_test/$',interfaceManage.RunInterfaceDebugTest.as_view()),
     url(r'interface_set/search/$',interfaceManage.InterfaceSetSearchList.as_view()),
 
     # 接口增删改查
@@ -59,6 +56,7 @@ urlpatterns = [
     url(r'relevance_interface/del_interface/(?P<pk>[0-9]+)/$',relevanceInterface.InterfaceCaseData.as_view()),
     url(r'relevance_interface/open_locust/$', relevanceInterface.InterfaceCaseDataLocust.as_view()),
     url(r'relevance_interface/close_locust/$', relevanceInterface.InterfaceCaseDataLocust.as_view()),
+    url(r'relevance_interface/debug_test/$', relevanceInterface.RunInterfaceDebugTest.as_view()),
 
     #用例集
     url(r'interface_case_set_manage/list/$',interfaceCaseSetMange.InterfaceCaseSetList.as_view()),
@@ -90,7 +88,6 @@ urlpatterns = [
     url(r'report_detail/tree/$', executePlanReport.ReportDetail.as_view()),
     url(r'report_detail/list/$', executePlanReport.ReportDetail.as_view()),
     url(r'report_detail/echarts/$', executePlanReport.echartsReport.as_view()),
-
 
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),

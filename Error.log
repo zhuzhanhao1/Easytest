@@ -8733,3 +8733,275 @@ Traceback (most recent call last):
     ) from e
 ValueError: Field 'id' expected a number but got ''.
 2020-07-13 22:19:41,232,1780,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/get_result_detail/?result_detail=8 HTTP/1.1" 500 19084
+2020-07-14 21:08:50,799,3252,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/interface_set/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\interfaceManage.py", line 150, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 514, in to_representation
+    for field in fields:
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 375, in _readable_fields
+    for field in self.fields.values():
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\utils\functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 363, in fields
+    for key, value in self.get_fields().items():
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 1038, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 1100, in get_field_names
+    type(exclude).__name__
+TypeError: The `exclude` option must be a list or tuple. Got str.
+2020-07-14 21:08:50,801,3252,django.server,ERROR,basehttp.py:157,"GET /api/v1/interface_set/list/?page=1&limit=10&parentId=4 HTTP/1.1" 500 18924
+2020-07-14 21:14:06,250,3292,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterface.py", line 30, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 1905, in to_representation
+    return method(value)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterfaceSer.py", line 35, in get_result_state
+    if "message" and "error" in queryset:
+TypeError: argument of type 'NoneType' is not iterable
+2020-07-14 21:14:06,252,3292,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=2 HTTP/1.1" 500 18505
+2020-07-14 21:14:27,253,3292,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterface.py", line 30, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 1905, in to_representation
+    return method(value)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterfaceSer.py", line 35, in get_result_state
+    if "message" and "error" in queryset:
+TypeError: argument of type 'NoneType' is not iterable
+2020-07-14 21:14:27,254,3292,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=2 HTTP/1.1" 500 18505
+2020-07-14 21:34:19,527,7348,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterface.py", line 30, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 1905, in to_representation
+    return method(value)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterfaceSer.py", line 35, in get_result_state
+    if "message" and "error" in queryset:
+TypeError: argument of type 'NoneType' is not iterable
+2020-07-14 21:34:19,529,7348,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=2 HTTP/1.1" 500 18505
+2020-07-14 21:42:28,186,2884,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/relevance_interface/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterface.py", line 30, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 1905, in to_representation
+    return method(value)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\relevanceInterfaceSer.py", line 35, in get_result_state
+    if "message" and "error" in queryset:
+TypeError: argument of type 'NoneType' is not iterable
+2020-07-14 21:42:28,189,2884,django.server,ERROR,basehttp.py:157,"GET /api/v1/relevance_interface/list/?page=1&limit=10&parentId=2 HTTP/1.1" 500 18505
+2020-07-14 23:59:09,154,68,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\executePlanReport.py", line 73, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 1905, in to_representation
+    return method(value)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\executePlanReportSer.py", line 51, in get_result_state
+    if "message" and "error" in queryset:
+TypeError: argument of type 'NoneType' is not iterable
+2020-07-14 23:59:09,155,68,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/list/?page=1&limit=10&id=2 HTTP/1.1" 500 18595
+2020-07-15 00:00:15,745,9384,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/report_detail/list/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\executePlanReport.py", line 73, in get
+    pageInator = Paginator(serializer.data, pagesize)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 760, in data
+    ret = super().data
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 260, in data
+    self._data = self.to_representation(self.instance)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in to_representation
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 678, in <listcomp>
+    self.child.to_representation(item) for item in iterable
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\serializers.py", line 529, in to_representation
+    ret[field.field_name] = field.to_representation(attribute)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\fields.py", line 1905, in to_representation
+    return method(value)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\executePlanReportSer.py", line 51, in get_result_state
+    if "message" and "error" in queryset:
+TypeError: argument of type 'NoneType' is not iterable
+2020-07-15 00:00:15,747,9384,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/list/?page=1&limit=10&id=2 HTTP/1.1" 500 18595

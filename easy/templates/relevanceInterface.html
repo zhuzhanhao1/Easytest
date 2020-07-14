@@ -128,11 +128,12 @@
                 <textarea id="response_body" class="layui-textarea my_textarea_body"></textarea>
             </div>
         </fieldset>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button type="button" id = "update_resuslt" class="layui-btn layui-btn-fluid my_submit" lay-submit lay-filter="jsonpath">是否更新响应体结果</button>
-            </div>
-        </div>
+
+{#        <div class="layui-form-item">#}
+{#            <div class="layui-input-block">#}
+{#                <button type="button" onclick="update_result()" class="layui-btn layui-btn-fluid my_submit">是否更新响应体结果</button>#}
+{#            </div>#}
+{#        </div>#}
     </div>
     <!--创建+编辑-接口-->
     <div class="layui-row" id="add_update_case">
@@ -415,6 +416,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="export_interface">导出接口</button>
         <button class="layui-btn layui-btn-sm" lay-event="jsonpath">JSONPATH</button>
         <button class="layui-btn layui-btn-sm" lay-event="locust">接口性能测试</button>
+        <button class="layui-btn layui-btn-sm" lay-event="export_report">导出图表</button>
     </div>
 </script>
 <!--行内按钮-->

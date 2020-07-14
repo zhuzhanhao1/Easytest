@@ -103,9 +103,7 @@ def interface_set_views(request):
     '''
     parentId = request.GET.get("parentId", "")
     puisne_module = InterFaceManageModule.objects.get(id=parentId)
-    return render(
-        request, 'interfaceSet.html', {
-            "parentId": parentId, "puisne_module": puisne_module})
+    return render(request, 'interfaceBase.html', {"parentId": parentId, "puisne_module": puisne_module})
 
 
 def interface_case_views(request):

@@ -53,20 +53,24 @@ layui.use(['tree', "table"], function () {
                                 excel: {color: '0040ff', bgColor: 'f3fef3'},
                             }
                             , {field: 'url', title: '访问路径', align: "left"}
-                            , {field: 'belong_module', title: '所属模块', align: "left"}
                             , {
-                                field: 'duration', title: '响应时长', align: "left",
+                                field: 'duration', title: '响应时长', align: "left",width:150,
                                 templet: function (res) {
                                     return '<span>' + String(res.duration)+"ms" + '</span>'
                                 }
                             }
-                            , {field: 'result_state', title: '响应结果', align: "left", event: 'result_state',
+                            , {field: 'result_state', title: '响应结果', align: "left", event: 'result_state',width:150,
                                 templet: function (res) {
-                                if (res.result_state == "success") {
-                                    return '<span style="color: #5FB878;">' + res.result_state + '</span>'
-                                } else {
-                                    return '<span style="color: red;">' + res.result_state + '</span>'
-                                }
+                                    if (res.result_state == "success") {
+                                        let a = "成功";
+                                        return '<span style="color: #5FB878;">' + a + '</span>'
+                                    } else if(res.result_state == "fail") {
+                                        let a = "失败";
+                                        return '<span style="color: red;">' + a + '</span>'
+                                    }else {
+                                        let a = "待测试";
+                                        return '<span style="color: sandybrown;">' + a + '</span>'
+                                    }
                             }}
                             // , {field: 'head', title: '负责人', align: "left"}
                         ]]

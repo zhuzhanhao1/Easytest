@@ -27,37 +27,6 @@ class UpdateInterFaceManageModuleSer(serializers.ModelSerializer):
         fields = ("url","puisne_module","puisne_key")
 
 
-class DependIdSer(serializers.ModelSerializer):
-    '''
-        前置的id
-    '''
-    class Meta:
-        model = InterFaceSet
-        fields = ("depend_id",)
-
-class DependKeySer(serializers.ModelSerializer):
-    '''
-        前置结果jsonpath
-    '''
-    class Meta:
-        model = InterFaceSet
-        fields = ("depend_key",)
-
-class ReplaceKeySer(serializers.ModelSerializer):
-    '''
-        替换区域jsonpath
-    '''
-    class Meta:
-        model = InterFaceSet
-        fields = ("replace_key",)
-
-class ReplacePositionSer(serializers.ModelSerializer):
-    '''
-        替换区域(params:0,body:1,all:2)
-    '''
-    class Meta:
-        model = InterFaceSet
-        fields = ("replace_position",)
 
 class ParamsSer(serializers.ModelSerializer):
     '''
@@ -109,14 +78,6 @@ class TcpSer(serializers.ModelSerializer):
         fields = ("tcp",)
 
 
-class ResultTimeSer(serializers.ModelSerializer):
-    '''
-        结果，响应时间
-    '''
-    class Meta:
-        model = InterFaceSet
-        fields = ("result","duration")
-
 
 
 class InterfaceAllSer(serializers.ModelSerializer):
@@ -125,9 +86,7 @@ class InterfaceAllSer(serializers.ModelSerializer):
     '''
     class Meta:
         model = InterFaceSet
-        # fields = ("interface_name","tcp","ip","url","method","belong_module","params","preprocessor",
-        #           "body","depend_id","depend_key","replace_key","replace_position","headers")
-        exclude = ("result",)
+        fields = "__all__"
 
 
 class InterfaceSetSearchSer(serializers.ModelSerializer):
