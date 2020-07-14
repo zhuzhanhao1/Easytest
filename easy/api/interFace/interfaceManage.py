@@ -1,15 +1,12 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import Http404
 from easy.models import InterFaceManageClassification, InterFaceManageModule, InterFaceSet
 from .interfaceManageSer import InterFaceManageClassificationSer, InterFaceManageModuleSer, \
-    UpdateInterFaceManageModuleSer, DependIdSer, DependKeySer, ReplaceKeySer,\
-    ReplacePositionSer,ParamsSer,BodySer,InterfaceNameSer,UrlSer,InterfaceAllSer,InterfaceSetSearchSer,TcpSer,IPSer
-
+    UpdateInterFaceManageModuleSer,ParamsSer,BodySer,InterfaceNameSer,UrlSer,InterfaceAllSer,\
+    InterfaceSetSearchSer,TcpSer,IPSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django_redis import get_redis_connection
 import json
 from easy.config.Status import *
 from easy.common.interfaceRun import InterfaceRun
@@ -164,19 +161,7 @@ class InterfaceSetList(APIView):
         if len(data) == 1:
             for i in data.keys():
                 try:
-                    if i == "depend_id":
-                        serializer = DependIdSer(obj, data=data)
-                    elif i == "depend_key":
-                        serializer = DependKeySer(obj, data=data)
-                    elif i == "replace_key":
-                        serializer = ReplaceKeySer(obj, data=data)
-                    elif i == "replace_position":
-                        if data.get("replace_position") == '0' or data.get("replace_position") == '1' or data.get("replace_position") == '2':
-                            serializer = ReplacePositionSer(obj, data=data)
-                        else:
-                            error_code['error'] = '必须是0，1，2其中之一'
-                            return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
-                    elif i == "params":
+                    if i == "params":
                         serializer = ParamsSer(obj, data=data)
                     elif i == "body":
                         serializer = BodySer(obj, data=data)

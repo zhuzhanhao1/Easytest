@@ -3,12 +3,13 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from easy.models import InterFaceCaseData,InterFaceSet
 from .relevanceInterfaceSer import AddRelevanceInterfaceSer,DescriptionSer,\
-    InterfaceNameSer,HeadSer,DependIdSer,DependKeySer,ReplaceKeySer,ReplacePositionSer
+    InterfaceNameSer,HeadSer,DependIdSer,DependKeySer,ReplaceKeySer,ReplacePositionSer,ResultTimeSer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from easy.config.Status import *
 from django_redis import get_redis_connection
+from ...common.interfaceRun import InterfaceRun
 
 
 class InterfaceCaseData(APIView):
@@ -58,10 +59,6 @@ class InterfaceCaseData(APIView):
             dic["params"] = obj.params
             dic["body"] = obj.body
             dic["preprocessor"] = obj.preprocessor
-            dic["depend_id"] = obj.depend_id
-            dic["depend_key"] = obj.depend_key
-            dic["replace_key"] = obj.replace_key
-            dic["replace_position"] = obj.replace_position
             print(dic)
             serializer = AddRelevanceInterfaceSer(data=dic)
             if serializer.is_valid():
@@ -134,6 +131,73 @@ class InterfaceCaseData(APIView):
                 error_code['error'] = '保存数据到数据库失败'
                 return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
 
+class RunInterfaceDebugTest(APIView):
+
+    def parameter_check(self, tcp, ip, url, method):
+        """
+        验证必传参数 method, url, headers
+        """
+        try:
+            if not method or not url or not tcp or not ip:
+                error_code["error"] = "必填参数有缺失"
+                return error_code
+            else:
+                return right_code
+        except Exception as e:
+            error_code["error"] = "未知错误"
+            return error_code
+
+    def post(self, request, *args, **kwargs):
+        '''
+            接口测试
+        '''
+        datas = request.data
+        debug_id = datas.get("debug_id","")
+        method = datas.get("method", "")
+        tcp = datas.get("tcp", "")
+        ip = datas.get("ip", "")
+        url = datas.get("url", "")
+        headers = datas.get("headers", "")
+        params = datas.get("params", "")
+        body = datas.get("body", "")
+        # 参数校验
+        result = self.parameter_check(tcp,ip,url,method)
+        print(result)
+        if result["code"] == 1001:
+            return Response(result)
+        try:
+            url = tcp + "://" + ip + "/" + url
+            response_headers, response_body, duration, status_code = InterfaceRun().run_main(method, url, headers,
+                                                                                             params, body)
+            if not status_code:
+                error_code["error"] = response_headers
+                return Response(error_code)
+            # response = json.dumps(response, ensure_ascii=False, sort_keys=True, indent=2)
+            right_code["msg"] = "接口调试成功"
+            right_code["response_headers"] = response_headers
+            right_code["response_body"] = response_body
+            right_code["duration"] = duration
+            right_code["status_code"] = status_code
+            #将单个接口执行结果的值保存到数据库
+            obj = InterFaceCaseData.objects.filter(id=debug_id).first()
+            try:
+                djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+            except Exception as e:
+                print("json序列化异常")
+                print(e)
+                djson = response_body
+            dic = {"duration":duration,"result":djson}
+            print(dic)
+            ser = ResultTimeSer(obj,data=dic)
+            if ser.is_valid():
+                ser.save()
+                return Response(right_code)
+            else:
+                error_code["error"] = "保存数据库失败"
+                return Response(error_code)
+        except TypeError as e:
+            error_code["error"] = str(e)
+            return Response(error_code)
 
 class InterfaceCaseDataLocust(APIView):
 
@@ -189,6 +253,9 @@ class InterfaceCaseDataLocust(APIView):
                 return Response(error_code)
 
     def post(self,request, *args, **kwargs):
+        '''
+            开启蝗虫:
+        '''
         data = request.data
         id_list =  json.loads(data["id"])
         system = data.get("system","")
@@ -197,10 +264,12 @@ class InterfaceCaseDataLocust(APIView):
         if not id_list:
             error_code["error"] = "暂不支持将依赖的接口加入到Loucst中测试"
             return Response(error_code)
+        #查询所有需要执行的对象集
         interface_id_list = InterFaceCaseData.objects.filter(id__in=id_list)
         print(interface_id_list)
         locust_dic = {}
         num = 1
+        #通过遍历对象集获取对应接口的请求参数
         for obj in interface_id_list:
             dic = {}
             dic["method"] = obj.method

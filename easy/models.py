@@ -93,18 +93,13 @@ class InterFaceSet(models.Model):
         on_delete=models.CASCADE,
         verbose_name='所属模块的id')
     preprocessor = models.CharField(max_length=20,verbose_name="前置处理器",default=False)
-    depend_id = models.CharField(max_length=20,verbose_name="依赖的id",null=True,blank=True)
-    depend_key = models.CharField(max_length=500,verbose_name="依赖的key",null=True,blank=True)
-    replace_key = models.CharField(max_length=500,verbose_name="替换的key",null=True,blank=True)
-    replace_position = models.CharField(max_length=50,verbose_name="替换的内容区域",null=True,blank=True)
-    duration = models.IntegerField(blank=True, null=True, verbose_name='响应时长')
-    result = models.TextField(blank=True, null=True, verbose_name='执行结果')
+
 
     def __str__(self):
         return self.interface_name
 
     class Meta:
-        verbose_name_plural = '接口集管理'
+        verbose_name_plural = '接口基础管理'
 
 
 class InterFaceCase(models.Model):

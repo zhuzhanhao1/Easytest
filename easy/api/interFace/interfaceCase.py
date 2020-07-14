@@ -200,7 +200,12 @@ class InterfaceCaseRun(APIView):
             print("request请求接口异常")
             print(e)
         try:
-            djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+            try:
+                djson = json.dumps(response_body, ensure_ascii=False, sort_keys=True, indent=2)
+            except Exception as e:
+                print("json序列化异常")
+                print(e)
+                djson = response_body
             #更新结果的值
             data = {"result": djson, "duration": duration}
             serializer = ResultTimeSer(QuerySet, data=data)

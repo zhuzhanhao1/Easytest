@@ -47,7 +47,8 @@ class InterFaceSetSer(serializers.ModelSerializer):
 
     def get_result_state(self, obj):
         queryset = obj.result
-        print(type(queryset))
+        if queryset == None:
+            return ""
         if "message" and "error" in queryset:
             queryset = "fail"
         else:

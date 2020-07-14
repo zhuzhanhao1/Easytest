@@ -1,4 +1,4 @@
-//interfaceSet数据表格JS
+//数据表格
 layui.config({
     base: './../static/layui2.5.5/lay/modules/',   // 模块目录
     version: 'v1.3.28'
@@ -96,9 +96,9 @@ layui.use(['table', "soulTable"], function (data) {
         , cols: [[ //表头, fixed: 'left'
             {type: 'checkbox'}
             , {title: '操作', toolbar: '#barDemo', width: 120, align: "left"}
-            , {field: 'id', title: 'ID', width: 100, align: "left", edit: "text"}
+            , {field: 'id', title: 'ID', width: 120, align: "left", edit: "text"}
             , {
-                field: '', title: '前置处理', width: 90, align: "left"
+                field: '', title: '前置处理', width: 120, align: "left"
                 , isChild: function (row) {
                     return row.preprocessor == 'True'
                 }
@@ -297,44 +297,27 @@ layui.use(['table', "soulTable"], function (data) {
             }
             , {field: 'interface_name', title: '接口名称', align: "left", excel: {color: '0040ff', bgColor: 'f3fef3'}, edit: "text"}
             , {field: 'description', title: '描述', align: "left", edit: "text"}
-
-
             , {
-                field: 'duration', title: '响应时长', align: "left",width: 120,
+                field: 'duration', title: '响应时长', align: "left",width: 150,
                 templet: function (res) {
                     return '<span>' + String(res.duration)+"ms" + '</span>'
                 }
             }
-            , {field: 'result_state', title: '响应结果', align: "left", event: 'result_state',
+            , {field: 'result_state', title: '响应结果', align: "left", event: 'result_state',width: 150,
                 templet: function (res) {
                     if (res.result_state == "success") {
-                        return '<span style="color: #5FB878;">' + res.result_state + '</span>'
-                    } else {
-                        return '<span style="color: red;">' + res.result_state + '</span>'
+                        let a = "成功";
+                        return '<span style="color: #5FB878;">' + a + '</span>'
+                    } else if(res.result_state == "fail") {
+                        let a = "失败";
+                        return '<span style="color: red;">' + a + '</span>'
+                    }else {
+                        let a = "待测试";
+                        return '<span style="color: sandybrown;">' + a + '</span>'
                     }
                 }
             }
-            // , {
-            //     field: 'result', title: '响应结果', align: "left", templet: function (res) {
-            //         if (res.result == null || res.result == "") {
-            //             console.log("空值");
-            //             return '<span>' + res.result + '</span>'
-            //
-            //         } else if(res.result.indexOf("<") != -1){
-            //             console.log(res.result);
-            //             let a = "表格个出现了<>等不支持的符号";
-            //             return '<span>' + a + '</span>'
-            //         }
-            //         else if (res.result.indexOf("message") != -1 && res.result.indexOf("error") != -1) {
-            //             let b = JSON.parse(res.result);
-            //             return '<span style="color: red;">' + JSON.stringify(b["message"]) + '</span>'
-            //
-            //         } else {
-            //             return '<span>' + res.result + '</span>'
-            //         }
-            //     }
-            // }
-            , {field: 'head', title: '负责人', width: 120,align: "left",edit: "text"}
+            , {field: 'head', title: '负责人', width: 150,align: "left",edit: "text"}
         ]]
         , filter: {
             items: ['column', 'editCondition', 'excel'] // 只显示表格列和导出excel两个菜单项
@@ -368,7 +351,6 @@ layui.use(['table', "soulTable"], function (data) {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });
-    //监听性别操作
     //头工具栏事件
     table.on('toolbar(test)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
@@ -723,8 +705,7 @@ layui.use(['table', "soulTable"], function (data) {
         }
 
     });
-
-    //监听行工具事件
+    //监听行工具按钮事件
     table.on('tool(test)', function (obj) {
         var data = obj.data;
         var id = data['id'];
@@ -876,7 +857,8 @@ layui.use(['table', "soulTable"], function (data) {
         //接口调试
         else if (obj.event === "interface_debug") {
             console.log(data);
-            var debug = layer.open({
+            var debug_id = data.id;
+            layer.open({
                 //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                 type: 1,
                 title: "接口调试",
@@ -902,9 +884,10 @@ layui.use(['table', "soulTable"], function (data) {
                             console.log(data.field.headers);
                             $.ajax({
                                 cache: false,
-                                url: "/api/v1/interface_set/debug_test/",
+                                url: "/api/v1/relevance_interface/debug_test/",
                                 type: 'POST',
                                 data: {
+                                    "debug_id":debug_id,
                                     "url": data.field.url,
                                     "tcp": data.field.tcp,
                                     "ip": data.field.ip,
@@ -938,8 +921,11 @@ layui.use(['table', "soulTable"], function (data) {
                                                 area: ['40%', '100%'],
                                                 offset: 'rb',
                                                 content: $("#response_info").html(),
-                                                success: function () {
-                                                    //console.log(res);
+                                                success: function (data) {
+                                                    layer.msg("接口执行成功", {
+                                                        icon: 6,
+                                                        offset: 't'
+                                                    });
                                                 }
                                             })
                                         } else {
@@ -1034,6 +1020,7 @@ layui.use(['table', "soulTable"], function (data) {
         }
 
     });
+    //监听行内容事件
     table.on('edit(test)', function (obj) {
         var value = obj.value //得到修改后的值
             , data = obj.data //得到所在行所有键值
@@ -1141,6 +1128,7 @@ layui.use(['table', "soulTable"], function (data) {
     });
 });
 
+//增加管理的接口
 function add_relevance_interface() {
     var search_interface = layer.open({
         type: 2,
@@ -1159,5 +1147,45 @@ function add_relevance_interface() {
             $(".layui-laypage-btn").click();
         }
 
+    });
+}
+
+
+
+// 更新debug结果到数据库
+function update_resuslt(value) {
+    let result = $("#response_body").val();
+    console.log(result);
+    let id = 1;
+    $.ajax({
+        url: "/api/v1/relevance_interface/update_interface1/" + id + '/',
+        type: 'PUT',
+        data: {
+            "result": result
+        },
+        success: function (data) {
+            if (data.code === 1000) {
+                layer.msg(data.msg, {
+                    icon: 6, offset: "t"
+                })
+            } else {
+                layer.msg(data.error, {
+                    icon: 5, offset: "t"
+                })
+            }
+        },
+        error: function (data) {
+            if (data.responseJSON.code === 1001) {
+                layer.msg(data.responseJSON.error, {
+                    icon: 5,
+                    offset: 't'
+                });
+            } else {
+                layer.msg("回调失败", {
+                    icon: 5,
+                    offset: 't'
+                });
+            }
+        }
     });
 }
