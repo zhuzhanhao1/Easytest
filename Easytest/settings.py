@@ -106,13 +106,15 @@ DATABASES = {
 }
 
 CACHES = {
+    #连接可使用get_redis_connection("default")
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://zhuzhanhao.cn:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "CONNECTION_POOL_KWARGS": {"max_connections": 100}
-        }
+        },
+        #"PASSWORD":"密码"
     }
 }
 
