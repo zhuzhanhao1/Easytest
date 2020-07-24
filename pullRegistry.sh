@@ -6,7 +6,7 @@ RegistryAddr="registry.cn-hangzhou.aliyuncs.com/zhuzhanhao/zhuzh"
 #停止容器并删除容器
 docker stop amberdata_zhuzh && docker rm amberdata_zhuzh
 #删除之前的镜像
-docker rmi ${RegistryAddr}/:1.0
+docker rmi ${RegistryAddr}:1.0
 #拉取镜像并实例化容器运行
 docker run -d -p 8000:8000 \
       --name amberdata_zhuzh \
