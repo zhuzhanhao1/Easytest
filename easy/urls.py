@@ -92,5 +92,5 @@ urlpatterns = [
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
     url(r'public/export_report/$', public.ExportReport.as_view()),
-
+    url(r'public/data_initialization/$', public.DataInitialization.as_view()),
 ]

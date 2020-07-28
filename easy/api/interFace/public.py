@@ -76,3 +76,12 @@ class ExportReport(APIView):
             ret["code"] = 1001
             ret["error"] = "生成报表异常"
         return Response(ret)
+
+
+class DataInitialization(APIView):
+
+    def get(self,request, *args, **kwargs):
+        print(1111)
+        with open('../../config/childmenu.json', 'r', encoding='utf-8') as f:
+            json.load(f)
+        return Response(right_code)
