@@ -1,22 +1,54 @@
-version: "3"
+version: "3.8"
 services:
-  app:
+  db:
+    image: mysql  #7.27-8.0.21
+    container_name: amberdata_mysql
+    privileged: true
     restart: always
-    build: .
-    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/usr/src/app
+      - ./../mysql:/var/lib/mysql
+      - ./../conf:/etc/mysql/conf.d
+      - ./../logs:/logs
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=AmberTest
+      - TZ=Asia/Shanghai
+    networks:
+      - ambernet
+
+  django_redis:
+    image: redis
+    container_name: amberdata_redis
+    privileged: true
+    restart: always
+    ports:
+      - "6379:6379"
+#    volumes:
+#      - /amberdata/redis/data:/data
+#    command: ["redis-server", "--appendonly", "yes", "--requirepass", "Dctm@1234"]
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - ambernet
+
+  web:
+    build: .
+    container_name: amberdata_zhuzh
+    privileged: true
+    command: bash start.sh
+    restart: always
+    volumes:
+      - ./:/docker_api
     ports:
       - "8000:8000"
     depends_on:
       - db
-  db:
-    image: mysql:5.7
-    volumes:
-      - "./mysql:/var/lib/mysql"
-    ports:
-      - "3306:3306"
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=ZzhTest
+    networks:
+      - ambernet
+
+
+networks:
+  ambernet:
+    driver: bridge

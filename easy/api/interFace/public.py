@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import json
-
 from pyecharts.globals import CurrentConfig
+
 #设置src="../static/js/echarts.min.js"加载在本地路径
 CurrentConfig.ONLINE_HOST  = "../static/js/"
 from pyecharts import options as opts
@@ -78,10 +78,3 @@ class ExportReport(APIView):
         return Response(ret)
 
 
-class DataInitialization(APIView):
-
-    def get(self,request, *args, **kwargs):
-        print(1111)
-        with open('../../config/childmenu.json', 'r', encoding='utf-8') as f:
-            json.load(f)
-        return Response(right_code)

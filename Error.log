@@ -9005,3 +9005,147 @@ Traceback (most recent call last):
     if "message" and "error" in queryset:
 TypeError: argument of type 'NoneType' is not iterable
 2020-07-15 00:00:15,747,9384,django.server,ERROR,basehttp.py:157,"GET /api/v1/report_detail/list/?page=1&limit=10&id=2 HTTP/1.1" 500 18595
+2020-07-28 23:54:28,661,2792,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/data_initialization/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\public.py", line 85, in get
+    with open('../../config/childmenu.json', 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../../config/childmenu.json'
+2020-07-28 23:54:28,663,2792,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17167
+2020-07-28 23:55:54,060,10748,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/data_initialization/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\public.py", line 85, in get
+    with open('./../../config/childmenu.json', 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: './../../config/childmenu.json'
+2020-07-28 23:55:54,061,10748,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17173
+2020-07-28 23:56:12,795,5712,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/data_initialization/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\public.py", line 84, in get
+    with open('./../config/childmenu.json', 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: './../config/childmenu.json'
+2020-07-28 23:56:12,796,5712,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17164
+2020-07-28 23:56:53,845,9332,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/data_initialization/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\public.py", line 84, in get
+    with open('../../config/childmenu.json', 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../../config/childmenu.json'
+2020-07-28 23:56:53,846,9332,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17167
+2020-07-29 00:00:13,856,5612,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/data_initialization/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\public.py", line 84, in get
+    with open(a, 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../../config/childmenu.json'
+2020-07-29 00:00:13,858,5612,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17139
+2020-07-29 00:00:55,919,1428,django.request,ERROR,log.py:228,Internal Server Error: /api/v1/public/data_initialization/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 505, in dispatch
+    response = self.handle_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 465, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 476, in raise_uncaught_exception
+    raise exc
+  File "D:\Anaconda3\envs\test\lib\site-packages\rest_framework\views.py", line 502, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\interFace\public.py", line 84, in get
+    with open('childmenu.json', 'r', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'childmenu.json'
+2020-07-29 00:00:55,921,1428,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17128

@@ -5,7 +5,7 @@ from .menuSer import  MenuAppendSer,MainMenuSer,ChildMenuSer,MainMenuAllSer,Upda
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from easy.config.Status import right_code,error_code
-
+from easy.config.dataInitialization import *
 
 
 class MenuManageMainList(APIView):
@@ -172,3 +172,37 @@ class MainMenuApi(APIView):
             except Exception as e:
                 error_code["error"] = "添加子菜单失败"
             return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MenuInitialization(APIView):
+    '''
+        初始化菜单方法
+    '''
+    def get(self, request, *args, **kwargs):
+        #创建主菜单
+        for main in mainmenu:
+            try:
+                serializer = MainMenuSer(data=main)
+                if serializer.is_valid():
+                    serializer.save()
+                else:
+                    error_code["error"] = "初始化主菜单保存数据库异常"
+                    return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                error_code["error"] = "初始化主菜单失败"
+                return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+        #创建子菜单
+        for child in childmenu:
+            try:
+                serializer = ChildMenuSer(data=child)
+                if serializer.is_valid():
+                    serializer.save()
+                else:
+                    error_code["error"] = "初始化子菜单保存数据库异常"
+                    return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                error_code["error"] = "初始化子菜单失败"
+                return Response(error_code, status=status.HTTP_400_BAD_REQUEST)
+
+        right_code["msg"] = "初始化菜单成功"
+        return Response(right_code)

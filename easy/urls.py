@@ -9,6 +9,7 @@ from easy.api.interFace import interfaceManage, interfaceCase, \
 urlpatterns = [
     #左侧菜单
     url(r'menu/$', Menu.MainMenuApi.as_view()),
+    url(r'menu/data_initialization/$', Menu.MenuInitialization.as_view()),
     #主菜单管理
     url(r'menu_manage/main_list/$', Menu.MenuManageMainList.as_view()),
     url(r'menu_manage/add_main_menu/$', Menu.MainMenuApi.as_view()),
@@ -92,5 +93,5 @@ urlpatterns = [
     #公共方法
     url(r'public/jsonpath/$',public.JsonPathGetValue.as_view()),
     url(r'public/export_report/$', public.ExportReport.as_view()),
-    url(r'public/data_initialization/$', public.DataInitialization.as_view()),
+
 ]

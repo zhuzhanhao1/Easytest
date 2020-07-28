@@ -157,7 +157,7 @@ function get_table(value){
                 case 'add_module':
                     var res = checkStatus.data;
                     console.log(res.length);
-                    console.log(title);
+                    console.log(value);
                     var add_childmenu = layer.open({
                         //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                         type: 1,
@@ -176,7 +176,7 @@ function get_table(value){
                                         url: "/api/v1/interface_manager/add_puisne_module/",
                                         type: 'POST',
                                         data: {
-                                            "parent": title,
+                                            "parent": value,
                                             "puisne_module": data.field.puisne_module,
                                             "description": data.field.description,
                                         },
