@@ -9149,3 +9149,57 @@ Traceback (most recent call last):
     with open('childmenu.json', 'r', encoding='utf-8') as f:
 FileNotFoundError: [Errno 2] No such file or directory: 'childmenu.json'
 2020-07-29 00:00:55,921,1428,django.server,ERROR,basehttp.py:157,"GET /api/v1/public/data_initialization/ HTTP/1.1" 500 17128
+2020-08-02 11:48:15,723,4352,django.request,ERROR,log.py:228,Internal Server Error: /echart_report/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\renderHtml.py", line 183, in echart_report_views
+    return render(request, '../../report/pyEchartReport.html')
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ../../report/pyEchartReport.html
+2020-08-02 11:48:15,725,4352,django.server,ERROR,basehttp.py:157,"GET /echart_report/ HTTP/1.1" 500 83257
+2020-08-02 11:48:30,745,4352,django.request,ERROR,log.py:228,Internal Server Error: /echart_report/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\renderHtml.py", line 183, in echart_report_views
+    return render(request, '../../report/pyEchartReport.html')
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ../../report/pyEchartReport.html
+2020-08-02 11:48:30,746,4352,django.server,ERROR,basehttp.py:157,"GET /echart_report/ HTTP/1.1" 500 83257
+2020-08-02 11:48:43,549,4352,django.request,ERROR,log.py:228,Internal Server Error: /echart_report/
+Traceback (most recent call last):
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Administrator\Desktop\Easytest\easy\api\renderHtml.py", line 183, in echart_report_views
+    return render(request, '../../report/pyEchartReport.html')
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\Anaconda3\envs\test\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ../../report/pyEchartReport.html
+2020-08-02 11:48:43,550,4352,django.server,ERROR,basehttp.py:157,"GET /echart_report/ HTTP/1.1" 500 83257

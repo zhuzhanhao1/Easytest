@@ -7,7 +7,7 @@ import json
 from pyecharts.globals import CurrentConfig
 
 #设置src="../static/js/echarts.min.js"加载在本地路径
-CurrentConfig.ONLINE_HOST  = "../static/js/"
+CurrentConfig.ONLINE_HOST  = "../../static/js/"
 from pyecharts import options as opts
 from pyecharts.charts import Bar
 

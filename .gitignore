@@ -1,24 +1,5 @@
-
-### mac ###
+__pycache__/
+*.py[cod]
+*$py.class
+mysql/
 .DS_Store
-*/.DS_Store
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-
-*.log*
-
