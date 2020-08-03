@@ -23,7 +23,7 @@ SECRET_KEY = 'lzeg!%=5+l$b!xqm!zmmk$s=z)a$^p@o&f-ndejtycvo=-s-v-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Django设置DEBUG为False时，'django.contrib.staticfiles'会关闭，即Django不会自动搜索静态文件
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -187,7 +187,7 @@ LOGGING = {
         'default': {
             'level': 'ERROR',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(os.path.curdir, 'Error.log'),
+            'filename': os.path.join(os.path.curdir, 'logs/Error.log'),
             'maxBytes': 1024 * 1024 * 50,  # 50 MB
             'backupCount': 5,
             'formatter': 'standard',

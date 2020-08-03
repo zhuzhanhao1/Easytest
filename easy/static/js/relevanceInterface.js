@@ -964,6 +964,7 @@ layui.use(['table', "soulTable"], function (data) {
                                 },
                                 complete: function () {
                                     layer.close(l_index);
+                                    $(".layui-laypage-btn").click();
                                     //layer.close(debug);
                                 }
 

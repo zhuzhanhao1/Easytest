@@ -39,3 +39,27 @@ uwsgi --ini xxx.ini
 uwsgi --reload xxx.pid
 #### 停止：
 uwsgi --stop xxx.pid
+
+
+#### mysql用8.0以上的版本需要进入容器执行此命令
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+
+
+####docker部署
+借鉴与：https://juejin.im/post/6844903993613746183
+
+Redis 容器：缓存服务
+
+Mysql 容器：数据存储
+
+Django（Gunicorn）容器：处理动态请求
+
+Nginx 容器：反向代理，处理静态资源
+####配置NGINX和WEBSOCKET
+https://www.nginx.com/blog/websocket-nginx/
+
+容器依赖关系：Django 容器依赖 Redis 容器和 Mysql 容器，Nginx 容器依赖Gunicorn 容器。
+
+####启动项目
+运行项目：docker-compose up --build
+停止项目：docker-compose down

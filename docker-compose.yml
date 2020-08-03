@@ -1,54 +1,131 @@
-version: "3.8"
-services:
-  db:
-    image: mysql  #7.27-8.0.21
-    container_name: amberdata_mysql
-    privileged: true
-    restart: always
-    volumes:
-      - ./../mysql:/var/lib/mysql
-      - ./../conf:/etc/mysql/conf.d
-      - ./../logs:/logs
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=AmberTest
-      - TZ=Asia/Shanghai
-    networks:
-      - ambernet
+#version: "3.8"
+#services:
+#  db:
+#    image: mysql  #7.27-8.0.21
+#    container_name: amberdata_mysql
+#    privileged: true
+#    restart: always
+#    volumes:
+#      - ./../mysql:/var/lib/mysql
+#      - ./../conf:/etc/mysql/conf.d
+#      - ./../logs:/logs
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=123456
+#      - MYSQL_DATABASE=AmberTest
+#      - TZ=Asia/Shanghai
+#    networks:
+#      - ambernet
+#
+#  django_redis:
+#    image: redis
+#    container_name: amberdata_redis
+#    privileged: true
+#    restart: always
+#    ports:
+#      - "6379:6379"
+##    volumes:
+##      - /amberdata/redis/data:/data
+##    command: ["redis-server", "--appendonly", "yes", "--requirepass", "Dctm@1234"]
+#    environment:
+#      - TZ=Asia/Shanghai
+#    networks:
+#      - ambernet
+#
+#  web:
+#    build: .
+#    container_name: amberdata_zhuzh
+#    privileged: true
+#    command: bash start.sh
+#    restart: always
+#    volumes:
+#      - ./:/docker_api
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+#    networks:
+#      - ambernet
+#
+#
+#networks:
+#  ambernet:
+#    driver: bridge
 
-  django_redis:
+version: "3"
+services:
+  redis:
+    container_name: zhuzh_redis
     image: redis
-    container_name: amberdata_redis
+    command: redis-server
     privileged: true
-    restart: always
+    volumes:
+      - ./config/redis:/data
     ports:
       - "6379:6379"
-#    volumes:
-#      - /amberdata/redis/data:/data
-#    command: ["redis-server", "--appendonly", "yes", "--requirepass", "Dctm@1234"]
-    environment:
-      - TZ=Asia/Shanghai
-    networks:
-      - ambernet
-
-  web:
-    build: .
-    container_name: amberdata_zhuzh
+    restart: always # always表容器运行发生错误时一直重启
+#    networks:
+#      - web_network
+  db:
+    container_name: zhuzh_mysql
+    image: mysql
     privileged: true
-    command: bash start.sh
-    restart: always
     volumes:
-      - ./:/docker_api
+      - ./config/mysql/data:/var/lib/mysql
+#      - ./config/mysql/init:/docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
+      - ./config/mysql/logs:/logs
     ports:
-      - "8000:8000"
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=EasyTest
+#    networks:
+#      - web_network
+  app:
+    container_name: zhuzh_web
+    restart: always
+    build: .
+    privileged: true
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn Easytest.wsgi:application -c gunicorn.conf"
+    volumes:
+      - .:/code
+      - static-volume:/code/collected_static
+    expose:
+      - "8000"
+    links:
+      - db
+      - redis
     depends_on:
       - db
-    networks:
-      - ambernet
+      - redis
+#    networks:
+#      - web_network
+  nginx:
+    container_name: zhuzh_nginx
+    restart: always
+    image: nginx
+    privileged: true
+    ports:
+      - "80:80"
+    expose:
+      - "8000"
+    volumes:
+      - static-volume:/code/collected_static
+      - ./config/nginx/logs:/var/log/nginx
+#      - ./config/nginx/my_nginx.conf:/etc/nginx/conf.d/my_nginx.conf
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - app
+    depends_on:
+      - app
+#    networks:
+#      - web_network
 
+#networks:
+#  web_network:
+#    driver: bridge
 
-networks:
-  ambernet:
-    driver: bridge
+volumes:
+  static-volume:
