@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,7 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lzeg!%=5+l$b!xqm!zmmk$s=z)a$^p@o&f-ndejtycvo=-s-v-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Django设置DEBUG为False时，'django.contrib.staticfiles'会关闭，即Django不会自动搜索静态文件
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -93,8 +95,6 @@ DATABASES = {
         'NAME': 'EasyTest',
         'USER': 'root',
         'PASSWORD': '123456',
-        # 'HOST':'127.0.0.1',#mac-localhost
-        # 'HOST':'192.168.10.78',#win-docker
         'HOST': '47.98.56.102',  # aliyun
         'PORT': '3307',
         "CONN_MAX_AGE": 9,
@@ -109,7 +109,7 @@ CACHES = {
     #连接可使用get_redis_connection("default")
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://zhuzhanhao.cn:6379/1",
+        "LOCATION": "redis://47.98.56.102:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "CONNECTION_POOL_KWARGS": {"max_connections": 100}
@@ -155,8 +155,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+# 静态文件，static 是在Django 具体APP下建立的static目录，用来存放静态资源
 STATIC_URL = '/static/'
+# 使用 collectstatic后收集的静态文件的存放绝对路径
+STATIC_ROOT = "/Users/yons/PycharmProjects/Easytest/static_file"
+# STATICFILES_DIRS一般用来设置通用的静态资源，对应的目录不放在APP下，而是放在Project
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'common_static')]
 
 # 开启该中间件之后，默认会为任何开放的HttpResponse设置X-Frame-Options协议头为DENY,如果你想要设置为SAMEOGIGIN
 X_FRAME_OPTIONS = 'SAMEORIGIN'
