@@ -9,5 +9,5 @@ requests==2.24.0
 django_redis==4.11.0
 dwebsocket==0.5.12
 pipreqs==0.4.10
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 locustio==0.14.6
