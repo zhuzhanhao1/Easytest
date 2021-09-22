@@ -1,4 +1,4 @@
-Django==3.0.5
+Django==3.1.13
 jsonpath==0.82
 APScheduler==3.6.3
 DingtalkChatbot==1.5.0
